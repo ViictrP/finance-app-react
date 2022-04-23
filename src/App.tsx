@@ -5,7 +5,7 @@ import { Button } from 'antd';
 
 const App: FC = () => {
   return <div className='App'>
-    <Button type='primary'>Primary</Button>
+    <Button data-testid="button" type="primary">Primary</Button>
   </div>;
 };
 
