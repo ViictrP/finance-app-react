@@ -1,12 +1,13 @@
 import './App.css';
-
 import React, { FC } from 'react';
-import { Button } from 'antd';
+import LoginPage from './pages/login-page/login-page';
 
 const App: FC = () => {
-  return <div className='App'>
-    <Button data-testid="button" type="primary">Primary</Button>
-  </div>;
+  return (
+    <div className="App">
+      <LoginPage />
+    </div>
+  );
 };
 
 export default App;
