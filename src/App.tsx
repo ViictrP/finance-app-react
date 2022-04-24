@@ -5,7 +5,7 @@ import LoginPage from './pages/login-page/login-page';
 const App: FC = () => {
   return (
     <div className="App">
-      <LoginPage />
+      <LoginPage data-testid="login-page"/>
     </div>
   );
 };

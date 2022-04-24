@@ -6,6 +6,6 @@ test('renders learn react link', () => {
   const {container} = render(<App />);
   expect(container).toBeDefined();
 
-  const button = screen.getByTestId('button');
-  expect(button).toBeInTheDocument();
+  const loginPage = screen.getByTestId('login-page');
+  expect(loginPage).toBeInTheDocument();
 });
