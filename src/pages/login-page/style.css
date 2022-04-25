@@ -1,0 +1,16 @@
+.login-image {
+    background-color: aliceblue;
+    height: 100%;
+}
+
+@media (max-width: 576px) {
+    .login-image {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-image {
+        display: none;
+    }
+}
