@@ -1,10 +1,10 @@
 import React from 'react';
 import './style.css';
-import CreditCardForm from '../../components/ui/credit-card-form/credit-card-form';
+import { CreditCardForm } from 'components';
 
 const CreditCardPage = () => {
     return (
-        <CreditCardForm />  
+        <CreditCardForm />
     )
 };
 

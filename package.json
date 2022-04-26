@@ -20,6 +20,7 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "antd": "^4.19.5",
+    "axios": "^0.27.1",
     "express": "^4.17.3",
     "express-favicon": "^2.0.1",
     "path": "^0.12.7",
