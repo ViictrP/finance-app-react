@@ -1,16 +1,17 @@
 import './style.css';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Row } from 'antd';
 import { LoginForm } from 'components';
-import { login } from 'features';
 import { User } from 'entities';
+import { useAuth } from 'auth/context';
 
 const LoginPage = () => {
+  const context = useAuth();
 
   async function loginIn(user: User) {
     console.log(`Authenticating user ${user.username}`);
-    const accessToken = await login(user);
-    console.log('User authenticated', accessToken.data);
+    await context.authenticate(user);
+    console.log('User authenticated');
   }
 
   return (
