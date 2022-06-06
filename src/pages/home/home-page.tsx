@@ -12,7 +12,7 @@ const Home = () => {
   });
 
   return (
-    <div>
+    <div className='container'>
       <ul>
         {items.map(item => <li>`${item}`</li>)}
       </ul>
