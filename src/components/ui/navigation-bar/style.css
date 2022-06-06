@@ -1,6 +1,5 @@
 .navigation-bar-container {
     width: 100%;
-    height: calc((100vh) * 0.08);
     background-color: white;
     position: fixed;
     display: flex;
@@ -14,6 +13,7 @@
 
 .navigation-item-container {
     padding: 14px;
-    font-size: 2em;
+    font-size: 2.5em;
+    display: flex;
     margin: 0 calc((100vw) * 0.05);
 }

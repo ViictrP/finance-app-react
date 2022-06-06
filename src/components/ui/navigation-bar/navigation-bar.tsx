@@ -1,19 +1,23 @@
 import React from 'react';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 interface NavigationItemProps {
   title?: any;
-  onClick: () => void;
+  href?: string;
+  onClick?: () => void;
 }
 
 
 //TODO: fix items hidden behind navigation bar
-export const NavigationItem = ({ onClick, title }: NavigationItemProps) => {
+export const NavigationItem = ({ href, title, onClick }: NavigationItemProps) => {
   return (
-    <div
+    <Link
       className='navigation-item-container'
-      onClick={onClick}>{title ? title : 'item'}
-    </div>
+      onClick={() => {onClick && onClick()}}
+      to={href ?? ''}>
+      {title ? title : 'item'}
+    </Link>
   );
 };
 
