@@ -10,15 +10,11 @@ import { HiLogout, HiHome, HiCreditCard } from 'react-icons/hi';
 const AuthenticatedRoutes: React.FC = () => {
   const { logout } = useAuth();
 
-  const noop = () => {
-    console.log('noop');
-  }
-
   return (
     <BrowserRouter>
       <NavigationBar>
-        <NavigationItem onClick={noop} title={<HiHome />} />
-        <NavigationItem onClick={noop} title={<HiCreditCard />} />
+        <NavigationItem href='/' title={<HiHome />} />
+        <NavigationItem href='/credit-cards' title={<HiCreditCard />} />
         <NavigationItem onClick={logout} title={<HiLogout />} />
       </NavigationBar>
 
