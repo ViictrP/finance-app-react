@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "prod": "node server.js",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -12,7 +13,12 @@
     "html2canvas": "^1.4.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
+    "axios": "^0.27.1",
+    "react-cookie": "^4.1.1",
+    "express": "^4.17.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
