@@ -9,8 +9,6 @@
 /coverage
 
 # production
-src/*
-public/*
 build/static/css/*.map
 build/static/js/*.map
 
@@ -31,7 +29,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-build
+dist
 dist-ssr
 *.local
 
