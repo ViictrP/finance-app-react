@@ -1,6 +1,6 @@
-import User from './user';
-import AccessToken from 'entities/access-token';
-import AuthContextData from 'entities/auth-context-data';
+import User from './User';
+import AccessToken from './AccessToken';
+import AuthContextData from './AuthContextData';
 
 export type {
   User,

@@ -1,29 +1,38 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from 'pages/home/home-page';
-import CreditCardPage from 'pages/credit-card-page/credit-card-page';
-import { useAuth } from 'auth/context';
-import { NavigationBar, NavigationItem } from '../components';
-import { HiLogout, HiHome, HiCreditCard } from 'react-icons/hi';
+import { CreditCard, HouseSimple, SignOut } from 'phosphor-react'
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import NavigationBar, { NavigationItem } from '../components/navigation-bar/NavigationBar'
+import { useAuth } from '../context/auth/AuthContext'
 
+import CreditCardPage from '../pages/credit-card/CreditCardPage'
+import HomePage from '../pages/home/HomePage'
 
 const AuthenticatedRoutes: React.FC = () => {
-  const { logout } = useAuth();
+  const { logout } = useAuth()
 
   return (
     <BrowserRouter>
       <NavigationBar>
-        <NavigationItem href='/' title={<HiHome />} />
-        <NavigationItem href='/credit-cards' title={<HiCreditCard />} />
-        <NavigationItem onClick={logout} title={<HiLogout />} />
+        <NavigationItem
+          href="/"
+          title={<HouseSimple weight="bold" className="w-6 h-6" />}
+        />
+        <NavigationItem
+          href="/credit-cards"
+          title={<CreditCard weight="bold" className="w-6 h-6" />}
+        />
+        <NavigationItem
+          onClick={logout}
+          title={<SignOut weight="bold" className="w-6 h-6" />}
+        />
       </NavigationBar>
 
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/credit-cards' element={<CreditCardPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/credit-cards" element={<CreditCardPage />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default AuthenticatedRoutes;
+export default AuthenticatedRoutes
