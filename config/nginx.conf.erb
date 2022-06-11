@@ -1,75 +1,41 @@
 daemon off;
-worker_processes auto;   
-
+# Heroku dynos have at least 4 cores
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
 events {
   use epoll;
-  accept_mutex on;       
-  worker_connections 512;
+  accept_mutex on;
+  worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
 }
 
 http {
   gzip on;
-  gzip_comp_level 6;
+  gzip_comp_level 2;
   gzip_min_length 512;
-  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-  gzip_vary on;
-  gzip_proxied any;
-
+  
   server_tokens off;
-
-
-  access_log logs/access.log;
-
-
-
-  error_log stderr error;
-
-
+   
+  log_format main '$time_iso8601 - $status $request - client IP: $http_x_forwarded_for - <%= ENV['DYNO'] %> to $upstream_addr - upstream status: $upstream_status, upstream_response_time $upstream_response_time, request_time $request_time';
+  access_log /dev/stdout main;
+  error_log /dev/stdout notice;
+  log_not_found on;
   include mime.types;
+  
   default_type application/octet-stream;
   sendfile on;
-
-  #Must read the body in 5 seconds.
-  client_body_timeout 5;
-
+  
+  # Must read the body in 5 seconds.
+  client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
+  
   server {
-    listen 32598 reuseport;
-    charset UTF-8;
+    listen <%= ENV["PORT"] %>;
+  
+    error_page 404 /404.html;
+  error_page 403 /403.html;
+  
     port_in_redirect off;
-    keepalive_timeout 5;
-    root ./dist;
-
-
-
-
-
-    mruby_post_read_handler /app/bin/config/lib/ngx_mruby/headers.rb cache;
-
+  
     location / {
-      mruby_set $fallback /app/bin/config/lib/ngx_mruby/routes_fallback.rb cache;
-
-      try_files $uri $uri/ $fallback;
-
+	    root _site/;
     }
-
-
-
-
-
-
-
-
-
-  # need this b/c setting $fallback to =404 will try #{root}=404 instead of returning a 404
-  location @404 {
-    return 404;
-  }
-
-  # fallback proxy named match
-
-
-  # fallback redirects named match
-
-
   }
 }
