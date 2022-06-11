@@ -8,15 +8,13 @@ interface NavigationItemProps {
   onClick?: () => void;
 }
 
-
-//TODO: fix items hidden behind navigation bar
 export const NavigationItem = ({ href, title, onClick }: NavigationItemProps) => {
   return (
     <Link
       className='navigation-item-container'
       onClick={() => {onClick && onClick()}}
       to={href ?? ''}>
-      {title ? title : 'item'}
+      {title ?? 'item'}
     </Link>
   );
 };
