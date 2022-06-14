@@ -10,11 +10,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 // @ts-ignore
 export const AuthProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
+  const [user, setUser] = useState<User>()
 
   const authenticate = async (user: User): Promise<AccessToken> => {
     const accessToken = await login(user)
     setCookie('accessToken', accessToken)
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+    setUser(user)
     return accessToken
   }
 
@@ -24,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: Boolean(cookies.accessToken), authenticate, logout }}
+      value={{ signed: Boolean(cookies.accessToken), user, authenticate, logout }}
     >
       {children}
     </AuthContext.Provider>
