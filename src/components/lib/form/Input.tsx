@@ -1,3 +1,4 @@
+import './form.components.css'
 import { useState, useEffect } from 'react'
 
 interface InputProps {
@@ -7,6 +8,7 @@ interface InputProps {
   icon?: any
   type?: 'text' | 'number' | 'password'
   required?: boolean
+  requiredErrorMessage?: string
   onChange?: (value: string) => void
   onBlur?: (value: string) => void
 }
@@ -18,27 +20,26 @@ const Input = ({
   icon,
   type,
   required,
+  requiredErrorMessage,
   onChange,
   onBlur,
 }: InputProps) => {
-  const [internalValue, setInternalValue] = useState('')
+  const [, setInternalValue] = useState('')
   const [invalid, setInvalid] = useState(false)
 
   const onChangeHandler = (newValue: string) => {
     if (!newValue && required) {
       setInvalid(true)
     } else {
-      setInternalValue(newValue)
-      onChange && onChange(newValue)
       setInvalid(false)
     }
+    setInternalValue(newValue)
+    onChange && onChange(newValue)
   }
 
   const onBlurHandler = (newValue: string) => {
-    if (!invalid && required && newValue) {
-      setInternalValue(newValue)
-      onBlur && onBlur(newValue)
-    }
+    setInternalValue(newValue)
+    onBlur && onBlur(newValue)
   }
 
   useEffect(() => setInternalValue(value ?? ''), [value])
@@ -46,7 +47,9 @@ const Input = ({
   return (
     <>
       <div
-        className="
+        className={`
+        ${invalid && 'invalid'} 
+        input-wrapper
         w-full
         flex
         flex-row
@@ -55,7 +58,6 @@ const Input = ({
         px-2
         py-1
         mb-2
-        border-1 
         rounded-md
         text-zinc-100
         border-zinc-800 
@@ -63,13 +65,14 @@ const Input = ({
         focus:outline-none
         focus:outline-hidden
         hover:bg-zinc-800
-        "
+        `}
       >
         <div>{icon ?? ''}</div>
         <input
           id={id}
           type={type ?? 'text'}
           value={value}
+          required={required}
           placeholder={placeholder ?? 'placeholder'}
           onChange={(event) => onChangeHandler(event.target.value)}
           onBlur={(event) => onBlurHandler(event.target.value)}
@@ -77,7 +80,9 @@ const Input = ({
         />
       </div>
       {invalid && (
-        <p className="text-xs text-rose-600">this field is required</p>
+        <p className="text-xs text-rose-600">
+          {requiredErrorMessage ?? 'this field is required'}
+        </p>
       )}
     </>
   )

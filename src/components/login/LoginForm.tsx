@@ -43,7 +43,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
     <form onSubmit={handleSubmit} className="flex flex-col">
       <header className="mb-10">
         <p className="text-lg">Entrar</p>
-        <p className="text-xs">
+        <p className="text-sm">
           Ao continuar, você concorda com nosso <b>Contrato de Usuário</b> e
           nossa
           <b> Política de Privacidade</b>
@@ -53,8 +53,9 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         <Input
           placeholder="username"
           icon={<User weight="bold" />}
-          onBlur={onUserNameBlur}
+          onChange={onUserNameBlur}
           required={true}
+          requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <div className="mb-10">
@@ -62,8 +63,9 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
           placeholder="password"
           type="password"
           icon={<Password weight="bold" />}
-          onBlur={onPasswordBlur}
+          onChange={onPasswordBlur}
           required={true}
+          requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <footer>
