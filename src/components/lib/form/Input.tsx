@@ -47,8 +47,8 @@ const Input = ({
   return (
     <>
       <div
-        invalid={`${invalid}`}
-        className="
+        className={`
+        ${invalid && 'invalid'} 
         input-wrapper
         w-full
         flex
@@ -65,7 +65,7 @@ const Input = ({
         focus:outline-none
         focus:outline-hidden
         hover:bg-zinc-800
-        "
+        `}
       >
         <div>{icon ?? ''}</div>
         <input

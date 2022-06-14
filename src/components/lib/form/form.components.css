@@ -1,12 +1,8 @@
-input[invalid="true"]~p {
-  display: block;
-}
-
 div.input-wrapper {
   border: 2px solid transparent;
   transition: border .05s ease;
 }
 
-div.input-wrapper[invalid="true"] {
+div.input-wrapper.invalid {
   border: 2px solid rgb(225 29 72 / var(--tw-text-opacity));
 }
