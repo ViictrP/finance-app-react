@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const NavigationBar = ({ children }: any) => {
   return (
-    <div className="w-full fixed flex flex-row items-center justify-around bottom-0 overflow-x-auto bg-zinc-900">
+    <div className='w-full fixed flex flex-row items-center justify-around bottom-0 overflow-x-auto bg-zinc-900'>
       {children}
     </div>
   )
@@ -19,13 +19,13 @@ interface NavigationItemProps {
 }
 
 export const NavigationItem = ({
-  href,
-  title,
-  onClick,
-}: NavigationItemProps) => {
+                                 href,
+                                 title,
+                                 onClick,
+                               }: NavigationItemProps) => {
   return (
     <Link
-      className="p-3"
+      className='p-3'
       onClick={() => {
         onClick && onClick()
       }}

@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        md: '4px'
-      }
+        md: '4px',
+      },
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('tailwind-scrollbar')
+    require('tailwind-scrollbar'),
   ],
 }

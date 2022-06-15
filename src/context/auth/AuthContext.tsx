@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 import { AccessToken, AuthContextData, User } from '../../entities'

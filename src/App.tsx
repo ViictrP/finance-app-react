@@ -1,5 +1,5 @@
-import { AuthProvider } from "./context/auth/AuthContext"
-import Routes from "./routes"
+import { AuthProvider } from './context/auth/AuthContext'
+import Routes from './routes'
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import { CreditCard, HouseSimple, SignOut } from 'phosphor-react'
+import { CreditCard, HouseSimple } from 'phosphor-react'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavigationBar, { NavigationItem } from '../components/navigation-bar/NavigationBar'
@@ -14,22 +14,18 @@ const AuthenticatedRoutes: React.FC = () => {
     <BrowserRouter>
       <NavigationBar>
         <NavigationItem
-          href="/"
-          title={<HouseSimple weight="bold" className="w-6 h-6" />}
+          href='/'
+          title={<HouseSimple weight='bold' className='w-6 h-6' />}
         />
         <NavigationItem
-          href="/credit-cards"
-          title={<CreditCard weight="bold" className="w-6 h-6" />}
-        />
-        <NavigationItem
-          onClick={logout}
-          title={<SignOut weight="bold" className="w-6 h-6" />}
+          href='/credit-cards'
+          title={<CreditCard weight='bold' className='w-6 h-6' />}
         />
       </NavigationBar>
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/credit-cards" element={<CreditCardPage />} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/credit-cards' element={<CreditCardPage />} />
       </Routes>
     </BrowserRouter>
   )

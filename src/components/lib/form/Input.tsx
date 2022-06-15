@@ -1,5 +1,5 @@
 import './form.components.css'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface InputProps {
   id?: string
@@ -14,16 +14,16 @@ interface InputProps {
 }
 
 const Input = ({
-  id,
-  value,
-  placeholder,
-  icon,
-  type,
-  required,
-  requiredErrorMessage,
-  onChange,
-  onBlur,
-}: InputProps) => {
+                 id,
+                 value,
+                 placeholder,
+                 icon,
+                 type,
+                 required,
+                 requiredErrorMessage,
+                 onChange,
+                 onBlur,
+               }: InputProps) => {
   const [, setInternalValue] = useState('')
   const [invalid, setInvalid] = useState(false)
 
@@ -76,11 +76,11 @@ const Input = ({
           placeholder={placeholder ?? 'placeholder'}
           onChange={(event) => onChangeHandler(event.target.value)}
           onBlur={(event) => onBlurHandler(event.target.value)}
-          className="w-full h-full bg-transparent border-none focus:ring-0"
+          className='w-full h-full text-lg bg-transparent border-none focus:ring-0'
         />
       </div>
       {invalid && (
-        <p className="text-xs text-rose-600">
+        <p className='text-xs text-rose-600'>
           {requiredErrorMessage ?? 'this field is required'}
         </p>
       )}
