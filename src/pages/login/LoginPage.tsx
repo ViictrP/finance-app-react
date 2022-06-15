@@ -10,7 +10,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className='h-full p-4 mt-14'>
+    <div className="h-full p-4 mt-14">
       <LoginForm onSubmit={onSubmit} />
     </div>
   )

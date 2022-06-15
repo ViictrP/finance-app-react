@@ -76,11 +76,11 @@ const Input = ({
           placeholder={placeholder ?? 'placeholder'}
           onChange={(event) => onChangeHandler(event.target.value)}
           onBlur={(event) => onBlurHandler(event.target.value)}
-          className='w-full h-full text-lg bg-transparent border-none focus:ring-0'
+          className="w-full h-full text-lg bg-transparent border-none focus:ring-0"
         />
       </div>
       {invalid && (
-        <p className='text-xs text-rose-600'>
+        <p className="text-xs text-rose-600">
           {requiredErrorMessage ?? 'this field is required'}
         </p>
       )}

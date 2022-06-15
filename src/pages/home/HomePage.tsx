@@ -51,21 +51,21 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div className='pt-8 px-5 pb-12'>
+    <div className="pt-8 px-5 pb-12">
       <Header />
-      <div className='flex flex-col items-start mt-5 w-full h-auto bg-zinc-900 rounded-lg'>
-        <div id='balance-container' className='px-5 py-2 w-full'>
-          <div className='w-full flex flex-row items-center justify-between'>
+      <div className="flex flex-col items-start mt-5 w-full h-auto bg-zinc-900 rounded-lg">
+        <div id="balance-container" className="px-5 py-2 w-full">
+          <div className="w-full flex flex-row items-center justify-between">
             <p>saldo disponível</p>
             <button>
-              <Gear size={18} weight='fill' />
+              <Gear size={18} weight="fill" />
             </button>
           </div>
-          <h1 className='text-3xl text-emerald-500 font-semibold'>R$ 10.787,68</h1>
+          <h1 className="text-3xl text-emerald-500 font-semibold">R$ 10.787,68</h1>
         </div>
-        <div id='charts'>
-          <ResponsiveContainer width='100%'
-                               height='100%'
+        <div id="charts">
+          <ResponsiveContainer width="100%"
+                               height="100%"
                                minHeight={balanceContainer?.height}
                                minWidth={balanceContainer?.width}>
             <AreaChart width={balanceContainer?.width}
@@ -74,11 +74,11 @@ const HomePage = () => {
                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <Tooltip />
               <Area
-                type='monotone'
-                dataKey='pv'
-                stroke='#82ca9d'
+                type="monotone"
+                dataKey="pv"
+                stroke="#82ca9d"
                 strokeWidth={2}
-                fill='#82ca9d'
+                fill="#82ca9d"
               />
               <Tooltip />
             </AreaChart>
