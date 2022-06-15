@@ -30,7 +30,6 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
     onSubmit(formValue)
   }
 
-  //TODO desabilitar ao apagar um campo
   useEffect(
     () =>
       setIsSubmitDisabled(
@@ -40,50 +39,50 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
   )
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col'>
-      <header className='mb-10'>
-        <p className='text-lg'>Entrar</p>
-        <p className='text-sm'>
+    <form onSubmit={handleSubmit} className="flex flex-col">
+      <header className="mb-10">
+        <p className="text-lg">Entrar</p>
+        <p className="text-sm">
           Ao continuar, você concorda com nosso <b>Contrato de Usuário</b> e
           nossa
           <b> Política de Privacidade</b>
         </p>
       </header>
-      <div className='mb-5'>
+      <div className="mb-5">
         <Input
-          placeholder='username'
-          icon={<User weight='bold' />}
+          placeholder="username"
+          icon={<User weight="bold" />}
           onChange={onUserNameBlur}
           required={true}
-          requiredErrorMessage='Este campo é obrigatório'
+          requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
-      <div className='mb-10'>
+      <div className="mb-10">
         <Input
-          placeholder='password'
-          type='password'
-          icon={<Password weight='bold' />}
+          placeholder="password"
+          type="password"
+          icon={<Password weight="bold" />}
           onChange={onPasswordBlur}
           required={true}
-          requiredErrorMessage='Este campo é obrigatório'
+          requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <footer>
-        <Button type='submit' title='acessar' disabled={isSubmitDisabled} />
-        <p className='text-xs mt-4'>
+        <Button type="submit" title="acessar" disabled={isSubmitDisabled} />
+        <p className="text-xs mt-4">
           esqueceu o nome de{' '}
-          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
+          <a href="src/components/LoginForm#" className="text-sky-300 underline underline-offset-2">
             <b>usuário</b>
           </a>{' '}
           ou{' '}
-          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
+          <a href="src/components/LoginForm#" className="text-sky-300 underline underline-offset-2">
             <b>senha</b>
           </a>
           ?
         </p>
-        <h3 className='mt-8'>
+        <h3 className="mt-8">
           primeira vez aqui?{' '}
-          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
+          <a href="src/components/LoginForm#" className="text-sky-300 underline underline-offset-2">
             <b>Registre-se</b>
           </a>
         </h3>
