@@ -1,12 +1,12 @@
-import LoginForm from 'src/components/LoginForm'
+import LoginForm from '../../components/LoginForm'
 import { useAuth } from '../../context/auth/AuthContext'
 import { User } from '../../entities'
 
 const LoginPage = () => {
   const { authenticate } = useAuth()
 
-  const onSubmit = (user: User) => {
-    authenticate(user)
+  const onSubmit = async (user: User) => {
+    return authenticate(user)
   }
 
   return (

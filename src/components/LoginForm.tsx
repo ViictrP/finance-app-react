@@ -1,9 +1,9 @@
 import { Password, User } from 'phosphor-react'
 import { FormEvent, useEffect, useState } from 'react'
-import { User as UserEntity } from 'src/entities'
+import { User as UserEntity } from '../entities'
 
-import Button from 'src/components/lib/Button'
-import Input from 'src/components/lib/form/Input'
+import Button from '../components/lib/Button'
+import Input from '../components/lib/form/Input'
 
 interface LoginFormProps {
   onSubmit: (user: UserEntity) => void
