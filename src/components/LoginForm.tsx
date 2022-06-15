@@ -1,9 +1,9 @@
 import { Password, User } from 'phosphor-react'
 import { FormEvent, useEffect, useState } from 'react'
-import { User as UserEntity } from '../../entities'
+import { User as UserEntity } from 'src/entities'
 
-import Button from '../lib/Button'
-import Input from '../lib/form/Input'
+import Button from 'src/components/lib/Button'
+import Input from 'src/components/lib/form/Input'
 
 interface LoginFormProps {
   onSubmit: (user: UserEntity) => void
@@ -72,18 +72,18 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         <Button type='submit' title='acessar' disabled={isSubmitDisabled} />
         <p className='text-xs mt-4'>
           esqueceu o nome de{' '}
-          <a href='#' className='text-sky-300 underline underline-offset-2'>
+          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
             <b>usuário</b>
           </a>{' '}
           ou{' '}
-          <a href='#' className='text-sky-300 underline underline-offset-2'>
+          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
             <b>senha</b>
           </a>
           ?
         </p>
         <h3 className='mt-8'>
           primeira vez aqui?{' '}
-          <a href='#' className='text-sky-300 underline underline-offset-2'>
+          <a href='src/components/LoginForm#' className='text-sky-300 underline underline-offset-2'>
             <b>Registre-se</b>
           </a>
         </h3>

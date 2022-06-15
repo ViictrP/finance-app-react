@@ -1,4 +1,4 @@
-import LoginForm from '../../components/login/LoginForm'
+import LoginForm from 'src/components/LoginForm'
 import { useAuth } from '../../context/auth/AuthContext'
 import { User } from '../../entities'
 

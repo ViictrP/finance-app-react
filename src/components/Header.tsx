@@ -6,11 +6,11 @@ const Header = () => {
 
   return (<div id='home-header' className='flex flex-row items-center justify-between mb-8 '>
     <div className='flex flex-row items-center'>
-      <UserCircle size={32} className='mt-2' weight='fill' />&nbsp;
+      <UserCircle size={32} weight='fill' />&nbsp;
       <b className='text-2xl'>{user?.username}</b>
     </div>
     <button onClick={logout}>
-      <SignOut size={32} className='mt-2' weight='bold' />
+      <SignOut size={32} weight='bold' />
     </button>
   </div>)
 }
