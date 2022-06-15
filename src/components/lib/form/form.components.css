@@ -1,8 +1,18 @@
 div.input-wrapper {
-  border: 2px solid transparent;
-  transition: border .05s ease;
+    border: 2px solid transparent;
+    transition: border .05s ease;
 }
 
 div.input-wrapper.invalid {
-  border: 2px solid rgb(225 29 72 / var(--tw-text-opacity));
+    border: 2px solid rgb(225 29 72 / var(--tw-text-opacity));
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input[data-autocompleted] {
+    background-color: transparent !important;
+    font-size: 1.125rem;
 }

@@ -1,5 +1,5 @@
 import { Password, User } from 'phosphor-react'
-import { FormEvent, useState, useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { User as UserEntity } from '../../entities'
 
 import Button from '../lib/Button'
@@ -34,56 +34,56 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
   useEffect(
     () =>
       setIsSubmitDisabled(
-        formValue.username === '' || formValue.password === ''
+        formValue.username === '' || formValue.password === '',
       ),
-    [formValue]
+    [formValue],
   )
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
-      <header className="mb-10">
-        <p className="text-lg">Entrar</p>
-        <p className="text-sm">
+    <form onSubmit={handleSubmit} className='flex flex-col'>
+      <header className='mb-10'>
+        <p className='text-lg'>Entrar</p>
+        <p className='text-sm'>
           Ao continuar, você concorda com nosso <b>Contrato de Usuário</b> e
           nossa
           <b> Política de Privacidade</b>
         </p>
       </header>
-      <div className="mb-5">
+      <div className='mb-5'>
         <Input
-          placeholder="username"
-          icon={<User weight="bold" />}
+          placeholder='username'
+          icon={<User weight='bold' />}
           onChange={onUserNameBlur}
           required={true}
-          requiredErrorMessage="Este campo é obrigatório"
+          requiredErrorMessage='Este campo é obrigatório'
         />
       </div>
-      <div className="mb-10">
+      <div className='mb-10'>
         <Input
-          placeholder="password"
-          type="password"
-          icon={<Password weight="bold" />}
+          placeholder='password'
+          type='password'
+          icon={<Password weight='bold' />}
           onChange={onPasswordBlur}
           required={true}
-          requiredErrorMessage="Este campo é obrigatório"
+          requiredErrorMessage='Este campo é obrigatório'
         />
       </div>
       <footer>
-        <Button type="submit" title="acessar" disabled={isSubmitDisabled} />
-        <p className="text-xs mt-4">
+        <Button type='submit' title='acessar' disabled={isSubmitDisabled} />
+        <p className='text-xs mt-4'>
           esqueceu o nome de{' '}
-          <a href="#" className="text-sky-300 underline underline-offset-2">
+          <a href='#' className='text-sky-300 underline underline-offset-2'>
             <b>usuário</b>
           </a>{' '}
           ou{' '}
-          <a href="#" className="text-sky-300 underline underline-offset-2">
+          <a href='#' className='text-sky-300 underline underline-offset-2'>
             <b>senha</b>
           </a>
           ?
         </p>
-        <h3 className="mt-8">
+        <h3 className='mt-8'>
           primeira vez aqui?{' '}
-          <a href="#" className="text-sky-300 underline underline-offset-2">
+          <a href='#' className='text-sky-300 underline underline-offset-2'>
             <b>Registre-se</b>
           </a>
         </h3>
