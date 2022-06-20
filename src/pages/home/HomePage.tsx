@@ -6,8 +6,8 @@ import CardList from '../../components/lib/CardList'
 import Input from '../../components/lib/form/Input'
 
 interface BalanceContainer {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 const HomePage = () => {
@@ -41,32 +41,32 @@ const HomePage = () => {
   const [filteredCards, setFilteredCards] = useState<typeof cards>([])
   const data = [
     {
-      'name': 'Jan',
-      'pv': 2400,
+      name: 'Jan',
+      pv: 2400,
     },
     {
-      'name': 'Fev',
-      'pv': 1398,
+      name: 'Fev',
+      pv: 1398,
     },
     {
-      'name': 'Mar',
-      'pv': 9800,
+      name: 'Mar',
+      pv: 9800,
     },
     {
-      'name': 'Mai',
-      'pv': 3908,
+      name: 'Mai',
+      pv: 3908,
     },
     {
-      'name': 'Jun',
-      'pv': 4800,
+      name: 'Jun',
+      pv: 4800,
     },
     {
-      'name': 'Jul',
-      'pv': 3800,
+      name: 'Jul',
+      pv: 3800,
     },
     {
-      'name': 'Ago',
-      'pv': 4300,
+      name: 'Ago',
+      pv: 4300,
     },
   ]
 
@@ -82,7 +82,9 @@ const HomePage = () => {
 
   const filterTransactions = (searchValue: string) => {
     if (searchValue) {
-      const _filteredCards = cards.filter(card => card.content.includes(searchValue))
+      const _filteredCards = cards.filter((card) =>
+        card.content.includes(searchValue),
+      )
       setFilteredCards(_filteredCards)
     } else {
       setFilteredCards(cards)
@@ -92,25 +94,34 @@ const HomePage = () => {
   return (
     <div className="pt-8 px-5 pb-12">
       <Header />
-      <div id="content" className="flex flex-col items-start mt-10 w-full h-auto bg-zinc-900 rounded-lg block">
+      <div
+        id="content"
+        className="block mt-10 w-full h-auto bg-zinc-900 rounded-lg"
+      >
         <div id="balance-container" className="px-5 py-2 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-xs">saldo disponível</p>
-            <button>
+            <button title="gear" type="button">
               <Gear size={18} weight="fill" />
             </button>
           </div>
-          <h1 className="text-3xl text-emerald-500 font-semibold">R$ 3.423,18</h1>
+          <h1 className="text-3xl text-emerald-500 font-semibold">
+            R$ 3.423,18
+          </h1>
         </div>
         <div id="charts">
-          <ResponsiveContainer width="100%"
-                               height="100%"
-                               minHeight={balanceContainer?.height}
-                               minWidth={balanceContainer?.width}>
-            <AreaChart width={balanceContainer?.width}
-                       height={balanceContainer?.height}
-                       data={data}
-                       margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+            minHeight={balanceContainer?.height}
+            minWidth={balanceContainer?.width}
+          >
+            <AreaChart
+              width={balanceContainer?.width}
+              height={balanceContainer?.height}
+              data={data}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
               <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.5} />

@@ -13,20 +13,21 @@ interface CardListGroupProps {
 }
 
 interface CardListProps {
-  content: CardItem[],
-  icon: any,
-  group?: boolean,
+  content: CardItem[]
+  icon: any
+  group?: boolean
   groupProp?: CardListGroupProps
+  placeholderElement?: any
 }
 
-const CardList = ({ content, icon, group, groupProp }: CardListProps) => {
+const CardList = ({ content, icon }: CardListProps) => {
   const [_content, setContent] = useState<CardItem[]>(content)
 
   useEffect(() => setContent(content), [content])
 
   return (
     <>
-      {_content.map(item => (
+      {_content.map((item) => (
         <Card key={item.key}>
           {icon}
           <div className="w-full flex flex-col items-start">
