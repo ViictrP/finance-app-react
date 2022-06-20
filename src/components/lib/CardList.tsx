@@ -15,8 +15,8 @@ interface CardListGroupProps {
 interface CardListProps {
   content: CardItem[]
   icon: any,
-  group: boolean,
-  groupProp: CardListGroupProps
+  group?: boolean,
+  groupProp?: CardListGroupProps
 }
 
 const CardList = ({ content, icon, group, groupProp }: CardListProps) => {
