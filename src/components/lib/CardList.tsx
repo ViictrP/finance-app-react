@@ -13,7 +13,7 @@ interface CardListGroupProps {
 }
 
 interface CardListProps {
-  content: CardItem[]
+  content: CardItem[],
   icon: any,
   group?: boolean,
   groupProp?: CardListGroupProps
