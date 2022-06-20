@@ -53,7 +53,7 @@ const HomePage = () => {
   return (
     <div className="pt-8 px-5 pb-12">
       <Header />
-      <div className="flex flex-col items-start mt-5 w-full h-auto bg-zinc-900 rounded-lg">
+      <div className="flex flex-col items-start mt-5 w-full h-auto bg-zinc-900 rounded-lg block">
         <div id="balance-container" className="px-5 py-2 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p>saldo disponível</p>
@@ -61,7 +61,7 @@ const HomePage = () => {
               <Gear size={18} weight="fill" />
             </button>
           </div>
-          <h1 className="text-3xl text-emerald-500 font-semibold">R$ 10.787,68</h1>
+          <h1 className="text-3xl text-emerald-500 font-semibold">R$ 3.423,18</h1>
         </div>
         <div id="charts">
           <ResponsiveContainer width="100%"
@@ -72,17 +72,28 @@ const HomePage = () => {
                        height={balanceContainer?.height}
                        data={data}
                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#82ca9d" stopOpacity={0.5} />
+                  <stop offset="100%" stopColor="#18181b" stopOpacity={0.2} />
+                </linearGradient>
+              </defs>
               <Tooltip />
               <Area
                 type="monotone"
                 dataKey="pv"
                 stroke="#82ca9d"
                 strokeWidth={2}
-                fill="#82ca9d"
+                fillOpacity={1}
+                fill="url(#colorUv)"
               />
               <Tooltip />
             </AreaChart>
           </ResponsiveContainer>
+        </div>
+        <div className="p-2 w-full text-right">
+          <p className="text-sm">saldo total</p>
+          <p className="text-sm text-emerald-500 font-semibold">R$ 10.787,68</p>
         </div>
       </div>
     </div>

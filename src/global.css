@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-    @apply bg-[#09090A] text-zinc-100
+    @apply bg-[#09090A] text-zinc-100;
+    overflow-x: hidden;
 }
