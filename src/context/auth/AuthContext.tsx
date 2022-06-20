@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 import { AccessToken, AuthContextData, User } from '../../entities'
@@ -9,12 +9,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 // @ts-ignore
 export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'username'])
   const [user, setUser] = useState<User>()
 
   const authenticate = async (user: User): Promise<AccessToken> => {
     const accessToken = await login(user)
     setCookie('accessToken', accessToken)
+    setCookie('username', user.username)
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
     setUser(user)
     return accessToken
@@ -23,6 +24,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     removeCookie('accessToken')
   }
+
+  useEffect(() => setUser({username: cookies.username, password: ''}), [cookies])
 
   return (
     <AuthContext.Provider

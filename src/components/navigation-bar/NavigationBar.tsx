@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const NavigationBar = ({ children }: any) => {
   return (
-    <div className="w-full fixed flex flex-row items-center justify-around bottom-0 overflow-x-auto bg-zinc-900">
+    <div className="w-full fixed z-10 flex flex-row items-center justify-around bottom-0 overflow-x-auto bg-zinc-900">
       {children}
     </div>
   )
