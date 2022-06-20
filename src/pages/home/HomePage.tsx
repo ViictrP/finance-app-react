@@ -1,7 +1,9 @@
-import { Gear } from 'phosphor-react'
+import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react'
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
+import CardList from '../../components/lib/CardList'
+import Input from '../../components/lib/form/Input'
 
 interface BalanceContainer {
   width: number;
@@ -10,6 +12,33 @@ interface BalanceContainer {
 
 const HomePage = () => {
   const [balanceContainer, setBalanceContainer] = useState<BalanceContainer>()
+  const [cards, setCards] = useState([
+    {
+      key: '1',
+      header: 'outras transferências',
+      content: 'pix transf victor 18/06',
+      footer: '- R$ 300,00',
+    },
+    {
+      key: '2',
+      header: 'outras transferências',
+      content: 'pix transf binho 18/06',
+      footer: '- R$ 300,00',
+    },
+    {
+      key: '3',
+      header: 'outras transferências',
+      content: 'pix transf nathalia 18/06',
+      footer: '- R$ 300,00',
+    },
+    {
+      key: '4',
+      header: 'outras transferências',
+      content: 'pix transf theo 18/06',
+      footer: '- R$ 300,00',
+    },
+  ])
+  const [filteredCards, setFilteredCards] = useState<typeof cards>([])
   const data = [
     {
       'name': 'Jan',
@@ -48,15 +77,25 @@ const HomePage = () => {
       height: 100,
     }
     setBalanceContainer(container)
+    setFilteredCards(cards)
   }, [])
+
+  const filterTransactions = (searchValue: string) => {
+    if (searchValue) {
+      const _filteredCards = cards.filter(card => card.content.includes(searchValue))
+      setFilteredCards(_filteredCards)
+    } else {
+      setFilteredCards(cards)
+    }
+  }
 
   return (
     <div className="pt-8 px-5 pb-12">
       <Header />
-      <div className="flex flex-col items-start mt-5 w-full h-auto bg-zinc-900 rounded-lg block">
+      <div id="content" className="flex flex-col items-start mt-10 w-full h-auto bg-zinc-900 rounded-lg block">
         <div id="balance-container" className="px-5 py-2 w-full">
           <div className="w-full flex flex-row items-center justify-between">
-            <p>saldo disponível</p>
+            <p className="text-xs">saldo disponível</p>
             <button>
               <Gear size={18} weight="fill" />
             </button>
@@ -74,7 +113,7 @@ const HomePage = () => {
                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#82ca9d" stopOpacity={0.5} />
+                  <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.5} />
                   <stop offset="100%" stopColor="#18181b" stopOpacity={0.2} />
                 </linearGradient>
               </defs>
@@ -82,7 +121,7 @@ const HomePage = () => {
               <Area
                 type="monotone"
                 dataKey="pv"
-                stroke="#82ca9d"
+                stroke="#7dd3fc"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorUv)"
@@ -92,9 +131,21 @@ const HomePage = () => {
           </ResponsiveContainer>
         </div>
         <div className="p-2 w-full text-right">
-          <p className="text-sm">saldo total</p>
-          <p className="text-sm text-emerald-500 font-semibold">R$ 10.787,68</p>
+          <p className="text-xs">gasto total • jun</p>
+          <p className="text-sm text-orange-300 font-semibold">R$ 7.364,50</p>
         </div>
+      </div>
+      <div id="transitions" className="mt-10">
+        <h1 className="text-xl font-bold my-5">Transações</h1>
+        <Input
+          placeholder="buscar transações..."
+          icon={<MagnifyingGlass />}
+          onChange={filterTransactions}
+        />
+        <CardList
+          content={filteredCards}
+          icon={<ShoppingBag size="20" className="mr-4 ml-1" weight="fill" />}
+        />
       </div>
     </div>
   )
