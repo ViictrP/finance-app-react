@@ -83,7 +83,9 @@ const HomePage = () => {
   const filterTransactions = (searchValue: string) => {
     if (searchValue) {
       const _filteredCards = cards.filter((card) =>
-        card.content.includes(searchValue),
+        card.content
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()),
       )
       setFilteredCards(_filteredCards)
     } else {
@@ -92,17 +94,17 @@ const HomePage = () => {
   }
 
   return (
-    <div className="pt-8 px-5 pb-12">
+    <div className="pt-8 px-5 pb-12 overflow-x-hidden">
       <Header />
       <div
         id="content"
         className="block mt-10 w-full h-auto bg-zinc-900 rounded-lg"
       >
-        <div id="balance-container" className="px-5 py-2 w-full">
+        <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
-            <p className="text-xs">saldo disponível</p>
+            <p className="text-lg">saldo disponível</p>
             <button title="gear" type="button">
-              <Gear size={18} weight="fill" />
+              <Gear size={24} weight="fill" />
             </button>
           </div>
           <h1 className="text-3xl text-emerald-500 font-semibold">
@@ -124,7 +126,7 @@ const HomePage = () => {
             >
               <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.5} />
+                  <stop offset="0%" stopColor="#047857" stopOpacity={0.5} />
                   <stop offset="100%" stopColor="#18181b" stopOpacity={0.2} />
                 </linearGradient>
               </defs>
@@ -132,7 +134,7 @@ const HomePage = () => {
               <Area
                 type="monotone"
                 dataKey="pv"
-                stroke="#7dd3fc"
+                stroke="#10b981"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorUv)"
@@ -141,13 +143,13 @@ const HomePage = () => {
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="p-2 w-full text-right">
-          <p className="text-xs">gasto total • jun</p>
-          <p className="text-sm text-orange-300 font-semibold">R$ 7.364,50</p>
+        <div className="p-4 w-full text-right">
+          <p className="text-md">gasto total • jun</p>
+          <p className="text-xl text-orange-300 font-semibold">R$ 7.364,50</p>
         </div>
       </div>
       <div id="transitions" className="mt-10">
-        <h1 className="text-xl font-bold my-5">Transações</h1>
+        <h1 className="text-2xl font-bold my-5">Transações</h1>
         <Input
           placeholder="buscar transações..."
           icon={<MagnifyingGlass />}
@@ -155,7 +157,7 @@ const HomePage = () => {
         />
         <CardList
           content={filteredCards}
-          icon={<ShoppingBag size="20" className="mr-4 ml-1" weight="fill" />}
+          icon={<ShoppingBag size="30" className="mr-4 ml-1" weight="fill" />}
         />
       </div>
     </div>
