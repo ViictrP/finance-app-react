@@ -9,10 +9,10 @@ const Header = () => {
       <div id="home-header" className="flex flex-row items-center justify-between mb-8">
         <div className="flex flex-row items-center">
           <UserCircle size={32} weight="fill" />&nbsp;
-          <b className="text-2xl">{user?.username}</b>
+          <b className="text-3xl">{user?.username}</b>
         </div>
         <button onClick={logout}>
-          <SignOut size={20} weight="bold" />
+          <SignOut size={26} weight="bold" />
         </button>
       </div>
     </>

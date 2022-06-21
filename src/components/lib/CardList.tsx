@@ -30,12 +30,12 @@ const CardList = ({ content, icon }: CardListProps) => {
       {_content.map((item) => (
         <Card key={item.key}>
           {icon}
-          <div className="w-full flex flex-col items-start">
-            <p className="text-xs">{item.header}</p>
-            <div className="w-full mt-3 flex flex-row justify-between">
-              <p className="text-xs font-bold">{item.content}</p>
-              <p className="text-sm text-orange-300">{item.footer}</p>
+          <div className="w-full flex flex-col">
+            <div className="w-full flex flex-row items-start justify-between">
+              <p className="text-xs">{item.header}</p>
+              <p className="text-md text-orange-300">{item.footer}</p>
             </div>
+            <p className="text-md font-bold">{item.content}</p>
           </div>
         </Card>
       ))}
