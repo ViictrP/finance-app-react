@@ -152,7 +152,7 @@ const HomePage = () => {
         <h1 className="text-2xl font-bold my-5">Transações</h1>
         <Input
           placeholder="buscar transações..."
-          icon={<MagnifyingGlass />}
+          icon={<MagnifyingGlass size={24} />}
           onChange={filterTransactions}
         />
         <CardList
