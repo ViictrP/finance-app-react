@@ -1,9 +1,7 @@
-import LoginForm from '../components/LoginForm';
-import { useAuth } from '../context/auth/AuthContext';
+import { Loading, LoginForm, Snackbar } from '../components';
+import { useAuth } from '../context/AuthContext';
 import { AuthUser } from '../entities';
 import { useState } from 'react';
-import Loading from '../components/lib/Loading';
-import Snackbar from '../components/lib/Snackbar';
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);

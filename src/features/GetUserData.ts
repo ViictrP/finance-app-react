@@ -1,5 +1,5 @@
-import { api } from '../../lib/api';
-import User from '../../entities/User';
+import { api } from '../lib/api';
+import { User } from '../entities';
 import axios from 'axios';
 
 const getUserData = async () => {

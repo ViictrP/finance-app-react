@@ -1,10 +1,9 @@
 import { CreditCard, HouseSimple } from 'phosphor-react';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NavigationBar, { NavigationItem } from '../components/navigation-bar/NavigationBar';
+import { NavigationBar, NavigationItem } from '../components';
 
-import CreditCardPage from '../pages/CreditCardPage';
-import HomePage from '../pages/HomePage';
+import { CreditCardPage, HomePage } from '../pages';
 
 const AuthenticatedRoutes: React.FC = () => {
 

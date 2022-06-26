@@ -1,5 +1,5 @@
 import { SignOut, UserCircle } from 'phosphor-react'
-import { useAuth } from '../context/auth/AuthContext'
+import { useAuth } from '../context/AuthContext'
 
 const Header = () => {
   const { user, logout } = useAuth()
