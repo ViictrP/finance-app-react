@@ -1,31 +1,34 @@
-import axios from 'axios'
-import { createContext, useContext, useEffect, useState } from 'react'
-import { useCookies } from 'react-cookie'
+import axios from 'axios';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
-import { AccessToken, AuthContextData, User } from '../../entities'
-import login from '../../features/login/Login'
+import { AccessToken, AuthContextData, AuthUser } from '../../entities';
+import login from '../../features/login/Login';
+import getUserData from '../../features/user/GetUserData';
+import User from '../../entities/User';
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData)
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 // @ts-ignore
 export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'username'])
-  const [user, setUser] = useState<User>()
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken', 'name', 'lastname']);
+  const [user, setUser] = useState<User>();
 
-  const authenticate = async (user: User): Promise<AccessToken> => {
-    const accessToken = await login(user)
-    setCookie('accessToken', accessToken)
-    setCookie('username', user.username)
-    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
-    setUser(user)
-    return accessToken
-  }
+  const authenticate = async (user: AuthUser): Promise<AccessToken> => {
+    const { data } = await login(user);
+    axios.defaults.headers.common['x-authentication-token'] = `${data.accessToken}`;
+    const { data: userData } = await getUserData();
+    setCookie('accessToken', data.accessToken);
+    setCookie('name', userData.name);
+    setUser(userData);
+    return { accessToken: data.accessToken };
+  };
 
   const logout = () => {
-    removeCookie('accessToken')
-  }
+    removeCookie('accessToken');
+  };
 
-  useEffect(() => setUser({username: cookies.username, password: ''}), [cookies])
+  useEffect(() => setUser({ name: cookies.name } as any), [cookies]);
 
   return (
     <AuthContext.Provider
@@ -33,9 +36,9 @@ export const AuthProvider = ({ children }) => {
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }

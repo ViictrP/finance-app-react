@@ -1,9 +1,9 @@
-import User from './User'
+import AuthUser from './AuthUser'
 import AccessToken from './AccessToken'
 import AuthContextData from './AuthContextData'
 
 export type {
-  User,
+  AuthUser,
   AccessToken,
   AuthContextData,
 }
