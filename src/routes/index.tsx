@@ -1,4 +1,4 @@
-import { useAuth } from '../context/auth/AuthContext'
+import { useAuth } from '../context/AuthContext'
 import AuthenticatedRoutes from './AuthenticatedRoutes'
 import SignRoutes from './SignRoutes'
 

@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import LoginPage from '../pages/LoginPage';
-import RegistrationPage from '../pages/RegistrationPage';
+import { LoginPage, RegistrationPage } from '../pages';
 
 const SignRoutes = () => {
   return (

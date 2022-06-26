@@ -1,97 +1,95 @@
-import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react'
-import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts'
-import { useEffect, useState } from 'react'
-import Header from '../components/Header'
-import CardList from '../components/lib/CardList'
-import Input from '../components/lib/form/Input'
+import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
+import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { useEffect, useState } from 'react';
+import { CardList, Header, Input } from '../components';
 
 interface BalanceContainer {
-  width: number
-  height: number
+  width: number;
+  height: number;
 }
 
 const HomePage = () => {
-  const [balanceContainer, setBalanceContainer] = useState<BalanceContainer>()
+  const [balanceContainer, setBalanceContainer] = useState<BalanceContainer>();
   const [cards, setCards] = useState([
     {
       key: '1',
       header: 'outras transferências',
       content: 'pix transf victor 18/06',
-      footer: '- R$ 300,00',
+      footer: '- R$ 300,00'
     },
     {
       key: '2',
       header: 'outras transferências',
       content: 'pix transf binho 18/06',
-      footer: '- R$ 300,00',
+      footer: '- R$ 300,00'
     },
     {
       key: '3',
       header: 'outras transferências',
       content: 'pix transf nathalia 18/06',
-      footer: '- R$ 300,00',
+      footer: '- R$ 300,00'
     },
     {
       key: '4',
       header: 'outras transferências',
       content: 'pix transf theo 18/06',
-      footer: '- R$ 300,00',
-    },
-  ])
-  const [filteredCards, setFilteredCards] = useState<typeof cards>([])
+      footer: '- R$ 300,00'
+    }
+  ]);
+  const [filteredCards, setFilteredCards] = useState<typeof cards>([]);
   const data = [
     {
       name: 'Jan',
-      pv: 2400,
+      pv: 2400
     },
     {
       name: 'Fev',
-      pv: 1398,
+      pv: 1398
     },
     {
       name: 'Mar',
-      pv: 9800,
+      pv: 9800
     },
     {
       name: 'Mai',
-      pv: 3908,
+      pv: 3908
     },
     {
       name: 'Jun',
-      pv: 4800,
+      pv: 4800
     },
     {
       name: 'Jul',
-      pv: 3800,
+      pv: 3800
     },
     {
       name: 'Ago',
-      pv: 4300,
-    },
-  ]
+      pv: 4300
+    }
+  ];
 
   useEffect(() => {
-    const div = document.getElementById('balance-container')
+    const div = document.getElementById('balance-container');
     const container: BalanceContainer = {
       width: div!.clientWidth + 30 ?? 0,
-      height: 100,
-    }
-    setBalanceContainer(container)
-    setFilteredCards(cards)
-  }, [])
+      height: 100
+    };
+    setBalanceContainer(container);
+    setFilteredCards(cards);
+  }, []);
 
   const filterTransactions = (searchValue: string) => {
     if (searchValue) {
       const _filteredCards = cards.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
-      )
-      setFilteredCards(_filteredCards)
+          .includes(searchValue.toLowerCase())
+      );
+      setFilteredCards(_filteredCards);
     } else {
-      setFilteredCards(cards)
+      setFilteredCards(cards);
     }
-  }
+  };
 
   return (
     <div className="pt-8 px-5 pb-12 overflow-x-hidden">
@@ -161,7 +159,7 @@ const HomePage = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

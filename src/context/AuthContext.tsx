@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-
-import { AccessToken, AuthContextData, AuthUser } from '../../entities';
-import login from '../../features/login/Login';
-import getUserData from '../../features/user/GetUserData';
-import User from '../../entities/User';
+import { login, getUserData } from '../features';
+import { AccessToken, AuthContextData, AuthUser, User } from '../entities';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
