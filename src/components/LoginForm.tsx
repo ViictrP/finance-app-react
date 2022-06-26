@@ -1,43 +1,42 @@
-import { Password, User } from 'phosphor-react'
-import { FormEvent, useEffect, useState } from 'react'
-import { AuthUser as UserEntity } from '../entities'
+import { Password, User } from 'phosphor-react';
+import { FormEvent, useEffect, useState } from 'react';
+import { AuthUser as UserEntity } from '../entities';
 
-import Button from '../components/lib/Button'
-import Input from '../components/lib/form/Input'
+import { Button, Input } from '../components';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
-  onSubmit: (user: UserEntity) => void
+  onSubmit: (user: UserEntity) => void;
 }
 
 const LoginForm = ({ onSubmit }: LoginFormProps) => {
-  const [formValue, setFormValue] = useState({ email: '', password: '' })
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true)
+  const [formValue, setFormValue] = useState({ email: '', password: '' });
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const onUserNameBlur = (value: string) => {
-    const newFormValue = { ...formValue }
-    newFormValue.email = value
-    setFormValue(newFormValue)
-  }
+    const newFormValue = { ...formValue };
+    newFormValue.email = value;
+    setFormValue(newFormValue);
+  };
 
   const onPasswordBlur = (value: string) => {
-    const newFormValue = { ...formValue }
-    newFormValue.password = value
-    setFormValue(newFormValue)
-  }
+    const newFormValue = { ...formValue };
+    newFormValue.password = value;
+    setFormValue(newFormValue);
+  };
 
   const handleSubmit = (event: FormEvent) => {
-    event.preventDefault()
-    onSubmit(formValue)
-  }
+    event.preventDefault();
+    onSubmit(formValue);
+  };
 
   useEffect(
     () =>
       setIsSubmitDisabled(
-        formValue.email === '' || formValue.password === '',
+        formValue.email === '' || formValue.password === ''
       ),
-    [formValue],
-  )
+    [formValue]
+  );
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
@@ -89,7 +88,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         </h3>
       </footer>
     </form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
