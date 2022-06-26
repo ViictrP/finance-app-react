@@ -1,9 +1,9 @@
 import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react'
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { useEffect, useState } from 'react'
-import Header from '../../components/Header'
-import CardList from '../../components/lib/CardList'
-import Input from '../../components/lib/form/Input'
+import Header from '../components/Header'
+import CardList from '../components/lib/CardList'
+import Input from '../components/lib/form/Input'
 
 interface BalanceContainer {
   width: number

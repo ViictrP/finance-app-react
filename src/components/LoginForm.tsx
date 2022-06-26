@@ -1,21 +1,22 @@
 import { Password, User } from 'phosphor-react'
 import { FormEvent, useEffect, useState } from 'react'
-import { User as UserEntity } from '../entities'
+import { AuthUser as UserEntity } from '../entities'
 
 import Button from '../components/lib/Button'
 import Input from '../components/lib/form/Input'
+import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
   onSubmit: (user: UserEntity) => void
 }
 
 const LoginForm = ({ onSubmit }: LoginFormProps) => {
-  const [formValue, setFormValue] = useState({ username: '', password: '' })
+  const [formValue, setFormValue] = useState({ email: '', password: '' })
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true)
 
   const onUserNameBlur = (value: string) => {
     const newFormValue = { ...formValue }
-    newFormValue.username = value
+    newFormValue.email = value
     setFormValue(newFormValue)
   }
 
@@ -33,7 +34,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
   useEffect(
     () =>
       setIsSubmitDisabled(
-        formValue.username === '' || formValue.password === '',
+        formValue.email === '' || formValue.password === '',
       ),
     [formValue],
   )
@@ -82,9 +83,9 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         </p>
         <h3 className="mt-8">
           primeira vez aqui?{' '}
-          <a href="src/components/LoginForm#" className="text-sky-300 underline underline-offset-2">
+          <Link to="/register" className="text-sky-300 underline underline-offset-2">
             <b>Registre-se</b>
-          </a>
+          </Link>
         </h3>
       </footer>
     </form>
