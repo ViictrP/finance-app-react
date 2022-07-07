@@ -1,7 +1,7 @@
 import login from './Login';
-import getUserData from './GetUserData';
+import getUserProfile from './GetUserProfile';
 
 export {
   login,
-  getUserData
+  getUserProfile
 };

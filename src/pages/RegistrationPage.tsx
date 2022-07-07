@@ -1,5 +1,5 @@
 import RegisterForm from '../components/RegisterForm';
-import { User } from '../entities';
+import { UserProfile } from '../entities';
 import { useState } from 'react';
 import { Loading, Snackbar } from '../components';
 import saveNewUser from '../features/SaveNewUser';
@@ -13,7 +13,7 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
   const { authenticate } = useAuth();
 
-  const onSubmit = async (user: User) => {
+  const onSubmit = async (user: UserProfile) => {
     try {
       setError(false);
       setLoading(true);

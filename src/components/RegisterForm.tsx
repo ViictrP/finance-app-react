@@ -1,6 +1,6 @@
 import { At, IdentificationBadge, Lock } from 'phosphor-react';
 import { FormEvent, useEffect, useState } from 'react';
-import { User as UserEntity } from '../entities';
+import { UserProfile as UserEntity } from '../entities';
 
 import { Button, Input } from '../components';
 
