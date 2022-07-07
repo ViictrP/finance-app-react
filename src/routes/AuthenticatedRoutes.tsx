@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NavigationBar, NavigationItem } from '../components';
 
 import { CreditCardPage, HomePage } from '../pages';
+import BalancePage from '../pages/BalancePage';
 
 const AuthenticatedRoutes: React.FC = () => {
 
@@ -22,6 +23,7 @@ const AuthenticatedRoutes: React.FC = () => {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/balance" element={<BalancePage />} />
         <Route path="/credit-cards" element={<CreditCardPage />} />
       </Routes>
     </BrowserRouter>

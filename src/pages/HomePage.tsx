@@ -2,6 +2,7 @@ import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { useEffect, useState } from 'react';
 import { CardList, Header, Input } from '../components';
+import { Link } from 'react-router-dom';
 
 interface BalanceContainer {
   width: number;
@@ -15,64 +16,64 @@ const HomePage = () => {
       key: '1',
       header: 'outras transferências',
       content: 'pix transf victor 18/06',
-      footer: '- R$ 300,00'
+      footer: '- R$ 300,00',
     },
     {
       key: '2',
       header: 'outras transferências',
       content: 'pix transf binho 18/06',
-      footer: '- R$ 300,00'
+      footer: '- R$ 300,00',
     },
     {
       key: '3',
       header: 'outras transferências',
       content: 'pix transf nathalia 18/06',
-      footer: '- R$ 300,00'
+      footer: '- R$ 300,00',
     },
     {
       key: '4',
       header: 'outras transferências',
       content: 'pix transf theo 18/06',
-      footer: '- R$ 300,00'
-    }
+      footer: '- R$ 300,00',
+    },
   ]);
   const [filteredCards, setFilteredCards] = useState<typeof cards>([]);
   const data = [
     {
       name: 'Jan',
-      pv: 2400
+      pv: 2400,
     },
     {
       name: 'Fev',
-      pv: 1398
+      pv: 1398,
     },
     {
       name: 'Mar',
-      pv: 9800
+      pv: 9800,
     },
     {
       name: 'Mai',
-      pv: 3908
+      pv: 3908,
     },
     {
       name: 'Jun',
-      pv: 4800
+      pv: 4800,
     },
     {
       name: 'Jul',
-      pv: 3800
+      pv: 3800,
     },
     {
       name: 'Ago',
-      pv: 4300
-    }
+      pv: 4300,
+    },
   ];
 
   useEffect(() => {
     const div = document.getElementById('balance-container');
     const container: BalanceContainer = {
       width: div!.clientWidth + 30 ?? 0,
-      height: 100
+      height: 100,
     };
     setBalanceContainer(container);
     setFilteredCards(cards);
@@ -83,7 +84,7 @@ const HomePage = () => {
       const _filteredCards = cards.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredCards(_filteredCards);
     } else {
@@ -92,7 +93,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="pt-8 px-5 pb-12 overflow-x-hidden">
+    <div className="page-container">
       <Header />
       <div
         id="content"
@@ -101,9 +102,11 @@ const HomePage = () => {
         <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-lg">saldo disponível</p>
-            <button title="gear" type="button">
-              <Gear size={24} weight="fill" />
-            </button>
+            <Link to="/balance">
+              <button title="gear" type="button">
+                <Gear size={24} weight="fill" />
+              </button>
+            </Link>
           </div>
           <h1 className="text-3xl text-emerald-500 font-semibold">
             R$ 3.423,18

@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 body {
-    @apply bg-[#09090A] text-zinc-100;
-    overflow-x: hidden;
+	@apply bg-[#09090A] text-zinc-100;
+	@apply font-nunito;
+	overflow-x: hidden;
+}
+
+.page-container {
+	@apply pt-8;
+	@apply px-5;
+	@apply pb-12;
+	@apply overflow-x-hidden;
 }

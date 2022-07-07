@@ -2,6 +2,9 @@
 module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
+    fontFamily: {
+      nunito: ['Nunito', 'sans-serif']
+    },
     extend: {
       borderRadius: {
         md: '4px',
