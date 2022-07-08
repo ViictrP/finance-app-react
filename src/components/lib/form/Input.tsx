@@ -1,16 +1,16 @@
-import './form.components.css'
-import { useEffect, useState } from 'react'
+import './form.components.css';
+import { useEffect, useState } from 'react';
 
 interface InputProps {
-  id?: string
-  value?: string
-  placeholder?: string
-  icon?: any
-  type?: 'text' | 'number' | 'password'
-  required?: boolean
-  requiredErrorMessage?: string
-  onChange?: (value: string) => void
-  onBlur?: (value: string) => void
+  id?: string;
+  value?: string;
+  placeholder?: string;
+  icon?: any;
+  type?: 'text' | 'number' | 'password';
+  required?: boolean;
+  requiredErrorMessage?: string;
+  onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
 }
 
 const Input = ({
@@ -24,25 +24,25 @@ const Input = ({
                  onChange,
                  onBlur,
                }: InputProps) => {
-  const [, setInternalValue] = useState('')
-  const [invalid, setInvalid] = useState(false)
+  const [, setInternalValue] = useState('');
+  const [invalid, setInvalid] = useState(false);
 
   const onChangeHandler = (newValue: string) => {
     if (!newValue && required) {
-      setInvalid(true)
+      setInvalid(true);
     } else {
-      setInvalid(false)
+      setInvalid(false);
     }
-    setInternalValue(newValue)
-    onChange && onChange(newValue)
-  }
+    setInternalValue(newValue);
+    onChange && onChange(newValue);
+  };
 
   const onBlurHandler = (newValue: string) => {
-    setInternalValue(newValue)
-    onBlur && onBlur(newValue)
-  }
+    setInternalValue(newValue);
+    onBlur && onBlur(newValue);
+  };
 
-  useEffect(() => setInternalValue(value ?? ''), [value])
+  useEffect(() => setInternalValue(value ?? ''), [value]);
 
   return (
     <>
@@ -85,7 +85,7 @@ const Input = ({
         </p>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

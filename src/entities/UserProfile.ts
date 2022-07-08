@@ -6,4 +6,5 @@ export default interface UserProfile {
   password: string;
   active: boolean;
   createdAt: Date;
+  salary: number;
 };
