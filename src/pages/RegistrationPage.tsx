@@ -2,7 +2,7 @@ import RegisterForm from '../components/RegisterForm';
 import { UserProfile } from '../entities';
 import { useState } from 'react';
 import { Loading, Snackbar } from '../components';
-import saveNewUser from '../features/SaveNewUser';
+import { saveNewUser } from '../features';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import login from './Login';
-import getUserProfile from './GetUserProfile';
+import saveNewUser from './SaveNewUser';
 
 export {
   login,
-  getUserProfile
+  saveNewUser
 };
