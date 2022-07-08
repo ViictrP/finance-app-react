@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { CardList, Header, Input } from '../components';
 import { Link } from 'react-router-dom';
 import LineCharts from '../components/LineCharts';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../store/slices/userSlice';
+import { currencyFormatter } from '../helpers/currencyFormatter';
 
 interface BalanceContainer {
   width: number;
@@ -16,28 +19,31 @@ const HomePage = () => {
       key: '1',
       header: 'outras transferências',
       content: 'pix transf victor 18/06',
-      footer: '- R$ 300,00',
+      footer: currencyFormatter(300.00),
     },
     {
       key: '2',
-      header: 'outras transferências',
-      content: 'pix transf binho 18/06',
-      footer: '- R$ 300,00',
+      header: 'restaurante',
+      content: 'outback aricanduva 11/06',
+      footer: currencyFormatter(250.66),
     },
     {
       key: '3',
-      header: 'outras transferências',
-      content: 'pix transf nathalia 18/06',
-      footer: '- R$ 300,00',
+      header: 'outros',
+      content: 'pix transf Vinicius 18/06',
+      footer: currencyFormatter(3250.80),
     },
     {
       key: '4',
-      header: 'outras transferências',
-      content: 'pix transf theo 18/06',
-      footer: '- R$ 300,00',
+      header: 'restaurante',
+      content: 'Dipz Potato 07/07',
+      footer: currencyFormatter(125.90),
     },
   ]);
   const [filteredCards, setFilteredCards] = useState<typeof cards>([]);
+  const [availableBalance, setAvailableBalance] = useState<number>(0);
+  const expensesAmount = 7364.50;
+  const storedUser = useSelector(selectUser);
 
   useEffect(() => {
     const div = document.getElementById('balance-container');
@@ -48,6 +54,13 @@ const HomePage = () => {
     setBalanceContainer(container);
     setFilteredCards(cards);
   }, []);
+
+  useEffect(() => {
+    if (storedUser.profile) {
+      const balance = storedUser.profile.salary - expensesAmount;
+      setAvailableBalance(Number(balance.toFixed(2)));
+    }
+  }, [storedUser.profile]);
 
   const filterTransactions = (searchValue: string) => {
     if (searchValue) {
@@ -65,9 +78,10 @@ const HomePage = () => {
   return (
     <div className="page-container">
       <Header />
+      salário <span className="p-[2px] text-sm font-bold text-blue-400 rounded-md">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
       <div
         id="content"
-        className="block mt-10 w-full h-auto bg-zinc-900 rounded-lg"
+        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg"
       >
         <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
@@ -78,9 +92,7 @@ const HomePage = () => {
               </button>
             </Link>
           </div>
-          <h1 className="text-3xl text-emerald-500 font-bold">
-            R$ 3.423,18
-          </h1>
+          <h1 className="text-3xl text-emerald-500 font-bold">{currencyFormatter(availableBalance)}</h1>
         </div>
         <div id="charts">
           <div className="w-full h-[160px]">
@@ -89,7 +101,7 @@ const HomePage = () => {
         </div>
         <div className="p-4 w-full text-right">
           <p className="text-md">gasto total • jun</p>
-          <p className="text-xl text-orange-300 font-bold">R$ 7.364,50</p>
+          <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
         </div>
       </div>
       <div id="transitions" className="mt-10">
