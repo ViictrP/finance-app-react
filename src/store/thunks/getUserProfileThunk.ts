@@ -3,7 +3,7 @@ import { UserProfile } from '../../entities';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const getUserProfileThunk = createAsyncThunk('userProfile', async (data, thunkApi) => {
+const getUserProfileThunk = createAsyncThunk('get/userProfile', async (data, thunkApi) => {
   try {
     const response = await api.get<UserProfile>('/me', {
       headers: axios.defaults.headers.common,

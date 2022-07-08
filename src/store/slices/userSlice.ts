@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProfile } from '../../entities';
 import { RootState } from '../store';
-import { getUserProfileThunk } from '../thunks';
+import { getUserProfileThunk, putUserProfileThunk } from '../thunks';
 
 interface UserSlice {
   profile: UserProfile | null;
@@ -40,11 +40,25 @@ export const userSlice = createSlice({
       state.profile = null;
       state.isLoadingProfile = false;
     });
+
+    builder.addCase(putUserProfileThunk.pending, (state, action: any) => {
+      state.isLoadingProfile = true;
+    });
+
+    builder.addCase(putUserProfileThunk.fulfilled, (state, action: any) => {
+      state.isLoadingProfile = false;
+      state.profile = action.payload;
+    });
+
+    builder.addCase(putUserProfileThunk.rejected, (state, action: any) => {
+      console.log('[userSlice]: an error occurred', action.payload);
+      state.isLoadingProfile = false;
+    });
   },
 });
 
 export const userActions = userSlice.actions;
-export const userApiActions = { getUserProfileThunk };
+export const userApiActions = { getUserProfileThunk, putUserProfileThunk };
 export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;
