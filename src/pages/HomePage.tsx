@@ -78,7 +78,14 @@ const HomePage = () => {
   return (
     <div className="page-container">
       <Header />
-      salário <span className="p-[2px] text-sm font-bold text-blue-400 rounded-md">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
+      {
+        storedUser.isLoadingProfile ? <span>loading...</span> :
+          <>
+            salário
+            <span
+              className="p-[2px] text-sm font-bold text-blue-400 rounded-md">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
+          </>
+      }
       <div
         id="content"
         className="mt-4 w-full h-auto bg-zinc-900 rounded-lg"
@@ -96,7 +103,8 @@ const HomePage = () => {
         </div>
         <div id="charts">
           <div className="w-full h-[160px]">
-            <LineCharts labels={['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul']} data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
+            <LineCharts labels={['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul']}
+                        data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
           </div>
         </div>
         <div className="p-4 w-full text-right">
