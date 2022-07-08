@@ -1,8 +1,8 @@
 import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
-import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CardList, Header, Input } from '../components';
 import { Link } from 'react-router-dom';
+import LineCharts from '../components/LineCharts';
 
 interface BalanceContainer {
   width: number;
@@ -38,36 +38,6 @@ const HomePage = () => {
     },
   ]);
   const [filteredCards, setFilteredCards] = useState<typeof cards>([]);
-  const data = [
-    {
-      name: 'Jan',
-      pv: 2400,
-    },
-    {
-      name: 'Fev',
-      pv: 1398,
-    },
-    {
-      name: 'Mar',
-      pv: 9800,
-    },
-    {
-      name: 'Mai',
-      pv: 3908,
-    },
-    {
-      name: 'Jun',
-      pv: 4800,
-    },
-    {
-      name: 'Jul',
-      pv: 3800,
-    },
-    {
-      name: 'Ago',
-      pv: 4300,
-    },
-  ];
 
   useEffect(() => {
     const div = document.getElementById('balance-container');
@@ -103,50 +73,23 @@ const HomePage = () => {
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-lg">saldo disponível</p>
             <Link to="/balance">
-              <button title="gear" type="button">
+              <button title="gear" type="button" className="pulse-single">
                 <Gear size={24} weight="fill" />
               </button>
             </Link>
           </div>
-          <h1 className="text-3xl text-emerald-500 font-semibold">
+          <h1 className="text-3xl text-emerald-500 font-bold">
             R$ 3.423,18
           </h1>
         </div>
         <div id="charts">
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-            minHeight={balanceContainer?.height}
-            minWidth={balanceContainer?.width}
-          >
-            <AreaChart
-              width={balanceContainer?.width}
-              height={balanceContainer?.height}
-              data={data}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-            >
-              <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#047857" stopOpacity={0.5} />
-                  <stop offset="100%" stopColor="#18181b" stopOpacity={0.2} />
-                </linearGradient>
-              </defs>
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="pv"
-                stroke="#10b981"
-                strokeWidth={2}
-                fillOpacity={1}
-                fill="url(#colorUv)"
-              />
-              <Tooltip />
-            </AreaChart>
-          </ResponsiveContainer>
+          <div className="w-full h-[160px]">
+            <LineCharts labels={['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul']} data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
+          </div>
         </div>
         <div className="p-4 w-full text-right">
           <p className="text-md">gasto total • jun</p>
-          <p className="text-xl text-orange-300 font-semibold">R$ 7.364,50</p>
+          <p className="text-xl text-orange-300 font-bold">R$ 7.364,50</p>
         </div>
       </div>
       <div id="transitions" className="mt-10">
