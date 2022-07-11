@@ -83,7 +83,7 @@ const HomePage = () => {
           <>
             salário
             <span
-              className="p-[2px] text-sm font-bold text-blue-400 rounded-md">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
+              className="p-[2px] text-sm font-bold text-blue-400 rounded-md"> {currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
           </>
       }
       <div

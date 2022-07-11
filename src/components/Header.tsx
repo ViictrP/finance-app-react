@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { currencyFormatter } from '../helpers/currencyFormatter';
 
 interface HeaderProp {
   showBackButton?: boolean;
