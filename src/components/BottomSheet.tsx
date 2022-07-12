@@ -37,7 +37,7 @@ const BottomSheet = ({ show, title, placeholder, buttonTitle, onClose }: BottomS
       <div id="bottom-sheet"
            className="absolute bg-zinc-900 bg-opacity-90 w-full h-full top-0 z-10 fadeIn-background" />
       <div
-        className="slideUp flex flex-col items-start p-4 absolute left-2 right-2 bottom-0 h-[300px] bg-zinc-800 rounded-md shadow-2xl z-10">
+        className="slideUp flex flex-col items-start p-4 absolute left-2 right-2 bottom-0 h-[300px] bg-zinc-800 rounded-md shadow-2xl z-10 border-[0.5px] border-zinc-700">
         <div className="w-full flex flex-row items-center justify-between">
           <p className="text-lg">{title}</p>
           <button className="pulse-single" onClick={hide}>

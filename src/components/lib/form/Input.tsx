@@ -68,6 +68,7 @@ const Input = ({
         mb-2
         rounded-md
         text-zinc-100
+        border-[0.5px]
         border-zinc-800 
         bg-zinc-900 
         focus:outline-none
