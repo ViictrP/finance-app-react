@@ -2,7 +2,7 @@ import './form.components.css';
 import { useCallback, useEffect, useState } from 'react';
 
 interface InputProps {
-  ref?: any;
+  customRef?: any;
   id?: string;
   value?: string;
   placeholder?: string;
@@ -16,7 +16,7 @@ interface InputProps {
 }
 
 const Input = ({
-                 ref,
+                 customRef,
                  id,
                  value,
                  placeholder,
@@ -77,7 +77,7 @@ const Input = ({
       >
         <div>{icon ?? ''}</div>
         <input
-          ref={ref}
+          ref={customRef}
           id={id}
           type={type ?? 'text'}
           value={value}
