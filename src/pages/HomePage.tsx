@@ -119,7 +119,7 @@ const HomePage = () => {
       <div id="transitions" className="mt-10">
         <h1 className="text-2xl font-bold my-5">Transações</h1>
         <Input
-          ref={searchInputRef}
+          customRef={searchInputRef}
           placeholder="buscar transações..."
           icon={<MagnifyingGlass size={24} />}
           onChange={filterTransactions}

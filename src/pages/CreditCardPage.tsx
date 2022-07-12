@@ -2,11 +2,10 @@ import 'react-multi-carousel/lib/styles.css';
 import { Header, Input } from '../components';
 import { MagnifyingGlass } from 'phosphor-react';
 import { useRef } from 'react';
-import Carousel from 'react-multi-carousel';
 import CardCarousel from '../components/lib/CardCarousel';
 
 const CreditCardPage = () => {
-  const searchInputRef = useRef(null);
+  const searchInputRef: any = useRef(null);
 
   return (
     <div className="page-container">
@@ -14,7 +13,7 @@ const CreditCardPage = () => {
       <div className="flex flex-col gap-4">
         <p className="text-2xl font-bold">Filtrar seus cartões</p>
         <Input
-          ref={searchInputRef}
+          customRef={searchInputRef}
           placeholder="buscar cartões..."
           icon={<MagnifyingGlass size={24} />}
         />
