@@ -1,4 +1,3 @@
-import 'react-multi-carousel/lib/styles.css';
 import { Header, Input } from '../components';
 import { MagnifyingGlass } from 'phosphor-react';
 import { useRef } from 'react';
