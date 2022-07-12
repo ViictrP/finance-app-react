@@ -2,7 +2,7 @@ import './form.components.css';
 import { useCallback, useEffect, useState } from 'react';
 
 interface InputProps {
-  ref: any;
+  ref?: any;
   id?: string;
   value?: string;
   placeholder?: string;
