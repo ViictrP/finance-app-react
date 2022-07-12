@@ -1,5 +1,5 @@
 import { CreditCard, HouseSimple } from 'phosphor-react';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NavigationBar, NavigationItem } from '../components';
 
@@ -7,17 +7,24 @@ import { CreditCardPage, HomePage } from '../pages';
 import BalancePage from '../pages/BalancePage';
 
 const AuthenticatedRoutes: React.FC = () => {
+  const [active, setActive] = useState<any>('/');
+
+  const onItemClickHandler = useCallback((href: string) => {
+    setActive(href);
+  }, []);
 
   return (
     <BrowserRouter>
       <NavigationBar>
         <NavigationItem
           href="/"
-          title={<HouseSimple weight="bold" className="w-6 h-6" />}
+          onClick={onItemClickHandler}
+          title={<HouseSimple weight={active === '/' ? 'fill' : 'bold'} className="w-6 h-6" />}
         />
         <NavigationItem
           href="/credit-cards"
-          title={<CreditCard weight="bold" className="w-6 h-6" />}
+          onClick={onItemClickHandler}
+          title={<CreditCard weight={active === '/credit-cards' ? 'fill' : 'bold'} className="w-6 h-6" />}
         />
       </NavigationBar>
 

@@ -1,7 +1,8 @@
 import './form.components.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface InputProps {
+  ref?: any;
   id?: string;
   value?: string;
   placeholder?: string;
@@ -11,9 +12,11 @@ interface InputProps {
   requiredErrorMessage?: string;
   onChange?: (value: string) => void;
   onBlur?: (value: string) => void;
+  onFocus?: () => void;
 }
 
 const Input = ({
+                 ref,
                  id,
                  value,
                  placeholder,
@@ -23,11 +26,12 @@ const Input = ({
                  requiredErrorMessage,
                  onChange,
                  onBlur,
+                 onFocus
                }: InputProps) => {
   const [, setInternalValue] = useState('');
   const [invalid, setInvalid] = useState(false);
 
-  const onChangeHandler = (newValue: string) => {
+  const onChangeHandler = useCallback((newValue: string) => {
     if (!newValue && required) {
       setInvalid(true);
     } else {
@@ -35,12 +39,16 @@ const Input = ({
     }
     setInternalValue(newValue);
     onChange && onChange(newValue);
-  };
+  }, [onChange]);
 
-  const onBlurHandler = (newValue: string) => {
+  const onBlurHandler = useCallback((newValue: string) => {
     setInternalValue(newValue);
     onBlur && onBlur(newValue);
-  };
+  }, [onBlur]);
+
+  const onFocusHandler = useCallback(() => {
+    onFocus && onFocus();
+  }, [onFocus]);
 
   useEffect(() => setInternalValue(value ?? ''), [value]);
 
@@ -69,6 +77,7 @@ const Input = ({
       >
         <div>{icon ?? ''}</div>
         <input
+          ref={ref}
           id={id}
           type={type ?? 'text'}
           value={value}
@@ -76,6 +85,7 @@ const Input = ({
           placeholder={placeholder ?? 'placeholder'}
           onChange={(event) => onChangeHandler(event.target.value)}
           onBlur={(event) => onBlurHandler(event.target.value)}
+          onFocus={onFocusHandler}
           className="w-full h-full text-lg bg-transparent border-none focus:ring-0"
         />
       </div>

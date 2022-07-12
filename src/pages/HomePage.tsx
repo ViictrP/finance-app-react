@@ -1,5 +1,5 @@
-import { Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
-import { useEffect, useRef, useState } from 'react';
+import { ChartBar, Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CardList, Header, Input } from '../components';
 import { Link } from 'react-router-dom';
 import LineCharts from '../components/LineCharts';
@@ -44,6 +44,7 @@ const HomePage = () => {
   const [availableBalance, setAvailableBalance] = useState<number>(0);
   const expensesAmount = 7364.50;
   const storedUser = useSelector(selectUser);
+  const searchInputRef: any = useRef(null);
 
   useEffect(() => {
     const div = document.getElementById('balance-container');
@@ -62,7 +63,7 @@ const HomePage = () => {
     }
   }, [storedUser.profile]);
 
-  const filterTransactions = (searchValue: string) => {
+  const filterTransactions = useCallback((searchValue: string) => {
     if (searchValue) {
       const _filteredCards = cards.filter((card) =>
         card.content
@@ -73,7 +74,11 @@ const HomePage = () => {
     } else {
       setFilteredCards(cards);
     }
-  };
+  }, []);
+
+  const onSearchFocus = useCallback(() => {
+    searchInputRef.current.scrollIntoView();
+  }, []);
 
   return (
     <div className="page-container">
@@ -81,21 +86,20 @@ const HomePage = () => {
       {
         storedUser.isLoadingProfile ? <span>loading...</span> :
           <>
-            salário
+            <span className="font-light text-md">salário</span>
             <span
-              className="p-[2px] text-sm font-bold text-blue-400 rounded-md">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
+              className="p-[2px] text-md font-bold text-blue-400 rounded-md"> {currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
           </>
       }
       <div
         id="content"
-        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg"
-      >
+        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg">
         <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-lg">saldo disponível</p>
-            <Link to="/balance">
+            <Link to="/">
               <button title="gear" type="button" className="pulse-single">
-                <Gear size={24} weight="fill" />
+                <ChartBar size={24} weight="fill" />
               </button>
             </Link>
           </div>
@@ -107,7 +111,7 @@ const HomePage = () => {
                         data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
           </div>
         </div>
-        <div className="p-4 w-full text-right">
+        <div className="p-4 w-full text-right border-t-[0.5px] border-zinc-800">
           <p className="text-md">gasto total • jun</p>
           <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
         </div>
@@ -115,9 +119,11 @@ const HomePage = () => {
       <div id="transitions" className="mt-10">
         <h1 className="text-2xl font-bold my-5">Transações</h1>
         <Input
+          ref={searchInputRef}
           placeholder="buscar transações..."
           icon={<MagnifyingGlass size={24} />}
           onChange={filterTransactions}
+          onFocus={onSearchFocus}
         />
         <CardList
           content={filteredCards}
