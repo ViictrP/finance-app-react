@@ -93,7 +93,7 @@ const HomePage = () => {
       }
       <div
         id="content"
-        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg">
+        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg border-[0.5px] border-zinc-800">
         <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-lg">saldo disponível</p>
