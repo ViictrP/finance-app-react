@@ -1,8 +1,8 @@
-import { ArrowLeft, SignOut, UserCircle } from 'phosphor-react';
+import { ArrowLeft, Gear, SignOut, UserCircle } from 'phosphor-react';
 import { useAuth } from '../context/AuthContext';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { currencyFormatter } from '../helpers/currencyFormatter';
 
 interface HeaderProp {
@@ -32,9 +32,14 @@ const Header = ({ showBackButton }: HeaderProp) => {
             <b className="text-3xl">{storedUser.isLoadingProfile ? 'loading...' : storedUser.profile?.name}</b>
           </div>
         </div>
-        <button className="pulse-single" onClick={logout}>
-          <SignOut size={26} weight="bold" />
-        </button>
+        <div className="flex flex-row items-center gap-4">
+          <button title="gear" type="button" className="pulse-single" onClick={() => navigate('/balance')}>
+            <Gear size={26} weight="fill" />
+          </button>
+          <button className="pulse-single" onClick={logout}>
+            <SignOut size={26} weight="bold" />
+          </button>
+        </div>
       </div>
     </>
   );

@@ -13,7 +13,7 @@ export default NavigationBar
 interface NavigationItemProps {
   title?: any
   href?: string
-  onClick?: () => void
+  onClick?: (path: any) => void
 }
 
 export const NavigationItem = ({
@@ -25,7 +25,7 @@ export const NavigationItem = ({
     <Link
       className="p-3"
       onClick={() => {
-        onClick && onClick()
+        onClick && onClick(href)
       }}
       to={href ?? ''}
     >
