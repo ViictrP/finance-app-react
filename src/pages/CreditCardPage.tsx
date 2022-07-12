@@ -56,7 +56,10 @@ const CreditCardPage = () => {
           onChange={filterCreditCards}
         />
         <p className="text-xl">Cartões</p>
-        <CardCarousel items={filteredCards} onSelect={onCreditCardSelectedHandler} />
+        <CardCarousel
+          items={filteredCards}
+          onSelect={onCreditCardSelectedHandler}
+        />
         <div className="mb-4">
           <p className="text-lg font-bold">{selected?.title}</p>
           <p className="text-sm font-light">{selected?.description}</p>

@@ -24,7 +24,9 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
       circular={false}
       onChanged={item => onSelect && onSelect(_items[item.index])}>
       {_items.map(item => (
-        <div key={item.id} className="p-4 flicking-panel mr-2 w-[270px] h-[200px] bg-zinc-500 rounded-md">
+        <div
+          key={item.id}
+          className="p-4 flicking-panel mr-2 w-[270px] h-[200px] bg-zinc-500 rounded-md">
           {item.title} - {item.description}
         </div>
       ))}
