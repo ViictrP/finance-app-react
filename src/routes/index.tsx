@@ -4,7 +4,7 @@ import SignRoutes from './SignRoutes'
 
 const Routes = () => {
   const { signed } = useAuth()
-  return !signed ? <AuthenticatedRoutes /> : <SignRoutes />
+  return signed ? <AuthenticatedRoutes /> : <SignRoutes />
 }
 
 export default Routes
