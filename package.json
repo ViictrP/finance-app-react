@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@egjs/react-flicking": "^4.9.0",
     "@headlessui/react": "^1.6.4",
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.1",
@@ -28,6 +29,7 @@
     "@tailwindcss/forms": "^0.5.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-slick": "^0.23.10",
     "@vitejs/plugin-react": "^1.3.0",
     "autoprefixer": "^10.4.7",
     "post": "^0.0.1",
