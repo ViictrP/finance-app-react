@@ -10,4 +10,5 @@ export default interface CreditCard {
   invoices: Invoice[];
   invoiceClosingDay: number;
   createAt: Date;
+  backgroundColor: string;
 }
