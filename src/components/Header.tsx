@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { currencyFormatter } from '../helpers/currencyFormatter';
+import { useCallback } from 'react';
 
 interface HeaderProp {
   showBackButton?: boolean;
@@ -15,6 +16,11 @@ const Header = ({ showBackButton }: HeaderProp) => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
+
+  const logoutClickHandler = useCallback(() => {
+    logout();
+    navigate('/')
+  }, [logout]);
 
   return (
     <>
@@ -36,7 +42,7 @@ const Header = ({ showBackButton }: HeaderProp) => {
           <button title="gear" type="button" className="pulse-single" onClick={() => navigate('/balance')}>
             <Gear size={26} weight="fill" />
           </button>
-          <button className="pulse-single" onClick={logout}>
+          <button className="pulse-single" onClick={logoutClickHandler}>
             <SignOut size={26} weight="bold" />
           </button>
         </div>
