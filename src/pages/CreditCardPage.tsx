@@ -13,26 +13,26 @@ const CreditCardPage = () => {
       key: '1',
       header: 'outras transferências',
       content: 'pix transf victor 18/06',
-      footer: currencyFormatter(300.00),
+      footer: currencyFormatter(300.00)
     },
     {
       key: '2',
       header: 'restaurante',
       content: 'outback aricanduva 11/06',
-      footer: currencyFormatter(250.66),
+      footer: currencyFormatter(250.66)
     },
     {
       key: '3',
       header: 'outros',
       content: 'pix transf Vinicius 18/06',
-      footer: currencyFormatter(3250.80),
+      footer: currencyFormatter(3250.80)
     },
     {
       key: '4',
       header: 'restaurante',
       content: 'Dipz Potato 07/07',
-      footer: currencyFormatter(125.90),
-    },
+      footer: currencyFormatter(125.90)
+    }
   ]);
   const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>();
   const [filteredTransactions, setFilteredTransactions] = useState<typeof transactions>([]);
@@ -42,20 +42,20 @@ const CreditCardPage = () => {
   const storedUser = useSelector(selectUser);
 
   useEffect(() => {
-    if (storedUser.profile) {
+    if (storedUser.profile && !storedUser.isLoadingProfile) {
       const _creditCards: any = storedUser.profile?.creditCards.map(creditCard => ({
         id: creditCard.id,
         title: creditCard.title,
         description: creditCard.description,
         color: 'bg-purple-900'
       }));
+      setCreditCards(_creditCards);
       setFilteredCards(_creditCards);
       setFilteredTransactions(transactions);
       setSelected(_creditCards[0]);
     }
-  }, [storedUser.profile]);
+  }, [storedUser.profile, storedUser.isLoadingProfile]);
 
-  //TODO fix filter using storedUser
   const filterCreditCards = useCallback((searchValue: string) => {
     if (searchValue) {
       const _filteredCards = creditCards?.filter((card) =>
@@ -67,26 +67,30 @@ const CreditCardPage = () => {
     } else {
       setFilteredCards(creditCards);
     }
-  }, []);
+  }, [creditCards]);
 
   const filterTransactions = useCallback((searchValue: string) => {
     if (searchValue) {
       const _filteredTransactions = transactions.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
+          .includes(searchValue.toLowerCase())
       );
       setFilteredTransactions(_filteredTransactions);
     } else {
       setFilteredTransactions(transactions);
     }
-  }, []);
+  }, [transactions]);
 
   const onSearchFocus = useCallback(() => {
     searchTransactionInputRef.current.scrollIntoView();
-  }, []);
+  }, [transactions]);
 
-  const onCreditCardSelectedHandler = useCallback((item: CardCarouselItem) => setSelected(item), []);
+  const onCreditCardSelectedHandler = useCallback((item: CardCarouselItem) => {
+    if (item) {
+      setSelected(item);
+    }
+  }, [creditCards]);
 
   return (
     <>
