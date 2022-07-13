@@ -1,5 +1,5 @@
-import { Header, Input } from '../components';
-import { MagnifyingGlass } from 'phosphor-react';
+import { CardList, Header, Input } from '../components';
+import { MagnifyingGlass, Pencil, ShoppingBag } from 'phosphor-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
 import { useSelector } from 'react-redux';
@@ -7,38 +7,58 @@ import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
 
 const CreditCardPage = () => {
-  const [creditCards, setCreditCards] = useState<CardCarouselItem[]>([
+  const [creditCards, setCreditCards] = useState<CardCarouselItem[]>();
+  const [transactions, setTransactions] = useState([
     {
-      id: 1,
-      title: 'Nubank',
-      description: 'cartão do nubank',
-      color: 'bg-purple-900'
+      key: '1',
+      header: 'outras transferências',
+      content: 'pix transf victor 18/06',
+      footer: currencyFormatter(300.00),
     },
     {
-      id: 2,
-      title: 'Porto',
-      description: 'cartão da porto',
-      color: 'bg-blue-500'
+      key: '2',
+      header: 'restaurante',
+      content: 'outback aricanduva 11/06',
+      footer: currencyFormatter(250.66),
     },
     {
-      id: 3,
-      title: 'Itaucard',
-      description: 'cartão do itaú',
-      color: 'bg-orange-700'
-    }
+      key: '3',
+      header: 'outros',
+      content: 'pix transf Vinicius 18/06',
+      footer: currencyFormatter(3250.80),
+    },
+    {
+      key: '4',
+      header: 'restaurante',
+      content: 'Dipz Potato 07/07',
+      footer: currencyFormatter(125.90),
+    },
   ]);
-  const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>(creditCards);
-  const [selected, setSelected] = useState<CardCarouselItem>(creditCards[0]);
+  const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>();
+  const [filteredTransactions, setFilteredTransactions] = useState<typeof transactions>([]);
+  const [selected, setSelected] = useState<CardCarouselItem>();
   const searchInputRef: any = useRef(null);
+  const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
 
   useEffect(() => {
-    setFilteredCards(creditCards);
-  }, []);
+    if (storedUser.profile) {
+      const _creditCards: any = storedUser.profile?.creditCards.map(creditCard => ({
+        id: creditCard.id,
+        title: creditCard.title,
+        description: creditCard.description,
+        color: 'bg-purple-900'
+      }));
+      setFilteredCards(_creditCards);
+      setFilteredTransactions(transactions);
+      setSelected(_creditCards[0]);
+    }
+  }, [storedUser.profile]);
 
+  //TODO fix filter using storedUser
   const filterCreditCards = useCallback((searchValue: string) => {
     if (searchValue) {
-      const _filteredCards = creditCards.filter((card) =>
+      const _filteredCards = creditCards?.filter((card) =>
         card.title
           .toLowerCase()
           .includes(searchValue.toLowerCase())
@@ -47,6 +67,23 @@ const CreditCardPage = () => {
     } else {
       setFilteredCards(creditCards);
     }
+  }, []);
+
+  const filterTransactions = useCallback((searchValue: string) => {
+    if (searchValue) {
+      const _filteredTransactions = transactions.filter((card) =>
+        card.content
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()),
+      );
+      setFilteredTransactions(_filteredTransactions);
+    } else {
+      setFilteredTransactions(transactions);
+    }
+  }, []);
+
+  const onSearchFocus = useCallback(() => {
+    searchTransactionInputRef.current.scrollIntoView();
   }, []);
 
   const onCreditCardSelectedHandler = useCallback((item: CardCarouselItem) => setSelected(item), []);
@@ -65,19 +102,42 @@ const CreditCardPage = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-[-20px]">
-        <div className="px-5">
-          <p className="text-xl">Cartões</p>
+      <div className="flex flex-col gap-8 mt-[-20px]">
+        <div>
+          <div className="px-5 mb-4">
+            <p className="text-xl">Cartões</p>
+          </div>
+          <CardCarousel
+            items={filteredCards ?? []}
+            onSelect={onCreditCardSelectedHandler}
+          />
         </div>
-        <CardCarousel
-          items={filteredCards}
-          onSelect={onCreditCardSelectedHandler}
-        />
+
         <div className="mb-4 px-5">
-          <p className="text-lg font-bold">{selected?.title}</p>
+          <div className="flex flex-row items-center justify-between">
+            <p className="text-lg font-bold">{selected?.title}</p>
+            <div className="flex flex-1 flex-row items-center justify-end gap-4">
+              <button className="pulse-single">
+                <Pencil size={20} weight="fill" />
+              </button>
+            </div>
+          </div>
           <div className="flex flex-row items-center justify-between">
             <p className="text-sm font-light">{selected?.description}</p>
             <p className="font-bold text-orange-500">{currencyFormatter(1589.87)}</p>
+          </div>
+          <div id="transitions" className="mt-5">
+            <Input
+              customRef={searchTransactionInputRef}
+              placeholder={`transações do cartão ${selected?.title}...`}
+              icon={<MagnifyingGlass size={24} />}
+              onChange={filterTransactions}
+              onFocus={onSearchFocus}
+            />
+            <CardList
+              content={filteredTransactions}
+              icon={<ShoppingBag size="30" className="mr-4 ml-1" weight="fill" />}
+            />
           </div>
         </div>
       </div>
