@@ -1,6 +1,6 @@
 import Flicking from '@egjs/react-flicking';
 import '@egjs/react-flicking/dist/flicking.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export type CardCarouselItem = {
   id: number;
@@ -19,6 +19,15 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
 
   useEffect(() => setItems(items), [items]);
 
+  const onChangedHandler = useCallback((item: any) => {
+    const selected = _items[item.index];
+    onSelect && onSelect(selected);
+  }, [_items, onSelect]);
+
+  if (!_items.length) {
+    return <></>;
+  }
+
   return (
     <Flicking
       adaptive={true}
@@ -26,7 +35,7 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
       bounce={1}
       align="prev"
       circular={false}
-      onChanged={item => onSelect && onSelect(_items[item.index])}>
+      onChanged={onChangedHandler}>
       {_items.map(item => (
         <div
           key={item.id}

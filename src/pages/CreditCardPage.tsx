@@ -87,9 +87,7 @@ const CreditCardPage = () => {
   }, [transactions]);
 
   const onCreditCardSelectedHandler = useCallback((item: CardCarouselItem) => {
-    if (item) {
-      setSelected(item);
-    }
+    setSelected(item);
   }, [creditCards]);
 
   return (
