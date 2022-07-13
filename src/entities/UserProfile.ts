@@ -1,3 +1,6 @@
+import CreditCard from './CreditCard';
+import Transaction from './Transaction';
+
 export default interface UserProfile {
   id: string;
   name: string;
@@ -7,4 +10,6 @@ export default interface UserProfile {
   active: boolean;
   createdAt: Date;
   salary: number;
+  creditCards: CreditCard[];
+  transactions: Transaction[];
 };
