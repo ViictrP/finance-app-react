@@ -116,7 +116,7 @@ const HomePage = () => {
           <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
         </div>
       </div>
-      <div id="transitions" className="mt-10">
+      <div id="transitions" className="mt-10 pb-4">
         <h1 className="text-2xl font-bold my-5">Transações</h1>
         <Input
           customRef={searchInputRef}
