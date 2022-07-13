@@ -47,7 +47,7 @@ const CreditCardPage = () => {
         id: creditCard.id,
         title: creditCard.title,
         description: creditCard.description,
-        color: 'bg-purple-900'
+        color: creditCard.backgroundColor
       }));
       setCreditCards(_creditCards);
       setFilteredCards(_creditCards);
