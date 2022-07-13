@@ -106,7 +106,7 @@ const CreditCardPage = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-8 mt-[-20px]">
+      <div className="flex flex-col pb-12 gap-8 mt-[-20px]">
         <div>
           <div className="px-5 mb-4">
             <p className="text-xl">Cartões</p>
