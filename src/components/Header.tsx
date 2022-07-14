@@ -2,8 +2,7 @@ import { ArrowLeft, Gear, SignOut, UserCircle } from 'phosphor-react';
 import { useAuth } from '../context/AuthContext';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
-import { Link, useNavigate } from 'react-router-dom';
-import { currencyFormatter } from '../helpers/currencyFormatter';
+import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
 interface HeaderProp {

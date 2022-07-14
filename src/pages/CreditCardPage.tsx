@@ -1,6 +1,6 @@
-import { CardList, Header, Input } from '../components';
-import { MagnifyingGlass, Pencil, ShoppingBag } from 'phosphor-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { CardList, Header, Input, ContextMenu } from '../components';
+import { List, MagnifyingGlass, Pencil, ShoppingBag, Trash } from 'phosphor-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
@@ -37,6 +37,8 @@ const CreditCardPage = () => {
   const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>();
   const [filteredTransactions, setFilteredTransactions] = useState<typeof transactions>([]);
   const [selected, setSelected] = useState<CardCarouselItem>();
+  const [contextMenuPosition, setContextMenuPosition] = useState({x: 0, y: 0});
+  const [showContextMenu, setShowContextMenu] = useState(false);
   const searchInputRef: any = useRef(null);
   const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
@@ -119,8 +121,11 @@ const CreditCardPage = () => {
           <div className="flex flex-row items-center justify-between">
             <p className="text-lg font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
-              <button className="pulse-single">
-                <Pencil size={20} weight="fill" />
+              <button className="pulse-single" onClick={({ pageX, pageY }) => {
+                setContextMenuPosition({x: pageX - 105, y: pageY + 20});
+                setShowContextMenu(!showContextMenu);
+              }}>
+                <List size={20} weight="fill" />
               </button>
             </div>
           </div>
@@ -143,6 +148,20 @@ const CreditCardPage = () => {
           </div>
         </div>
       </div>
+      <ContextMenu show={showContextMenu} position={contextMenuPosition}>
+        <div
+          onClick={() => setShowContextMenu(false)}
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-800 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          <Pencil size={15} weight="bold" />
+          <p className="text-md">editar</p>
+        </div>
+        <div
+          onClick={() => setShowContextMenu(false)}
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-800 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          <Trash size={15} weight="bold" />
+          <p className="text-md">excluir</p>
+        </div>
+      </ContextMenu>
     </>
   );
 };
