@@ -78,16 +78,16 @@ body {
 }
 
 .context-menu {
-	@apply bg-zinc-700 rounded-lg h-auto absolute left-[7em] right-[7em] bottom-[60px] z-[11] border-[0.5px] border-zinc-600;
+	@apply bg-zinc-700 rounded-lg h-auto absolute w-[200px] z-[11] border-[0.5px] border-zinc-600;
 }
 
-.context-menu::before {
+.context-menu-chevron::before {
 	position: absolute;
 	display: block;
 	content: "";
 	border: 8px solid transparent; /*Adjust chevron size*/
 	bottom: -1em;
-	right: 7.5em;
+	right: 100px;
 	margin: auto;
 	@apply border-t-zinc-700
 }
