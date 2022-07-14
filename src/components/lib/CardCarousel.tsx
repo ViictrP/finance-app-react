@@ -17,7 +17,10 @@ interface CardCarouselProps {
 const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
   const [_items, setItems] = useState(items);
 
-  useEffect(() => setItems(items), [items]);
+  useEffect(() => {
+    setItems(items);
+    onSelect && onSelect(items[0]);
+  }, [items]);
 
   const onChangedHandler = useCallback((item: any) => {
     const selected = _items[item.index];
