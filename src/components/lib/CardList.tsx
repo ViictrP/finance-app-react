@@ -1,7 +1,7 @@
 import Card from './Card'
 import { useEffect, useState } from 'react'
 
-interface CardItem {
+export interface CardItem {
   key: string
   header: string
   content: string

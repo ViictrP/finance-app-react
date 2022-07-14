@@ -4,6 +4,7 @@ import UserProfile from './UserProfile';
 export default interface Transaction {
   id: string;
   amount: number;
+  description: string;
   isInstallment: boolean;
   installmentAmount?: number;
   createdAt: Date;

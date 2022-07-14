@@ -5,62 +5,17 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
-
-interface BalanceContainer {
-  width: number;
-  height: number;
-}
+import { CardItem } from '../components/lib/CardList';
+import { MONTHS } from '../utils/months.enum';
 
 const HomePage = () => {
-  const [balanceContainer, setBalanceContainer] = useState<BalanceContainer>();
-  const [cards, setCards] = useState([
-    {
-      key: '1',
-      header: 'outras transferências',
-      content: 'pix transf victor 18/06',
-      footer: currencyFormatter(300.00),
-    },
-    {
-      key: '2',
-      header: 'restaurante',
-      content: 'outback aricanduva 11/06',
-      footer: currencyFormatter(250.66),
-    },
-    {
-      key: '3',
-      header: 'outros',
-      content: 'pix transf Vinicius 18/06',
-      footer: currencyFormatter(3250.80),
-    },
-    {
-      key: '4',
-      header: 'restaurante',
-      content: 'Dipz Potato 07/07',
-      footer: currencyFormatter(125.90),
-    },
-  ]);
+  const [cards, setCards] = useState<CardItem[]>([]);
   const [filteredCards, setFilteredCards] = useState<typeof cards>([]);
   const [availableBalance, setAvailableBalance] = useState<number>(0);
-  const expensesAmount = 7364.50;
+  const [expensesAmount, setExpensesAmount] = useState(0);
   const storedUser = useSelector(selectUser);
   const searchInputRef: any = useRef(null);
-
-  useEffect(() => {
-    const div = document.getElementById('balance-container');
-    const container: BalanceContainer = {
-      width: div!.clientWidth + 30 ?? 0,
-      height: 100,
-    };
-    setBalanceContainer(container);
-    setFilteredCards(cards);
-  }, []);
-
-  useEffect(() => {
-    if (storedUser.profile) {
-      const balance = storedUser.profile.salary - expensesAmount;
-      setAvailableBalance(Number(balance.toFixed(2)));
-    }
-  }, [storedUser.profile]);
+  const TODAY = new Date();
 
   const filterTransactions = useCallback((searchValue: string) => {
     if (searchValue) {
@@ -78,6 +33,28 @@ const HomePage = () => {
   const onSearchFocus = useCallback(() => {
     searchInputRef.current.scrollIntoView();
   }, []);
+
+  useEffect(() => {
+    if (storedUser.profile && !storedUser.isLoadingProfile) {
+      const balance = storedUser.profile.salary - expensesAmount;
+      setAvailableBalance(Number(balance.toFixed(2)));
+      const _transactions = storedUser.profile?.transactions.map(transaction => ({
+        key: transaction.id,
+        header: transaction.category,
+        content: transaction.description,
+        footer: currencyFormatter(transaction.amount),
+      }));
+      const debitAmount = storedUser.profile?.transactions.reduce((sum, current) => sum + current.amount, 0);
+      const creditCardsAmount = storedUser.profile?.creditCards.reduce((sum, current) => {
+        const invoice = current.invoices.filter(invoice => invoice.month === MONTHS[TODAY.getMonth()])[0];
+        const amount = invoice.transactions.reduce((sum, current) => sum + current.amount, 0);
+        return sum + amount;
+      }, 0);
+      setCards(_transactions);
+      setFilteredCards(_transactions);
+      setExpensesAmount(debitAmount + creditCardsAmount);
+    }
+  }, [storedUser.profile, storedUser.isLoadingProfile]);
 
   return (
     <div className="page-container">
