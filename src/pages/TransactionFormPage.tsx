@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { useCallback, useEffect, useState } from 'react';
 import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
-import { Header } from '../components';
-import TransactionForm from '../components/TransactionForm';
+import { Header, TransactionForm } from '../components';
 
 const TransactionFormPage = () => {
   const storedUser = useSelector(selectUser);

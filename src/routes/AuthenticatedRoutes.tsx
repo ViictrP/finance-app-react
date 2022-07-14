@@ -1,18 +1,14 @@
 import { CreditCard, HouseSimple, Plus } from 'phosphor-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { NavigationBar, NavigationItem } from '../components';
+import { ContextMenu, NavigationBar, NavigationItem } from '../components';
 
-import { CreditCardPage, HomePage } from '../pages';
-import BalancePage from '../pages/BalancePage';
-import CreditCardFormPage from '../pages/CreditCardFormPage';
-import TransactionFormPage from '../pages/TransactionFormPage';
-import ContextMenu from '../components/lib/ContextMenu';
+import { BalancePage, CreditCardFormPage, CreditCardPage, HomePage, TransactionFormPage } from '../pages';
 
 const AuthenticatedRoutes: React.FC = () => {
   const [active, setActive] = useState<any>('/');
   const [showContextMenu, setShowContextMenu] = useState(false);
-  const [position, setPosition] = useState({x: 0, y: 0});
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const onItemClickHandler = useCallback((href: string) => {
     setActive(href);
@@ -20,7 +16,7 @@ const AuthenticatedRoutes: React.FC = () => {
 
   const onShowContextClickHandler = (event: MouseEvent) => {
     const { pageY, pageX } = event;
-    setPosition(prevState => ({...prevState, x: pageX, y: pageY}));
+    setPosition(prevState => ({ ...prevState, x: pageX, y: pageY }));
     setShowContextMenu(!showContextMenu);
   };
 

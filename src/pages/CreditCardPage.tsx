@@ -1,12 +1,10 @@
-import { CardList, Header, Input } from '../components';
+import { CardList, Header, Input, ContextMenu } from '../components';
 import { List, MagnifyingGlass, Pencil, ShoppingBag, Trash } from 'phosphor-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
-import ContextMenu from '../components/lib/ContextMenu';
-import { Link } from 'react-router-dom';
 
 const CreditCardPage = () => {
   const [creditCards, setCreditCards] = useState<CardCarouselItem[]>();

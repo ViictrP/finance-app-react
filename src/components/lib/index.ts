@@ -4,6 +4,8 @@ import CardList from './CardList';
 import Loading from './Loading';
 import Snackbar from './Snackbar';
 import Input from './form/Input';
+import ContextMenu from './ContextMenu';
+import LineCharts from './LineCharts';
 
 export {
   Button,
@@ -11,5 +13,7 @@ export {
   CardList,
   Loading,
   Snackbar,
-  Input
+  Input,
+  ContextMenu,
+  LineCharts
 };

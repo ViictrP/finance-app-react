@@ -1,8 +1,7 @@
-import { ChartBar, Gear, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
+import { ChartBar, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CardList, Header, Input } from '../components';
+import { CardList, Header, Input, LineCharts } from '../components';
 import { Link } from 'react-router-dom';
-import LineCharts from '../components/LineCharts';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';

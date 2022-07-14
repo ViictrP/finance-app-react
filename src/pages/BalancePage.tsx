@@ -1,6 +1,5 @@
-import { Header } from '../components';
+import { BottomSheet, Header } from '../components';
 import { CaretRight, Wallet } from 'phosphor-react';
-import BottomSheet from '../components/BottomSheet';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser, userApiActions } from '../store/slices/userSlice';

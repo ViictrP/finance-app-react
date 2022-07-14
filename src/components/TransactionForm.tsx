@@ -1,5 +1,5 @@
 import { Button, Input } from './lib';
-import { At, IdentificationBadge, Lock } from 'phosphor-react';
+import { IdentificationBadge } from 'phosphor-react';
 
 interface TransactionFormProps {
   onSubmit: () => void;
