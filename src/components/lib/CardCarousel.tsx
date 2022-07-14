@@ -3,7 +3,7 @@ import '@egjs/react-flicking/dist/flicking.css';
 import { useCallback, useEffect, useState } from 'react';
 
 export type CardCarouselItem = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   color: string;

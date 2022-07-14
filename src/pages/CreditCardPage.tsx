@@ -5,65 +5,28 @@ import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
+import { CardItem } from '../components/lib/CardList';
+import { MONTHS } from '../utils/months.enum';
 
 const CreditCardPage = () => {
   const [creditCards, setCreditCards] = useState<CardCarouselItem[]>();
-  const [transactions, setTransactions] = useState([
-    {
-      key: '1',
-      header: 'outras transferências',
-      content: 'pix transf victor 18/06',
-      footer: currencyFormatter(300.00)
-    },
-    {
-      key: '2',
-      header: 'restaurante',
-      content: 'outback aricanduva 11/06',
-      footer: currencyFormatter(250.66)
-    },
-    {
-      key: '3',
-      header: 'outros',
-      content: 'pix transf Vinicius 18/06',
-      footer: currencyFormatter(3250.80)
-    },
-    {
-      key: '4',
-      header: 'restaurante',
-      content: 'Dipz Potato 07/07',
-      footer: currencyFormatter(125.90)
-    }
-  ]);
+  const [transactions, setTransactions] = useState<CardItem[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>();
   const [filteredTransactions, setFilteredTransactions] = useState<typeof transactions>([]);
   const [selected, setSelected] = useState<CardCarouselItem>();
-  const [contextMenuPosition, setContextMenuPosition] = useState({x: 0, y: 0});
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [showContextMenu, setShowContextMenu] = useState(false);
   const searchInputRef: any = useRef(null);
   const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
-
-  useEffect(() => {
-    if (storedUser.profile && !storedUser.isLoadingProfile) {
-      const _creditCards: any = storedUser.profile?.creditCards.map(creditCard => ({
-        id: creditCard.id,
-        title: creditCard.title,
-        description: creditCard.description,
-        color: creditCard.backgroundColor
-      }));
-      setCreditCards(_creditCards);
-      setFilteredCards(_creditCards);
-      setFilteredTransactions(transactions);
-      setSelected(_creditCards[0]);
-    }
-  }, [storedUser.profile, storedUser.isLoadingProfile]);
+  const TODAY = new Date();
 
   const filterCreditCards = useCallback((searchValue: string) => {
     if (searchValue) {
       const _filteredCards = creditCards?.filter((card) =>
         card.title
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredCards(_filteredCards);
     } else {
@@ -76,7 +39,7 @@ const CreditCardPage = () => {
       const _filteredTransactions = transactions.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredTransactions(_filteredTransactions);
     } else {
@@ -91,6 +54,37 @@ const CreditCardPage = () => {
   const onCreditCardSelectedHandler = useCallback((item: CardCarouselItem) => {
     setSelected(item);
   }, [creditCards]);
+
+  useEffect(() => {
+    if (storedUser.profile && !storedUser.isLoadingProfile) {
+      const _creditCards: any = storedUser.profile?.creditCards.map(creditCard => ({
+        id: creditCard.id,
+        title: creditCard.title,
+        description: creditCard.description,
+        color: creditCard.backgroundColor,
+      }));
+      setCreditCards(_creditCards);
+      setFilteredCards(_creditCards);
+      setFilteredTransactions(transactions);
+      setSelected(_creditCards[0]);
+    }
+  }, [storedUser.profile, storedUser.isLoadingProfile]);
+
+  useEffect(() => {
+    if (selected && storedUser.profile && !storedUser.isLoadingProfile) {
+      const creditCard = storedUser.profile.creditCards.filter(creditCard => creditCard.id === selected.id)[0];
+      const month = MONTHS[TODAY.getMonth()];
+      const invoice = creditCard.invoices.filter(invoice => invoice.month === month)[0];
+      const _transactions = invoice.transactions.map(transaction => ({
+        key: transaction.id,
+        header: transaction.category,
+        content: transaction.description,
+        footer: currencyFormatter(transaction.amount),
+      }));
+      setTransactions(_transactions);
+      setFilteredTransactions(_transactions);
+    }
+  }, [selected, storedUser.profile, storedUser.isLoadingProfile]);
 
   return (
     <>
@@ -122,7 +116,7 @@ const CreditCardPage = () => {
             <p className="text-lg font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
               <button className="pulse-single" onClick={({ pageX, pageY }) => {
-                setContextMenuPosition({x: pageX - 105, y: pageY + 20});
+                setContextMenuPosition({ x: pageX - 105, y: pageY + 20 });
                 setShowContextMenu(!showContextMenu);
               }}>
                 <List size={20} weight="fill" />
