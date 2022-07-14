@@ -16,6 +16,7 @@ const CreditCardPage = () => {
   const [selected, setSelected] = useState<CardCarouselItem>();
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [showContextMenu, setShowContextMenu] = useState(false);
+  const [invoiceAmount, setInvoiceAmount] = useState(0);
   const searchInputRef: any = useRef(null);
   const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
@@ -81,6 +82,8 @@ const CreditCardPage = () => {
         content: transaction.description,
         footer: currencyFormatter(transaction.amount),
       }));
+      const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0)
+      setInvoiceAmount(_invoiceAmount);
       setTransactions(_transactions);
       setFilteredTransactions(_transactions);
     }
@@ -125,7 +128,7 @@ const CreditCardPage = () => {
           </div>
           <div className="flex flex-row items-center justify-between">
             <p className="text-sm font-light">{selected?.description}</p>
-            <p className="font-bold text-orange-500">{currencyFormatter(1589.87)}</p>
+            <p className="font-bold text-orange-500">{currencyFormatter(invoiceAmount)}</p>
           </div>
           <div id="transitions" className="mt-5">
             <Input
