@@ -46,7 +46,7 @@ const AuthenticatedRoutes: React.FC = () => {
           onClick={onItemClickHandler}
           title={<HouseSimple weight={active === '/' ? 'fill' : 'bold'} className="w-6 h-6" />}
         />
-        <button className="pulse-single bg-zinc-700 rounded-full m-1 p-2"
+        <button className="pulse-single bg-zinc-700 border-[0.5px] border-zinc-600 rounded-full m-1 p-2"
                 onClick={event => onShowContextClickHandler(event as any)}>
           <Plus className="w-8 h-8" weight="fill" />
         </button>

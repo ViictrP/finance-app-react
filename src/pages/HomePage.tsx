@@ -44,11 +44,13 @@ const HomePage = () => {
         content: transaction.description,
         footer: currencyFormatter(transaction.amount),
       }));
-      const debitAmount = storedUser.profile?.transactions.reduce((sum, current) => sum + current.amount, 0);
+      const debitAmount = storedUser.profile?.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
       const creditCardsAmount = storedUser.profile?.creditCards.reduce((sum, current) => {
         const invoice = current.invoices.filter(invoice => invoice.month === MONTHS[TODAY.getMonth()])[0];
-        const amount = invoice.transactions.reduce((sum, current) => sum + current.amount, 0);
-        return sum + amount;
+        const amount = invoice.transactions.reduce((sum, current) => {
+          return sum + Number(current.amount);
+        }, 0);
+        return sum + Number(amount);
       }, 0);
       setCards(_transactions);
       setFilteredCards(_transactions);
