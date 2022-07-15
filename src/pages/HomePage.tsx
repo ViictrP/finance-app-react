@@ -71,13 +71,13 @@ const HomePage = () => {
       }
       <div
         id="content"
-        className="mt-4 w-full h-auto bg-zinc-900 rounded-lg border-[0.5px] border-zinc-800">
+        className="mt-4 w-full h-auto bg-white dark:bg-zinc-900 rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-700 drop-shadow">
         <div id="balance-container" className="p-4 w-full">
           <div className="w-full flex flex-row items-center justify-between">
             <p className="text-lg">saldo disponível</p>
             <Link to="/">
               <button title="gear" type="button" className="pulse-single">
-                <ChartBar size={24} weight="fill" />
+                <ChartBar size={24} weight="fill" className="text-zinc-900 dark:text-white" />
               </button>
             </Link>
           </div>
@@ -89,7 +89,7 @@ const HomePage = () => {
                         data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
           </div>
         </div>
-        <div className="p-4 w-full text-right border-t-[0.5px] border-zinc-800">
+        <div className="p-4 w-full text-right border-t-[0.5px] border-zinc-200 dark:border-zinc-800">
           <p className="text-md">gasto total • jun</p>
           <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
         </div>
@@ -99,7 +99,7 @@ const HomePage = () => {
         <Input
           customRef={searchInputRef}
           placeholder="buscar transações..."
-          icon={<MagnifyingGlass size={24} />}
+          icon={<MagnifyingGlass size={24} className="text-zinc-900 dark:text-white" />}
           onChange={filterTransactions}
           onFocus={onSearchFocus}
         />

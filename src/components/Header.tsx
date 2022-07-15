@@ -18,7 +18,7 @@ const Header = ({ showBackButton }: HeaderProp) => {
 
   const logoutClickHandler = useCallback(() => {
     logout();
-    navigate('/')
+    navigate('/');
   }, [logout]);
 
   return (
@@ -28,7 +28,7 @@ const Header = ({ showBackButton }: HeaderProp) => {
           {
             showBackButton &&
             <button className="pulse-single" onClick={goBack}>
-              <ArrowLeft size={26} />
+              <ArrowLeft size={26} className="text-zinc-900 dark:text-white"/>
             </button>
           }
           <div className="flex flex-row items-center">
@@ -39,10 +39,10 @@ const Header = ({ showBackButton }: HeaderProp) => {
         </div>
         <div className="flex flex-row items-center gap-4">
           <button title="gear" type="button" className="pulse-single" onClick={() => navigate('/balance')}>
-            <Gear size={26} weight="fill" />
+            <Gear size={26} weight="fill" className="text-zinc-900 dark:text-white" />
           </button>
           <button className="pulse-single" onClick={logoutClickHandler}>
-            <SignOut size={26} weight="bold" />
+            <SignOut size={26} weight="bold" className="text-zinc-900 dark:text-white" />
           </button>
         </div>
       </div>

@@ -105,7 +105,7 @@ const CreditCardPage = () => {
       </div>
       <div className="flex flex-col pb-12 gap-8 mt-[-20px]">
         <div>
-          <div className="px-5 mb-4">
+          <div className="px-3 mb-4">
             <p className="text-xl">Cartões</p>
           </div>
           <CardCarousel
@@ -114,7 +114,7 @@ const CreditCardPage = () => {
           />
         </div>
 
-        <div className="mb-4 px-5">
+        <div className="mb-4 px-3">
           <div className="flex flex-row items-center justify-between">
             <p className="text-lg font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
@@ -122,7 +122,7 @@ const CreditCardPage = () => {
                 setContextMenuPosition({ x: pageX - 105, y: pageY + 20 });
                 setShowContextMenu(!showContextMenu);
               }}>
-                <List size={20} weight="fill" />
+                <List size={20} weight="fill" className="text-zinc-900 dark:text-white"/>
               </button>
             </div>
           </div>
@@ -134,7 +134,7 @@ const CreditCardPage = () => {
             <Input
               customRef={searchTransactionInputRef}
               placeholder={`transações do cartão ${selected?.title}...`}
-              icon={<MagnifyingGlass size={24} />}
+              icon={<MagnifyingGlass size={24} className="text-zinc-900 dark:text-white"/>}
               onChange={filterTransactions}
               onFocus={onSearchFocus}
             />

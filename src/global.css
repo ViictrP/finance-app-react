@@ -7,13 +7,13 @@ html {
 }
 
 body {
-	@apply bg-[#000] text-zinc-100 font-nunito;
+	@apply bg-white dark:bg-[#000]  text-zinc-900 font-nunito dark:text-zinc-100;
 	overflow-x: hidden;
 }
 
 .page-container {
 	@apply pt-8;
-	@apply px-5;
+	@apply px-3;
 	@apply pb-12;
 	@apply overflow-x-hidden;
 }
@@ -78,7 +78,7 @@ body {
 }
 
 .context-menu {
-	@apply bg-zinc-700 rounded-lg h-auto absolute w-[200px] z-[11] border-[0.5px] border-zinc-600;
+	@apply bg-zinc-300 dark:bg-zinc-700 rounded-lg h-auto absolute w-[200px] z-[11] border-[0.5px] border-zinc-300 dark:border-zinc-600;
 }
 
 .context-menu-chevron::before {
@@ -89,5 +89,5 @@ body {
 	bottom: -1em;
 	right: 100px;
 	margin: auto;
-	@apply border-t-zinc-700
+	@apply dark:border-t-zinc-700 border-t-zinc-200
 }
