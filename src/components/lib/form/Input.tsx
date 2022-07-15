@@ -7,12 +7,13 @@ interface InputProps {
   value?: string;
   placeholder?: string;
   icon?: any;
-  type?: 'text' | 'number' | 'password';
+  type?: 'text' | 'email' | 'tel' | 'number' | 'password';
   required?: boolean;
   requiredErrorMessage?: string;
   onChange?: (value: string) => void;
   onBlur?: (value: string) => void;
   onFocus?: () => void;
+  className?: string;
 }
 
 const Input = ({
@@ -26,7 +27,8 @@ const Input = ({
                  requiredErrorMessage,
                  onChange,
                  onBlur,
-                 onFocus
+                 onFocus,
+                 className
                }: InputProps) => {
   const [, setInternalValue] = useState('');
   const [invalid, setInvalid] = useState(false);
@@ -56,6 +58,7 @@ const Input = ({
     <>
       <div
         className={`
+        ${className}
         ${invalid && 'invalid'} 
         input-wrapper
         w-full
@@ -67,13 +70,14 @@ const Input = ({
         py-1
         mb-2
         rounded-md
-        text-zinc-100
+        dark:text-zinc-100
         border-[0.5px]
-        border-zinc-800 
-        bg-zinc-900 
+        dark:bg-zinc-900
+        bg-zinc-100 
         focus:outline-none
         focus:outline-hidden
-        hover:bg-zinc-800
+        dark:hover:bg-zinc-800
+        hover:bg-zinc-200
         `}
       >
         <div>{icon ?? ''}</div>

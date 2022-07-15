@@ -50,8 +50,9 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       </header>
       <div className="mb-5">
         <Input
+          type="email"
           placeholder="username"
-          icon={<User size={24} weight="bold" />}
+          icon={<User size={24} weight="bold" className="text-zinc-900 dark:text-white"/>}
           onChange={onUserNameBlur}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -61,7 +62,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         <Input
           placeholder="password"
           type="password"
-          icon={<Password size={24} weight="bold" />}
+          icon={<Password size={24} weight="bold" className="text-zinc-900 dark:text-white"/>}
           onChange={onPasswordBlur}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"

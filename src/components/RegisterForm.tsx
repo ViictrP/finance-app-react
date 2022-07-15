@@ -45,7 +45,7 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
       <div className="mb-5">
         <Input
           placeholder="nome *"
-          icon={<IdentificationBadge size={24} weight="fill" />}
+          icon={<IdentificationBadge size={24} weight="fill" className="text-zinc-900 dark:text-white"/>}
           onChange={value => onBlur(value, 'name')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -54,7 +54,7 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
       <div className="mb-5">
         <Input
           placeholder="sobrenome"
-          icon={<IdentificationBadge size={24} weight="fill" />}
+          icon={<IdentificationBadge size={24} weight="fill" className="text-zinc-900 dark:text-white"/>}
           onChange={value => onBlur(value, 'lastname')}
           required={false}
           requiredErrorMessage="Este campo é obrigatório"
@@ -62,8 +62,9 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
       </div>
       <div className="mb-5">
         <Input
+          type="email"
           placeholder="email *"
-          icon={<At size={24} weight="fill" />}
+          icon={<At size={24} weight="fill" className="text-zinc-900 dark:text-white"/>}
           onChange={value => onBlur(value, 'email')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -73,7 +74,7 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
         <Input
           placeholder="password *"
           type="password"
-          icon={<Lock size={24} weight="fill" />}
+          icon={<Lock size={24} weight="fill" className="text-zinc-900 dark:text-white"/>}
           onChange={value => onBlur(value, 'password')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
