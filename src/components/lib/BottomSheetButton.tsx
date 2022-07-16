@@ -1,6 +1,5 @@
-import { CaretRight, Money, Wallet, X, XCircle } from 'phosphor-react';
-import { ReactNode, useEffect, useState } from 'react';
-import { Button, Input } from './index';
+import { CaretRight, Wallet, X } from 'phosphor-react';
+import { ReactNode, useEffect } from 'react';
 
 interface BottomSheetButtonProps {
   idKey: string;
