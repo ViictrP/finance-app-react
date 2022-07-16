@@ -31,7 +31,7 @@ const BottomSheetButton = ({ idKey, title, buttonTitle, children }: BottomSheetB
 
       <div
         id={`offcanvasBottom-${idKey}`}
-        className="offcanvas offcanvas-bottom fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-zinc-900 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out dark:text-white left-0 right-0 border-[0.5px] dark:border-zinc-700 rounded-md h-1/2 max-h-full"
+        className="offcanvas offcanvas-bottom fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-zinc-900 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out dark:text-white left-0 right-0 border-[0.5px] dark:border-zinc-700 rounded-md h-1/2 max-h-full mx-[1px]"
         tabIndex={-1}
         aria-labelledby={`offcanvasBottomLabel-${idKey}`}>
         <div className="offcanvas-header flex items-center justify-between p-4">

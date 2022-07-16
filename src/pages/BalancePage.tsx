@@ -5,6 +5,7 @@ import { selectUser, userApiActions } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
 import { useAppDispatch } from '../app/hook';
 import { useState } from 'react';
+import SkeletonLoading from '../components/SkeletonLoading';
 
 const BalancePage = () => {
   const storedUser = useSelector(selectUser);
@@ -25,7 +26,7 @@ const BalancePage = () => {
           <div className="mb-4">
             <p>Salário</p>
             <p className="text-4xl font-bold">{
-              storedUser.isLoadingProfile ? 'loading...' :
+              storedUser.isLoadingProfile ? <SkeletonLoading width={220} /> :
               currencyFormatter(storedUser.profile?.salary ?? 0)
             }</p>
           </div>
@@ -54,13 +55,6 @@ const BalancePage = () => {
             salvar
           </button>
         </div>
-      </BottomSheetButton>
-      <BottomSheetButton
-        title="oi"
-        placeholder="oi"
-        buttonTitle="oi"
-        idKey="oi">
-        <h1>oi</h1>
       </BottomSheetButton>
     </>
   );
