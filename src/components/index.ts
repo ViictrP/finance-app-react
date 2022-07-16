@@ -3,8 +3,7 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import NavigationBar, { NavigationItem } from './NavigationBar';
 import TransactionForm from './TransactionForm';
-import BottomSheetButton from './BottomSheetButton';
-import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts } from './lib';
+import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton } from './lib';
 
 export {
   Header,

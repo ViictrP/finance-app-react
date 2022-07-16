@@ -6,6 +6,7 @@ import Snackbar from './Snackbar';
 import Input from './form/Input';
 import ContextMenu from './ContextMenu';
 import LineCharts from './LineCharts';
+import BottomSheetButton from './BottomSheetButton';
 
 export {
   Button,
@@ -15,5 +16,6 @@ export {
   Snackbar,
   Input,
   ContextMenu,
-  LineCharts
+  LineCharts,
+  BottomSheetButton
 };
