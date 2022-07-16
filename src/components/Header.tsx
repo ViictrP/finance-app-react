@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
+import SkeletonLoading from './SkeletonLoading';
 
 interface HeaderProp {
   showBackButton?: boolean;
@@ -28,22 +29,37 @@ const Header = ({ showBackButton }: HeaderProp) => {
           {
             showBackButton &&
             <button className="pulse-single" onClick={goBack}>
-              <ArrowLeft size={26} className="text-zinc-900 dark:text-white"/>
+              <ArrowLeft size={26} className="text-zinc-900 dark:text-white" />
             </button>
           }
-          <div className="flex flex-row items-center">
-            <UserCircle size={32} weight="fill" />&nbsp;
+          <div className="flex flex-row items-center gap-1">
+            {storedUser.isLoadingProfile ? <SkeletonLoading width={32} /> :
+              <>
+                <UserCircle size={32} weight="fill" />&nbsp;
+              </>
+            }
             {/* TODO adicionar skeleton */}
-            <b className="text-3xl">{storedUser.isLoadingProfile ? 'loading...' : storedUser.profile?.name}</b>
+            <b className="text-3xl">{storedUser.isLoadingProfile ?
+              <SkeletonLoading width={100} /> : storedUser.profile?.name}</b>
           </div>
         </div>
         <div className="flex flex-row items-center gap-4">
-          <button title="gear" type="button" className="pulse-single" onClick={() => navigate('/balance')}>
-            <Gear size={26} weight="fill" className="text-zinc-900 dark:text-white" />
-          </button>
-          <button className="pulse-single" onClick={logoutClickHandler}>
-            <SignOut size={26} weight="bold" className="text-zinc-900 dark:text-white" />
-          </button>
+          {storedUser.isLoadingProfile ?
+            <>
+              <SkeletonLoading width={26} />
+              <SkeletonLoading width={26} />
+            </>
+            :
+            <>
+              <button title="gear" type="button" className="pulse-single" onClick={() => navigate('/balance')}>
+                <Gear size={26} weight="fill" className="text-zinc-900 dark:text-white" />
+              </button>
+              <button className="pulse-single" onClick={logoutClickHandler}>
+                <SignOut size={26} weight="bold" className="text-zinc-900 dark:text-white" />
+              </button>
+            </>
+
+          }
         </div>
       </div>
     </>

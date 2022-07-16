@@ -1,23 +1,20 @@
-import { BottomSheetButton, Header } from '../components';
-import { CaretRight, Wallet } from 'phosphor-react';
-import { useState } from 'react';
+import { BottomSheetButton, Header, Input } from '../components';
+import { Money } from 'phosphor-react';
 import { useSelector } from 'react-redux';
 import { selectUser, userApiActions } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
 import { useAppDispatch } from '../app/hook';
+import { useState } from 'react';
+import SkeletonLoading from '../components/SkeletonLoading';
 
 const BalancePage = () => {
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
   const storedUser = useSelector(selectUser);
+  const [salary, setSalary] = useState<any>(storedUser.profile?.salary);
   const dispatch = useAppDispatch();
 
-  // @ts-ignore
-  const displayBottomSheet = () => setShowBottomSheet(oldState => ({ ...oldState }));
-
-  const onCloseBottomSheet = (value: any) => {
-    setShowBottomSheet(false);
+  const onCloseBottomSheet = () => {
     const profile: any = { ...storedUser.profile };
-    profile.salary = value;
+    profile.salary = salary;
     dispatch(userApiActions.putUserProfileThunk(profile));
   };
 
@@ -29,7 +26,7 @@ const BalancePage = () => {
           <div className="mb-4">
             <p>Salário</p>
             <p className="text-4xl font-bold">{
-              storedUser.isLoadingProfile ? 'loading...' :
+              storedUser.isLoadingProfile ? <SkeletonLoading width={220} /> :
               currencyFormatter(storedUser.profile?.salary ?? 0)
             }</p>
           </div>
@@ -39,10 +36,26 @@ const BalancePage = () => {
       <BottomSheetButton
         title="alterar salário"
         placeholder="salário"
-        buttonTitle="salvar"
-        show={showBottomSheet}
-        onClose={onCloseBottomSheet}
-      />
+        buttonTitle="alterar salário"
+        idKey="salario">
+        <div className="w-full gap-5 mt-5 flex flex-col justify-between">
+          <Input
+            className="dark:bg-zinc-800"
+            placeholder="salário"
+            type="number"
+            icon={<Money size={24} weight="fill" />}
+            onChange={value => setSalary(value)}
+            requiredErrorMessage="Este campo é obrigatório"
+          />
+          <button type="button"
+                  onClick={onCloseBottomSheet}
+                  className="box-content bg-blue-500 p-2 rounded-md"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close">
+            salvar
+          </button>
+        </div>
+      </BottomSheetButton>
     </>
   );
 };
