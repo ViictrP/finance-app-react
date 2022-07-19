@@ -1,26 +1,8 @@
 import { BottomSheetButton, Header, Input } from '../components';
 import { Money } from 'phosphor-react';
-import { useSelector } from 'react-redux';
-import { selectUser, userApiActions } from '../store/slices/userSlice';
-import { currencyFormatter } from '../helpers/currencyFormatter';
-import { useAppDispatch } from '../app/hook';
-import { useState } from 'react';
-import BalanceSkeletonPage from './BalanceSkeletonPage';
+import SkeletonLoading from '../components/SkeletonLoading';
 
 const BalancePage = () => {
-  const storedUser = useSelector(selectUser);
-  const [salary, setSalary] = useState<any>(storedUser.profile?.salary);
-  const dispatch = useAppDispatch();
-
-  const onCloseBottomSheet = () => {
-    const profile: any = { ...storedUser.profile };
-    profile.salary = salary;
-    dispatch(userApiActions.putUserProfileThunk(profile));
-  };
-
-  if (storedUser.isLoadingProfile) {
-    return <BalanceSkeletonPage />
-  }
 
   return (
     <>
@@ -29,7 +11,7 @@ const BalancePage = () => {
         <div id="content" className="border-b-[0] border-zinc-900 pb-4">
           <div className="mb-4">
             <p>Salário</p>
-            <p className="text-4xl font-bold">{currencyFormatter(storedUser.profile?.salary ?? 0)}</p>
+            <p className="text-4xl font-bold"><SkeletonLoading width={220} /></p>
           </div>
           <small>o salário é utilizado como valor base para calcular seu saldo disponível de cada mês.</small>
         </div>
@@ -45,11 +27,9 @@ const BalancePage = () => {
             placeholder="salário"
             type="number"
             icon={<Money size={24} weight="fill" />}
-            onChange={value => setSalary(value)}
             requiredErrorMessage="Este campo é obrigatório"
           />
           <button type="button"
-                  onClick={onCloseBottomSheet}
                   className="box-content bg-blue-500 p-2 rounded-md"
                   data-bs-dismiss="offcanvas"
                   aria-label="Close">
