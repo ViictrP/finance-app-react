@@ -14,9 +14,8 @@ const AuthenticatedRoutes: React.FC = () => {
     setActive(href);
   }, []);
 
-  const onShowContextClickHandler = (event: MouseEvent) => {
-    const { pageY, pageX } = event;
-    setPosition(prevState => ({ ...prevState, x: pageX, y: pageY }));
+  const onShowContextClickHandler = ({ x, y }: any) => {
+    setPosition(prevState => ({ ...prevState, x: x + 33, y: y + 10 }));
     setShowContextMenu(!showContextMenu);
   };
 
@@ -28,14 +27,14 @@ const AuthenticatedRoutes: React.FC = () => {
         <Link
           onClick={onClickContextMenuItemHandler}
           to="/credit-card-form"
-          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-500 dark:hover:bg-blue-800 focus:bg-blue-500 dark:focus:bg-blue-900 cursor-pointer">
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-100 dark:bg-zinc-900 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-500 dark:hover:bg-blue-800 focus:bg-blue-500 dark:focus:bg-blue-900 cursor-pointer">
           <Plus size={15} weight="bold" />
           <p className="text-md">cartão</p>
         </Link>
         <Link
           onClick={onClickContextMenuItemHandler}
           to="/transaction-form"
-          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-100 dark:bg-zinc-800 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-500 dark:hover:bg-blue-800 focus:bg-blue-500 dark:focus:bg-blue-900 cursor-pointer">
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-100 dark:bg-zinc-900 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-500 dark:hover:bg-blue-800 focus:bg-blue-500 dark:focus:bg-blue-900 cursor-pointer">
           <Plus size={15} weight="bold" />
           <p className="text-md">transação</p>
         </Link>
@@ -47,7 +46,7 @@ const AuthenticatedRoutes: React.FC = () => {
           title={<HouseSimple weight={active === '/' ? 'fill' : 'bold'} className="w-6 h-6 text-zinc-900 dark:text-white" />}
         />
         <button className="pulse-single bg-zinc-200 dark:bg-zinc-700 border-[0.5px] dark:border-zinc-600 rounded-full m-1 p-2"
-                onClick={event => onShowContextClickHandler(event as any)}>
+                onClick={event => onShowContextClickHandler(event.currentTarget.getBoundingClientRect())}>
           <Plus className="w-8 h-8 text-zinc-900 dark:text-white" weight="fill" />
         </button>
         <NavigationItem

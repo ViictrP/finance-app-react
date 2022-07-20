@@ -133,8 +133,9 @@ const CreditCardPage = () => {
           <div className="flex flex-row items-center justify-between">
             <p className="text-lg font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
-              <button className="pulse-single" onClick={({ pageX, pageY }) => {
-                setContextMenuPosition({ x: pageX - 105, y: pageY + 20 });
+              <button className="pulse-single" onClick={event => {
+                const {x, y} = event.currentTarget.getBoundingClientRect();
+                setContextMenuPosition({ x: x - 105, y: y + 20 });
                 setShowContextMenu(!showContextMenu);
               }}>
                 <List size={20} weight="fill" className="text-zinc-900 dark:text-white" />
@@ -163,13 +164,13 @@ const CreditCardPage = () => {
       <ContextMenu show={showContextMenu} position={contextMenuPosition}>
         <div
           onClick={() => setShowContextMenu(false)}
-          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-800 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Pencil size={15} weight="bold" />
           <p className="text-md">editar</p>
         </div>
         <div
           onClick={() => setShowContextMenu(false)}
-          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-800 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Trash size={15} weight="bold" />
           <p className="text-md">excluir</p>
         </div>

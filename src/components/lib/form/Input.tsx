@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 interface InputProps {
   customRef?: any;
+  showErrors?: boolean;
   id?: string;
   value?: string;
   placeholder?: string;
@@ -18,6 +19,7 @@ interface InputProps {
 
 const Input = ({
                  customRef,
+                 showErrors,
                  id,
                  value,
                  placeholder,
@@ -31,7 +33,7 @@ const Input = ({
                  className
                }: InputProps) => {
   const [, setInternalValue] = useState('');
-  const [invalid, setInvalid] = useState(false);
+  const [invalid, setInvalid] = useState(showErrors);
 
   const onChangeHandler = useCallback((newValue: string) => {
     if (!newValue && required) {
@@ -53,6 +55,8 @@ const Input = ({
   }, [onFocus]);
 
   useEffect(() => setInternalValue(value ?? ''), [value]);
+
+  useEffect(() => setInvalid(showErrors), [showErrors]);
 
   return (
     <>

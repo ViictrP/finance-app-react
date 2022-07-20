@@ -30,7 +30,7 @@ const TransactionFormPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="pb-12">
       <div className="page-container">
         <Header />
       </div>
@@ -50,7 +50,7 @@ const TransactionFormPage = () => {
         </div>
         <TransactionForm onSubmit={onSubmitHandler} />
       </div>
-    </>
+    </div>
   );
 };
 
