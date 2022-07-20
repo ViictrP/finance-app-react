@@ -4,17 +4,27 @@ import { useEffect, useState } from 'react';
 import { Transaction } from '../entities';
 
 interface TransactionFormProps {
-  onSubmit: () => void;
+  onSubmit: (value: Transaction) => void;
+}
+
+interface FormValue {
+  amount: number;
+  description: string;
+  installmentAmount: number;
+  category: 'food' | 'home' | 'credit-card' | 'shop' | 'other';
 }
 
 const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
-  const [formValue, setFormValue] = useState<Transaction>();
+  const [formValue, setFormValue] = useState<FormValue>({} as any);
   const [formInvalid, setFormInvalid] = useState(false);
 
   const handleSubmit = () => {
   };
 
-  const onBlur = (value: any, input: string) => {}
+  const onBlur = (value: any, input: string) => {
+    const key = input as keyof typeof formValue;
+    setFormValue(prevState => ({ ...prevState, [key]: value }));
+  };
 
   useEffect(() => {
     setFormInvalid(true);
@@ -36,7 +46,7 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
         <Input
           showErrors={formInvalid}
           placeholder="descrição *"
-          icon={<Article size={24}  />}
+          icon={<Article size={24} />}
           onChange={value => onBlur(value, 'description')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -57,7 +67,7 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
         <Input
           showErrors={formInvalid}
           placeholder="tipo *"
-          type="number"
+          type="text"
           icon={<ShoppingCart size={24} />}
           onChange={value => onBlur(value, 'category')}
           required={true}
