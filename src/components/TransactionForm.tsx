@@ -1,9 +1,7 @@
-import { Button, Input } from './lib';
+import { Button, Input, Dropdown, Datepicker } from './lib';
 import { Article, Cards, CurrencyDollarSimple, ShoppingCart } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { Transaction } from '../entities';
-import Dropdown from './lib/Dropdown';
-import Datepicker from './lib/Datepicker';
 
 interface TransactionFormProps {
   onSubmit: (value: Transaction) => void;
@@ -21,6 +19,7 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
   const [formInvalid, setFormInvalid] = useState(false);
 
   const handleSubmit = () => {
+    console.log(formValue);
   };
 
   const onBlur = (value: any, input: string) => {

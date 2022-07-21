@@ -3,7 +3,7 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import NavigationBar, { NavigationItem } from './NavigationBar';
 import TransactionForm from './TransactionForm';
-import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton } from './lib';
+import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton, Dropdown, Datepicker } from './lib';
 
 export {
   Header,
@@ -20,5 +20,7 @@ export {
   ContextMenu,
   TransactionForm,
   LineCharts,
-  BottomSheetButton
+  BottomSheetButton,
+  Dropdown,
+  Datepicker
 };
