@@ -11,7 +11,7 @@ const getUserProfileThunk = createAsyncThunk('get/userProfile', async (data, thu
     return thunkApi.fulfillWithValue(response.data);
   } catch (error) {
     console.log('[getUserProfile] an error ocurred while trying to get logged user profile', error);
-    thunkApi.rejectWithValue(error);
+    return thunkApi.rejectWithValue(error);
   }
 });
 

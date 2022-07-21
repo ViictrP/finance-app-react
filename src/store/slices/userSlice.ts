@@ -1,18 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProfile } from '../../entities';
 import { RootState } from '../store';
-import { getUserProfileThunk, putUserProfileThunk } from '../thunks';
+import { getUserProfileThunk, postTransactionThunk, putUserProfileThunk } from '../thunks';
 
 interface UserSlice {
   profile: UserProfile | null;
   isAuthenticated: boolean;
   isLoadingProfile: boolean;
+  saveTransactionSuccess: boolean;
+  saveTransactionError: boolean;
 }
 
 const initialState: UserSlice = {
   profile: null,
   isAuthenticated: false,
   isLoadingProfile: false,
+  saveTransactionError: false,
+  saveTransactionSuccess: false
 };
 
 export const userSlice = createSlice({
@@ -36,12 +40,12 @@ export const userSlice = createSlice({
       state.isLoadingProfile = false;
     });
 
-    builder.addCase(getUserProfileThunk.rejected, (state, action: any) => {
+    builder.addCase(getUserProfileThunk.rejected, state => {
       state.profile = null;
       state.isLoadingProfile = false;
     });
 
-    builder.addCase(putUserProfileThunk.pending, (state, action: any) => {
+    builder.addCase(putUserProfileThunk.pending, state => {
       state.isLoadingProfile = true;
     });
 
@@ -50,15 +54,32 @@ export const userSlice = createSlice({
       state.profile = action.payload;
     });
 
-    builder.addCase(putUserProfileThunk.rejected, (state, action: any) => {
-      console.log('[userSlice]: an error occurred', action.payload);
+    builder.addCase(putUserProfileThunk.rejected, state => {
       state.isLoadingProfile = false;
+    });
+
+    builder.addCase(postTransactionThunk.pending, state => {
+      state.isLoadingProfile = true;
+      state.saveTransactionSuccess = false;
+      state.saveTransactionError = false;
+    });
+
+    builder.addCase(postTransactionThunk.fulfilled, (state, action: any) => {
+      state.isLoadingProfile = false;
+      state.saveTransactionSuccess = true;
+      state.saveTransactionError = false;
+    });
+
+    builder.addCase(postTransactionThunk.rejected, state => {
+      state.isLoadingProfile = false;
+      state.saveTransactionSuccess = false;
+      state.saveTransactionError = true;
     });
   },
 });
 
 export const userActions = userSlice.actions;
-export const userApiActions = { getUserProfileThunk, putUserProfileThunk };
+export const userApiActions = { getUserProfileThunk, putUserProfileThunk, postTransactionThunk };
 export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;

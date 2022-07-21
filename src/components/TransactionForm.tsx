@@ -1,15 +1,19 @@
-import { Button, Input, Dropdown, Datepicker } from './lib';
-import { Article, Cards, CurrencyDollarSimple, ShoppingCart } from 'phosphor-react';
-import { useEffect, useState } from 'react';
+import { Button, Datepicker, Dropdown, Input } from './lib';
+import { Article, Cards, CurrencyDollarSimple } from 'phosphor-react';
+import { useEffect, useRef, useState } from 'react';
 import { Transaction } from '../entities';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 interface TransactionFormProps {
   onSubmit: (value: Transaction) => void;
 }
 
 interface FormValue {
+  title: string;
   amount: number;
   description: string;
+  date: Date;
   installmentAmount: number;
   category: 'food' | 'home' | 'credit-card' | 'shop' | 'other';
 }
@@ -17,9 +21,16 @@ interface FormValue {
 const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
   const [formValue, setFormValue] = useState<FormValue>({} as any);
   const [formInvalid, setFormInvalid] = useState(false);
+  const dropdownOptions = useRef([
+    { title: 'Restaurante', value: 'food' },
+    { title: 'Cartão', value: 'credit-card' },
+    { title: 'Casa', value: 'home' },
+    { title: 'Shop', value: 'shop' },
+    { title: 'Outro', value: 'other' },
+  ]);
 
   const handleSubmit = () => {
-    console.log(formValue);
+    onSubmit(formValue as any);
   };
 
   const onBlur = (value: any, input: string) => {
@@ -27,15 +38,32 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
     setFormValue(prevState => ({ ...prevState, [key]: value }));
   };
 
+  const onDropdownChangeHandler = (option: string) => {
+    setFormValue(prevState => ({ ...prevState, category: option } as any));
+  };
+
+  const onDateChangeHandler = (date: Date) => {
+    setFormValue(prevState => ({ ...prevState, date: date } as any));
+  };
+
   useEffect(() => {
-    setFormInvalid(false);
+    let invalid = true;
+    if (formValue.hasOwnProperty('amount') && Number(formValue.amount) !== 0
+      && formValue.hasOwnProperty('description') && formValue.description !== ''
+      && formValue.hasOwnProperty('title') && formValue.title !== ''
+      && formValue.hasOwnProperty('category') && (formValue.category as any) !== '') {
+      invalid = false;
+    }
+    setFormInvalid(invalid);
   }, [formValue]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
+    <form className="flex flex-col">
+      <div className="mb-6">
+        <Datepicker onChange={onDateChangeHandler} />
+      </div>
       <div className="mb-5">
         <Input
-          showErrors={formInvalid}
           placeholder="título *"
           icon={<Article size={24} />}
           onChange={value => onBlur(value, 'title')}
@@ -45,7 +73,6 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
       </div>
       <div className="mb-5">
         <Input
-          showErrors={formInvalid}
           placeholder="descrição *"
           icon={<Article size={24} />}
           onChange={value => onBlur(value, 'description')}
@@ -55,7 +82,6 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
       </div>
       <div className="mb-5">
         <Input
-          showErrors={formInvalid}
           placeholder="valor *"
           type="number"
           icon={<CurrencyDollarSimple size={24} weight="fill" />}
@@ -64,36 +90,24 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
           requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
-      <div className="mb-5">
-        <Input
-          showErrors={formInvalid}
-          placeholder="tipo *"
-          type="text"
-          icon={<ShoppingCart size={24} />}
-          onChange={value => onBlur(value, 'category')}
-          required={true}
-          requiredErrorMessage="Este campo é obrigatório"
+      <div className="mb-6">
+        <Dropdown
+          title="categoria"
+          options={dropdownOptions.current}
+          onChange={onDropdownChangeHandler}
         />
       </div>
       <div className="mb-5">
-        <Dropdown title="categoria" options={['test']} />
-      </div>
-      <div className="mb-5">
-        <Datepicker />
-      </div>
-      <div className="mb-5">
         <Input
-          showErrors={formInvalid}
           placeholder="parcelas"
           type="number"
           icon={<Cards size={24} />}
-          onChange={value => onBlur(value, 'category')}
-          required={true}
+          onChange={value => onBlur(value, 'installmentAmount')}
           requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <footer>
-        <Button type="submit" title="salvar" disabled={formInvalid} />
+        <Button type="button" title="salvar" disabled={formInvalid} onClick={handleSubmit} />
       </footer>
     </form>
   );

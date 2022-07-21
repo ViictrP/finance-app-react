@@ -17,7 +17,7 @@ const putUserProfileThunk = createAsyncThunk('put/userProfile', async (data: any
     return thunkApi.fulfillWithValue(response.data);
   } catch (error) {
     console.log('[putUserProfileThunk] an error ocurred while trying to save user profile', error);
-    thunkApi.rejectWithValue(error);
+    return thunkApi.rejectWithValue(error);
   }
 });
 
