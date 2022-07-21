@@ -2,6 +2,8 @@ import { Button, Input } from './lib';
 import { Article, Cards, CurrencyDollarSimple, ShoppingCart } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { Transaction } from '../entities';
+import Dropdown from './lib/Dropdown';
+import Datepicker from './lib/Datepicker';
 
 interface TransactionFormProps {
   onSubmit: (value: Transaction) => void;
@@ -27,7 +29,7 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
   };
 
   useEffect(() => {
-    setFormInvalid(true);
+    setFormInvalid(false);
   }, [formValue]);
 
   return (
@@ -73,6 +75,12 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
         />
+      </div>
+      <div className="mb-5">
+        <Dropdown title="categoria" options={['test']} />
+      </div>
+      <div className="mb-5">
+        <Datepicker />
       </div>
       <div className="mb-5">
         <Input
