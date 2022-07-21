@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ContextMenu, NavigationBar, NavigationItem } from '../components';
 
 import { BalancePage, CreditCardFormPage, CreditCardPage, HomePage, TransactionFormPage } from '../pages';
+import InvoicePage from '../pages/InvoicePage';
 
 const AuthenticatedRoutes: React.FC = () => {
   const [active, setActive] = useState<any>('/');
@@ -62,6 +63,7 @@ const AuthenticatedRoutes: React.FC = () => {
         <Route path="/credit-cards" element={<CreditCardPage />} />
         <Route path="/credit-card-form" element={<CreditCardFormPage />} />
         <Route path="/transaction-form" element={<TransactionFormPage />} />
+        <Route path="/invoices" element={<InvoicePage />} />
       </Routes>
     </BrowserRouter>
   );

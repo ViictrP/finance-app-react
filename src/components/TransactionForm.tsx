@@ -62,6 +62,13 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
       <div className="mb-6">
         <Datepicker onChange={onDateChangeHandler} />
       </div>
+      <div className="mb-6">
+        <Dropdown
+          title="categoria"
+          options={dropdownOptions.current}
+          onChange={onDropdownChangeHandler}
+        />
+      </div>
       <div className="mb-5">
         <Input
           placeholder="título *"
@@ -88,13 +95,6 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
           onChange={value => onBlur(value, 'amount')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
-        />
-      </div>
-      <div className="mb-6">
-        <Dropdown
-          title="categoria"
-          options={dropdownOptions.current}
-          onChange={onDropdownChangeHandler}
         />
       </div>
       <div className="mb-5">

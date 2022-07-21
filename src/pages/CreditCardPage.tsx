@@ -1,5 +1,5 @@
 import { CardList, ContextMenu, Header, Input } from '../components';
-import { List, MagnifyingGlass, Pencil, ShoppingBag, Trash } from 'phosphor-react';
+import { List, MagnifyingGlass, Pencil, Rows, ShoppingBag, Trash } from 'phosphor-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { CardItem } from '../components/lib/CardList';
 import { MONTHS } from '../utils/months.enum';
 import { CreditCard } from '../entities';
 import CreditCardSkeletonPage from './CreditCardSkeletonPage';
+import { Link } from 'react-router-dom';
 
 const CreditCardPage = () => {
   const [creditCards, setCreditCards] = useState<CreditCard[]>();
@@ -162,9 +163,16 @@ const CreditCardPage = () => {
         </div>
       </div>
       <ContextMenu show={showContextMenu} position={contextMenuPosition}>
+        <Link
+          to="/invoices"
+          onClick={() => setShowContextMenu(false)}
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-t-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          <Rows size={15} weight="bold" />
+          <p className="text-md">ver faturas</p>
+        </Link>
         <div
           onClick={() => setShowContextMenu(false)}
-          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-tl-lg rounded-tr-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
+          className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Pencil size={15} weight="bold" />
           <p className="text-md">editar</p>
         </div>
