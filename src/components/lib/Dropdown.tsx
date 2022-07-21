@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { XCircle } from 'phosphor-react';
 
-interface DropdownOption {
+export interface DropdownOption {
   title: string,
   value: string
 }
