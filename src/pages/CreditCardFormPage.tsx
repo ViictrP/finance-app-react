@@ -1,6 +1,7 @@
 import { Header } from '../components';
 
 const CreditCardFormPage = () => {
+
   return (
     <div className="page-container">
       <Header />

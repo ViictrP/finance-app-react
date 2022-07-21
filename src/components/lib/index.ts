@@ -7,6 +7,8 @@ import Input from './form/Input';
 import ContextMenu from './ContextMenu';
 import LineCharts from './LineCharts';
 import BottomSheetButton from './BottomSheetButton';
+import Dropdown from './Dropdown';
+import Datepicker from './Datepicker';
 
 export {
   Button,
@@ -17,5 +19,7 @@ export {
   Input,
   ContextMenu,
   LineCharts,
-  BottomSheetButton
+  BottomSheetButton,
+  Dropdown,
+  Datepicker
 };
