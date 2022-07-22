@@ -63,7 +63,7 @@ const CreditCardPage = () => {
     return _creditCards.map(creditCard => ({
       id: creditCard.id,
       title: creditCard.title,
-      description: creditCard.description,
+      description: creditCard.number,
       color: creditCard.backgroundColor
     }));
   }, [creditCards]);
@@ -132,7 +132,7 @@ const CreditCardPage = () => {
 
         <div className="mb-4 px-3">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-lg font-bold">{selected?.title}</p>
+            <p className="text-xl font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
               <button className="pulse-single" onClick={event => {
                 const { x, y } = event.currentTarget.getBoundingClientRect();
@@ -145,7 +145,7 @@ const CreditCardPage = () => {
           </div>
           <div className="flex flex-row items-center justify-between">
             <p className="text-sm font-light">{selected?.description}</p>
-            <p className="font-bold text-orange-500">{currencyFormatter(invoiceAmount)}</p>
+            <p className="text-2xl font-bold text-orange-500">{currencyFormatter(invoiceAmount)}</p>
           </div>
           <div id="transitions" className="mt-5">
             <Input

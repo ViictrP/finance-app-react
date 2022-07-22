@@ -46,7 +46,7 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
           <div className={`p-4 ml-3 h-full bg-white dark:bg-zinc-900 rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-700`}>
             <div className="flex flex-row items-center justify-between">
               <p className="text-md font-bold">{item.title}</p>
-              <p className="text-lg font-black">7447</p>
+              <p className="text-lg font-black">{item.description}</p>
             </div>
           </div>
         </div>
