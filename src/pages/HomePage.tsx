@@ -117,7 +117,7 @@ const HomePage = () => {
         />
         <CardList
           content={filteredCards}
-          icon={<ShoppingBag size="30" weight="fill" />}
+          icon={<ShoppingBag size="30" weight="fill" className="ml-1"/>}
         />
       </div>
     </div>
