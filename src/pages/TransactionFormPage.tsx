@@ -21,7 +21,7 @@ const TransactionFormPage = () => {
 
   const onSubmitHandler = useCallback((transaction: Transaction) => {
     transaction.isInstallment = transaction.installmentAmount !== undefined && transaction.installmentAmount > 1;
-    transaction.installmentAmount = transaction.installmentAmount === undefined ? 0 : transaction.installmentAmount;
+    transaction.installmentAmount = transaction.installmentAmount === undefined ? 1 : transaction.installmentAmount;
     if (selected) {
       const creditCard = storedUser.profile!.creditCards.filter(creditCard => creditCard.id === selected.id)[0];
       transaction.invoice = {
