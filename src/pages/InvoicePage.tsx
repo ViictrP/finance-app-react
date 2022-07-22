@@ -83,15 +83,14 @@ const InvoicePage = () => {
       <Header showBackButton={true} />
       <div className=" flex flex-col gap-8 mt-10">
         <div className="flex flex-col gap-2">
-          <p className="text-md">Cartão <b>{creditCard?.title}</b></p>
+          <p className="text-xl">Cartão <b>{creditCard?.title}</b></p>
           <Datepicker config={{ showOnlyMonths: true }} onChange={onDatepickerChangeHandler} />
         </div>
         <div className="h-full">
-          <p className="text-sm">Fatura de {format(selectedDate, 'MMMM/yyyy', { locale: pt })}</p>
-          {
-            totalAmount > 0 &&
-            <p className="text-lg">total - {currencyFormatter(totalAmount)}</p>
-          }
+          <div className="flex flex-row items-center justify-between">
+            <p className="text-md">Fatura de {format(selectedDate, 'MMMM/yyyy', { locale: pt })}</p>
+            { totalAmount > 0 && <p className="text-2xl font-bold">{currencyFormatter(totalAmount)}</p> }
+          </div>
           {
             transactions.length > 0 &&
             <CardList
