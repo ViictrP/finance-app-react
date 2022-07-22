@@ -79,7 +79,7 @@ export const userSlice = createSlice({
       state.saveTransactionSuccess = false;
       state.saveTransactionError = true;
     });
-  },
+  }
 });
 
 export const userActions = userSlice.actions;

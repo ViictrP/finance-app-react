@@ -7,7 +7,6 @@ import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
 import { CardItem } from '../components/lib/CardList';
 import { MONTHS } from '../utils/months.enum';
-import SkeletonLoading from '../components/SkeletonLoading';
 import HomeSkeletonPage from './HomeSkeletonPage';
 
 const HomePage = () => {

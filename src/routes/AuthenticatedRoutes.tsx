@@ -63,7 +63,7 @@ const AuthenticatedRoutes: React.FC = () => {
         <Route path="/credit-cards" element={<CreditCardPage />} />
         <Route path="/credit-card-form" element={<CreditCardFormPage />} />
         <Route path="/transaction-form" element={<TransactionFormPage />} />
-        <Route path="/invoices" element={<InvoicePage />} />
+        <Route path="/invoices/:creditCardId" element={<InvoicePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -30,7 +30,7 @@ const CreditCardPage = () => {
       const _filteredCards = creditCards?.filter((card) =>
         card.title
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
+          .includes(searchValue.toLowerCase())
       );
       setFilteredCards(mapCreditCardToCardCarouselItem(_filteredCards as any));
     } else {
@@ -43,7 +43,7 @@ const CreditCardPage = () => {
       const _filteredTransactions = transactions.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
+          .includes(searchValue.toLowerCase())
       );
       setFilteredTransactions(_filteredTransactions);
     } else {
@@ -64,7 +64,7 @@ const CreditCardPage = () => {
       id: creditCard.id,
       title: creditCard.title,
       description: creditCard.description,
-      color: creditCard.backgroundColor,
+      color: creditCard.backgroundColor
     }));
   }, [creditCards]);
 
@@ -92,7 +92,7 @@ const CreditCardPage = () => {
         key: transaction.id,
         header: transaction.category,
         content: transaction.description,
-        footer: currencyFormatter(transaction.amount),
+        footer: currencyFormatter(transaction.amount)
       }));
       const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
       setInvoiceAmount(_invoiceAmount);
@@ -102,7 +102,7 @@ const CreditCardPage = () => {
   }, [selected, creditCards]);
 
   if (storedUser.isLoadingProfile) {
-    return <CreditCardSkeletonPage />
+    return <CreditCardSkeletonPage />;
   }
 
   return (
@@ -135,7 +135,7 @@ const CreditCardPage = () => {
             <p className="text-lg font-bold">{selected?.title}</p>
             <div className="flex flex-1 flex-row items-center justify-end gap-4">
               <button className="pulse-single" onClick={event => {
-                const {x, y} = event.currentTarget.getBoundingClientRect();
+                const { x, y } = event.currentTarget.getBoundingClientRect();
                 setContextMenuPosition({ x: x - 105, y: y + 20 });
                 setShowContextMenu(!showContextMenu);
               }}>
@@ -164,7 +164,7 @@ const CreditCardPage = () => {
       </div>
       <ContextMenu show={showContextMenu} position={contextMenuPosition}>
         <Link
-          to="/invoices"
+          to={`/invoices/${selected?.id}`}
           onClick={() => setShowContextMenu(false)}
           className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-t-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Rows size={15} weight="bold" />
