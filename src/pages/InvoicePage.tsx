@@ -25,14 +25,18 @@ const InvoicePage = () => {
   const location = useLocation();
 
   const onDatepickerChangeHandler = useCallback((date: Date) => {
-    setSelectedDate(date);
-    if (creditCard) {
-      const __invoice = {
-        creditCard: { id: creditCard.id },
-        month: format(date, 'MMM', { locale: pt }).toUpperCase(),
-        year: format(date, 'yyyy', { locale: pt })
-      } as any;
-      dispatch(getInvoiceThunk(__invoice));
+    const month = format(date, 'MMM', { locale: pt });
+    const currentMonth = format(selectedDate, 'MMM', { locale: pt });
+    if (month !== currentMonth) {
+      setSelectedDate(date);
+      if (creditCard) {
+        const __invoice = {
+          creditCard: { id: creditCard.id },
+          month: format(date, 'MMM', { locale: pt }).toUpperCase(),
+          year: format(date, 'yyyy', { locale: pt }),
+        } as any;
+        dispatch(getInvoiceThunk(__invoice));
+      }
     }
   }, [creditCard]);
 
@@ -58,7 +62,7 @@ const InvoicePage = () => {
         key: transaction.id,
         header: transaction.category,
         content: transaction.description,
-        footer: currencyFormatter(transaction.amount)
+        footer: currencyFormatter(transaction.amount),
       }));
       setTransactions(__transactions);
       const sum = invoice.transactions.reduce((sum: number, current: any) => sum + Number(current.amount), 0);
@@ -98,7 +102,7 @@ const InvoicePage = () => {
           {
             transactions.length === 0 &&
             <div className="flex flex-col justify-center items-center h-[200px] text-zinc-600">
-              <Receipt size={50} weight="thin"/>
+              <Receipt size={50} weight="thin" />
               não há lançamentos nesta fatura...
             </div>
           }
