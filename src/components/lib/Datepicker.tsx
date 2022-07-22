@@ -1,24 +1,20 @@
 import pt from 'date-fns/locale/pt';
-import { useState, useEffect } from 'react';
-import {
-  format,
-  subMonths,
-  addMonths,
-  subYears,
-  addYears,
-  isEqual,
-  getDaysInMonth,
-  getDay,
-} from 'date-fns';
+import { useEffect, useState } from 'react';
+import { addMonths, addYears, format, getDay, getDaysInMonth, isEqual, subMonths, subYears } from 'date-fns';
 import { Calendar } from 'phosphor-react';
 
 type DatepickerType = 'date' | 'month' | 'year';
 
-interface DatepickerProps {
-  onChange?: (date: Date) => void;
+interface DatepickerConfig {
+  showOnlyMonths: boolean;
 }
 
-const Datepicker = ({ onChange }: DatepickerProps) => {
+interface DatepickerProps {
+  onChange?: (date: Date) => void;
+  config?: DatepickerConfig;
+}
+
+const Datepicker = ({ onChange, config }: DatepickerProps) => {
   const DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
   const [dayCount, setDayCount] = useState<Array<number>>([]);
   const [blankDays, setBlankDays] = useState<Array<number>>([]);
@@ -67,7 +63,7 @@ const Datepicker = ({ onChange }: DatepickerProps) => {
     const selected = new Date(
       datepickerHeaderDate.getFullYear(),
       datepickerHeaderDate.getMonth(),
-      date,
+      date
     );
     setSelectedDate(selected);
     setShowDatepicker(false);
@@ -95,18 +91,21 @@ const Datepicker = ({ onChange }: DatepickerProps) => {
   const isSelectedMonth = (month: number) =>
     isEqual(
       new Date(selectedDate.getFullYear(), month, selectedDate.getDate()),
-      selectedDate,
+      selectedDate
     );
 
   const setMonthValue = (month: number) => () => {
-    setDatepickerHeaderDate(
-      new Date(
-        datepickerHeaderDate.getFullYear(),
-        month,
-        datepickerHeaderDate.getDate(),
-      ),
+    const date = new Date(
+      datepickerHeaderDate.getFullYear(),
+      month,
+      datepickerHeaderDate.getDate()
     );
-    setType('date');
+    setDatepickerHeaderDate(date);
+    setType(config?.showOnlyMonths ? 'month' : 'date');
+    if (config?.showOnlyMonths) {
+      setSelectedDate(date);
+      setShowDatepicker(false);
+    }
   };
 
   const toggleDatepicker = () => setShowDatepicker((prev) => !prev);
@@ -130,11 +129,11 @@ const Datepicker = ({ onChange }: DatepickerProps) => {
         className="flex flex-row items-center bg-zinc-900 gap-2 cursor-pointer w-full px-2 py-4 leading-none rounded-md shadow-sm border-transparent focus:outline-none focus:shadow-outline text-zinc-600 dark:text-white font-medium"
         onClick={toggleDatepicker}>
         <Calendar size={24} />
-        {format(selectedDate, 'dd/MM/yyyy')}
+        {format(selectedDate, !config?.showOnlyMonths ? 'dd/MM/yyyy' : 'MMMM/yyyy', { locale: pt })}
       </div>
       {showDatepicker && (
         <div
-          className="bg-white mt-12 rounded-lg shadow p-4 absolute top-0 left-0 z-10 dark:bg-zinc-900 border-[0.5px] dark:text-white dark:border-zinc-800">
+          className="w-full bg-white mt-12 rounded-lg shadow p-4 absolute top-0 left-0 z-10 dark:bg-zinc-900 border-[0.5px] dark:text-white dark:border-zinc-800">
           <div className="flex justify-between items-center mb-2">
             <div>
               <button
@@ -191,7 +190,7 @@ const Datepicker = ({ onChange }: DatepickerProps) => {
               </button>
             </div>
           </div>
-          {type === 'date' && (
+          {type === 'date' && !config?.showOnlyMonths && (
             <>
               <div className="flex flex-wrap mb-3 -mx-1">
                 {DAYS.map((day, i) => (
@@ -251,9 +250,9 @@ const Datepicker = ({ onChange }: DatepickerProps) => {
                         new Date(
                           datepickerHeaderDate.getFullYear(),
                           i,
-                          datepickerHeaderDate.getDate(),
+                          datepickerHeaderDate.getDate()
                         ),
-                        'MMM', { locale: pt },
+                        'MMM', { locale: pt }
                       )}
                     </div>
                   </div>

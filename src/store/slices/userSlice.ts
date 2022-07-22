@@ -29,6 +29,10 @@ export const userSlice = createSlice({
     setIsLoadingProfile: (state, action: PayloadAction<boolean>) => {
       state.isLoadingProfile = action.payload;
     },
+    resetTransactionSuccessError: state => {
+      state.saveTransactionError = false;
+      state.saveTransactionSuccess = false;
+    }
   },
   extraReducers: builder => {
     builder.addCase(getUserProfileThunk.pending, state => {
