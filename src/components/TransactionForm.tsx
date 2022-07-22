@@ -2,8 +2,6 @@ import { Button, Datepicker, Dropdown, Input } from './lib';
 import { Article, Cards, CurrencyDollarSimple } from 'phosphor-react';
 import { useEffect, useRef, useState } from 'react';
 import { Transaction } from '../entities';
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 
 interface TransactionFormProps {
   onSubmit: (value: Transaction) => void;

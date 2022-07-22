@@ -52,7 +52,7 @@ const TransactionFormPage = () => {
       {success && <p>success</p>}
       <div className="pb-12">
         <div className="page-container">
-          <Header />
+          <Header showBackButton={true}/>
         </div>
         <div className="mt-[-48px]">
           <div className="px-5 mb-4">
