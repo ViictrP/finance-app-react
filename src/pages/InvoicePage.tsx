@@ -38,7 +38,7 @@ const InvoicePage = () => {
         dispatch(getInvoiceThunk(__invoice));
       }
     }
-  }, [creditCard]);
+  }, [creditCard, selectedDate]);
 
   useEffect(() => {
     if (storedUser.profile && !storedUser.isLoadingProfile) {
