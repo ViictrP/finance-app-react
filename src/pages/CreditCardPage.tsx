@@ -157,7 +157,7 @@ const CreditCardPage = () => {
             />
             <CardList
               content={filteredTransactions}
-              icon={<ShoppingBag size="30" className="mr-4 ml-1" weight="fill" />}
+              icon={<ShoppingBag size="30" className="ml-1" weight="fill" />}
             />
           </div>
         </div>

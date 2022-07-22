@@ -25,14 +25,18 @@ const InvoicePage = () => {
   const location = useLocation();
 
   const onDatepickerChangeHandler = useCallback((date: Date) => {
-    setSelectedDate(date);
-    if (creditCard) {
-      const __invoice = {
-        creditCard: { id: creditCard.id },
-        month: format(date, 'MMM', { locale: pt }).toUpperCase(),
-        year: format(date, 'yyyy', { locale: pt })
-      } as any;
-      dispatch(getInvoiceThunk(__invoice));
+    const month = format(date, 'MMM', { locale: pt });
+    const currentMonth = format(selectedDate, 'MMM', { locale: pt });
+    if (month !== currentMonth) {
+      setSelectedDate(date);
+      if (creditCard) {
+        const __invoice = {
+          creditCard: { id: creditCard.id },
+          month: format(date, 'MMM', { locale: pt }).toUpperCase(),
+          year: format(date, 'yyyy', { locale: pt }),
+        } as any;
+        dispatch(getInvoiceThunk(__invoice));
+      }
     }
   }, [creditCard]);
 
@@ -58,7 +62,7 @@ const InvoicePage = () => {
         key: transaction.id,
         header: transaction.category,
         content: transaction.description,
-        footer: currencyFormatter(transaction.amount)
+        footer: currencyFormatter(transaction.amount),
       }));
       setTransactions(__transactions);
       const sum = invoice.transactions.reduce((sum: number, current: any) => sum + Number(current.amount), 0);
@@ -79,26 +83,26 @@ const InvoicePage = () => {
       <Header showBackButton={true} />
       <div className=" flex flex-col gap-8 mt-10">
         <div className="flex flex-col gap-2">
-          <p className="text-sm">Cartão <b>{creditCard?.title}</b></p>
+          <p className="text-md">Cartão <b>{creditCard?.title}</b></p>
           <Datepicker config={{ showOnlyMonths: true }} onChange={onDatepickerChangeHandler} />
         </div>
         <div className="h-full">
-          <p className="text-xs">Fatura de {format(selectedDate, 'MMMM/yyyy', { locale: pt })}</p>
+          <p className="text-sm">Fatura de {format(selectedDate, 'MMMM/yyyy', { locale: pt })}</p>
           {
             totalAmount > 0 &&
-            <p>total - {currencyFormatter(totalAmount)}</p>
+            <p className="text-lg">total - {currencyFormatter(totalAmount)}</p>
           }
           {
             transactions.length > 0 &&
             <CardList
               content={transactions}
-              icon={<ShoppingBag size="30" className="mr-4 ml-1" weight="fill" />}
+              icon={<ShoppingBag size="30" className="ml-1" weight="fill" />}
             />
           }
           {
             transactions.length === 0 &&
             <div className="flex flex-col justify-center items-center h-[200px] text-zinc-600">
-              <Receipt size={50} weight="thin"/>
+              <Receipt size={50} weight="thin" />
               não há lançamentos nesta fatura...
             </div>
           }
