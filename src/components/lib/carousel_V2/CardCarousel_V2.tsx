@@ -25,7 +25,7 @@ const CardCarousel = ({ items, onChange }: CardCarouselProps) => {
   }, { threshold });
 
   useEffect(() => {
-    document.querySelectorAll('.item').forEach(elem => observer.observe(elem));
+    document.querySelectorAll('.card-carousel-v2-item').forEach(elem => observer.observe(elem));
   }, [__items]);
 
   return (
