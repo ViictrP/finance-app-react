@@ -35,7 +35,7 @@ const CardCarousel = ({ items, onChange }: CardCarouselProps) => {
           <div
             key={index}
             id={`card-carousel-item-${index}`}
-            className="item">{item}
+            className="card-carousel-v2-item">{item}
           </div>
         ))
       }

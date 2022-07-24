@@ -10,7 +10,7 @@
 	@apply scrollbar-none;
 }
 
-.carousel-v2-container > .item {
+.carousel-v2-container > .card-carousel-v2-item {
 	flex: 0 0 100%;
 	scroll-snap-align: start;
 	@apply block p-4 h-[130px] bg-zinc-900 rounded-lg border-[0.5px] border-zinc-700;
