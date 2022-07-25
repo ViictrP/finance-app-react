@@ -13,5 +13,5 @@
 .carousel-v2-container > .card-carousel-v2-item {
 	flex: 0 0 100%;
 	scroll-snap-align: start;
-	@apply block p-4 h-[130px] text-xl bg-zinc-900 rounded-lg border-[0.5px] border-zinc-700;
+	@apply block p-4 h-[130px] text-xl text-zinc-900 dark:text-white bg-white dark:bg-zinc-900 rounded-lg dark:border-[0.5px] dark:border-zinc-700 drop-shadow;
 }
