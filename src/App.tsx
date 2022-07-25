@@ -1,7 +1,7 @@
 import { useAuth } from './context/AuthContext';
 import Routes from './routes';
 import { useSelector } from 'react-redux';
-import { selectUser, userActions, userApiActions } from './store/slices/userSlice';
+import { selectUser, userApiActions } from './store/slices/userSlice';
 import { useEffect } from 'react';
 import { useAppDispatch } from './app/hook';
 import { useCookies } from 'react-cookie';
@@ -24,7 +24,6 @@ const App = () => {
   useEffect(() => {
     if (userStored.saveTransactionSuccess) {
       dispatch(userApiActions.getUserProfileThunk());
-      dispatch(userActions.resetTransactionSuccessError());
     }
   }, [userStored.saveTransactionSuccess]);
 
