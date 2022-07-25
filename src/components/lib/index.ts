@@ -10,6 +10,7 @@ import BottomSheetButton from './BottomSheetButton';
 import Dropdown from './Dropdown';
 import Datepicker from './Datepicker';
 import CardCarousel  from './card-carousel/CardCarousel';
+import Alert from './Alert';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   Dropdown,
   Datepicker,
   CardCarousel,
+  Alert
 };
