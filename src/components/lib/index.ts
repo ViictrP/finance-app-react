@@ -9,6 +9,7 @@ import LineCharts from './LineCharts';
 import BottomSheetButton from './BottomSheetButton';
 import Dropdown from './Dropdown';
 import Datepicker from './Datepicker';
+import CardCarousel  from './card-carousel/CardCarousel';
 
 export {
   Button,
@@ -21,5 +22,6 @@ export {
   LineCharts,
   BottomSheetButton,
   Dropdown,
-  Datepicker
+  Datepicker,
+  CardCarousel,
 };
