@@ -5,7 +5,7 @@
 	scroll-snap-stop: normal;
 	scroll-behavior: smooth;
 	padding: 24px;
-	gap: 12px;
+	gap: 15px;
 	scroll-padding: 24px;
 	@apply scrollbar-none;
 }
@@ -13,5 +13,5 @@
 .carousel-v2-container > .card-carousel-v2-item {
 	flex: 0 0 100%;
 	scroll-snap-align: start;
-	@apply block p-4 h-[130px] bg-zinc-900 rounded-lg border-[0.5px] border-zinc-700;
+	@apply block p-4 h-[130px] text-xl bg-zinc-900 rounded-lg border-[0.5px] border-zinc-700;
 }

@@ -1,7 +1,7 @@
 import { CardList, ContextMenu, Header, Input } from '../components';
 import { List, MagnifyingGlass, Pencil, Rows, ShoppingBag, Trash } from 'phosphor-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import CardCarousel, { CardCarouselItem } from '../components/lib/CardCarousel';
+import CardCarousel, { CardCarouselItem } from '../components/lib/card-carousel/CardCarousel';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 const CreditCardPage = () => {
   const [creditCards, setCreditCards] = useState<CreditCard[]>();
   const [transactions, setTransactions] = useState<CardItem[]>([]);
-  const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>();
+  const [filteredCards, setFilteredCards] = useState<CardCarouselItem[]>([]);
   const [filteredTransactions, setFilteredTransactions] = useState<typeof transactions>([]);
   const [selected, setSelected] = useState<CardCarouselItem>();
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
@@ -30,11 +30,11 @@ const CreditCardPage = () => {
       const _filteredCards = creditCards?.filter((card) =>
         card.title
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredCards(mapCreditCardToCardCarouselItem(_filteredCards as any));
     } else {
-      setFilteredCards(creditCards as any);
+      setFilteredCards(mapCreditCardToCardCarouselItem(creditCards as any));
     }
   }, [creditCards]);
 
@@ -43,7 +43,7 @@ const CreditCardPage = () => {
       const _filteredTransactions = transactions.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredTransactions(_filteredTransactions);
     } else {
@@ -64,7 +64,7 @@ const CreditCardPage = () => {
       id: creditCard.id,
       title: creditCard.title,
       description: creditCard.number,
-      color: creditCard.backgroundColor
+      color: creditCard.backgroundColor,
     }));
   }, [creditCards]);
 
@@ -92,7 +92,7 @@ const CreditCardPage = () => {
         key: transaction.id,
         header: transaction.category,
         content: transaction.description,
-        footer: currencyFormatter(transaction.amount)
+        footer: currencyFormatter(transaction.amount),
       }));
       const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
       setInvoiceAmount(_invoiceAmount);
@@ -125,7 +125,7 @@ const CreditCardPage = () => {
             <p className="text-xl">Cartões</p>
           </div>
           <CardCarousel
-            items={filteredCards ?? []}
+            items={filteredCards}
             onSelect={onCreditCardSelectedHandler}
           />
         </div>

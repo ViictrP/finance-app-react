@@ -1,28 +1,34 @@
 import './style.css';
 import { useEffect, useRef, useState } from 'react';
 
-interface CardCarouselItem {
-  id: string | number;
-  value: string;
-}
+export type CardCarouselItem = {
+  id: string;
+  title: string;
+  description: string;
+  color: string;
+};
 
 interface CardCarouselProps {
-  items: string[];
-  onChange?: (item: string) => void;
+  items: CardCarouselItem[];
+  onSelect?: (item: CardCarouselItem) => void;
 }
 
-const CardCarousel = ({ items, onChange }: CardCarouselProps) => {
+const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
   const container = useRef<any>();
-  const [__items] = useState(items);
+  const [__items, setItems] = useState<CardCarouselItem[]>([]);
 
   const threshold = 0.5;
   const observer = new IntersectionObserver(entries => {
     entries.forEach(elem => {
       if (elem.isIntersecting) {
-        onChange && onChange(elem.target.id);
+        onSelect && onSelect(items.filter(item => item.id === elem.target.id)[0]);
       }
     });
   }, { threshold });
+
+  useEffect(() => {
+    setItems(items);
+  }, [items]);
 
   useEffect(() => {
     document.querySelectorAll('.card-carousel-v2-item').forEach(elem => observer.observe(elem));
@@ -31,11 +37,11 @@ const CardCarousel = ({ items, onChange }: CardCarouselProps) => {
   return (
     <div ref={container} className="carousel-v2-container">
       {
-        items.map((item, index) => (
+        items.map((item) => (
           <div
-            key={index}
-            id={`card-carousel-item-${index}`}
-            className="card-carousel-v2-item">{item}
+            key={item.id}
+            id={`${item.id}`}
+            className="card-carousel-v2-item">{item.title}
           </div>
         ))
       }
