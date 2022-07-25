@@ -45,6 +45,7 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
           </div>
         ))
       }
+      <div style={{flex: '0 0 100%', backgroundColor: 'transparent'}}></div>
     </div>
   );
 };

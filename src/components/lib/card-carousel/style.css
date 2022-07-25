@@ -1,17 +1,26 @@
 .carousel-container {
-	display: flex;
-	overflow: auto;
 	scroll-snap-type: x mandatory;
 	scroll-snap-stop: normal;
 	scroll-behavior: smooth;
-	padding: 24px;
-	gap: 15px;
-	scroll-padding: 24px;
-	@apply scrollbar-none;
+	scroll-padding: 14px;
+	@apply scrollbar-none px-6 gap-4 flex overflow-auto;
 }
 
-.carousel-container > .card-carousel-item {
+.carousel-container > .card-carousel-item,
+.carousel-container > .card-carousel-item-active {
 	flex: 0 0 100%;
 	scroll-snap-align: start;
-	@apply block p-4 h-[130px] text-xl text-zinc-900 dark:text-white bg-white dark:bg-zinc-900 rounded-lg dark:border-[0.5px] dark:border-zinc-700 drop-shadow;
+	@apply
+	block
+	p-4
+	h-[130px]
+	text-xl
+	text-zinc-900
+	dark:text-white
+	bg-white
+	dark:bg-zinc-900
+	rounded-lg
+	dark:border-[0.5px]
+	dark:border-zinc-700
+	drop-shadow;
 }
