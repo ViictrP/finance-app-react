@@ -31,17 +31,17 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
   }, [items]);
 
   useEffect(() => {
-    document.querySelectorAll('.card-carousel-v2-item').forEach(elem => observer.observe(elem));
+    document.querySelectorAll('.card-carousel-item').forEach(elem => observer.observe(elem));
   }, [__items]);
 
   return (
-    <div ref={container} className="carousel-v2-container">
+    <div ref={container} className="carousel-container">
       {
         items.map((item) => (
           <div
             key={item.id}
             id={`${item.id}`}
-            className="card-carousel-v2-item">{item.title}
+            className="card-carousel-item">{item.title}
           </div>
         ))
       }
