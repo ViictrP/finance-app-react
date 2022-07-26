@@ -22,10 +22,10 @@ const App = () => {
   }, [signed]);
 
   useEffect(() => {
-    if (userStored.saveTransactionSuccess) {
+    if (userStored.saveTransactionSuccess || userStored.saveCreditCardSuccess) {
       dispatch(userApiActions.getUserProfileThunk());
     }
-  }, [userStored.saveTransactionSuccess]);
+  }, [userStored.saveTransactionSuccess, userStored.saveCreditCardSuccess]);
 
   return (
     <Routes />

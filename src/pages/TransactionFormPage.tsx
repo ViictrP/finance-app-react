@@ -66,17 +66,17 @@ const TransactionFormPage = () => {
           <Dropdown title="cartões" options={dropDownItems} onChange={onCreditCardSelectedHandler} />
         </div>
         <div className="page-container flex flex-col gap-4 mt-5">
-          {
-            selected &&
-            <div>
-              <p className="text-xl font-bold">Adicionar transação</p>
+          <div>
+            <p className="text-xl font-bold">Adicionar transação</p>
+            {
+              selected &&
               <span className="font-light">no cartão <span className="font-bold">{selected.title}</span></span>
-            </div>
-          }
+            }
+          </div>
           <TransactionForm onSubmit={onSubmitHandler} />
         </div>
       </div>
-      <Alert show={success ?? error}>
+      <Alert show={success ? success : error ? error : false}>
         <div className="my-2 m-auto">
           {
             success &&

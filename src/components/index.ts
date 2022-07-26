@@ -3,6 +3,7 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import NavigationBar, { NavigationItem } from './NavigationBar';
 import TransactionForm from './TransactionForm';
+import CreditCardForm from './CreditCardForm';
 import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton, Dropdown, Datepicker, CardCarousel, Alert } from './lib';
 
 export {
@@ -24,5 +25,6 @@ export {
   Dropdown,
   Datepicker,
   CardCarousel,
-  Alert
+  Alert,
+  CreditCardForm
 };
