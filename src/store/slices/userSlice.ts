@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProfile } from '../../entities';
 import { RootState } from '../store';
-import { getUserProfileThunk, postTransactionThunk, putUserProfileThunk } from '../thunks';
+import { getUserProfileThunk, postCreditCardThunk, postTransactionThunk, putUserProfileThunk } from '../thunks';
 
 interface UserSlice {
   profile: UserProfile | null;
@@ -9,6 +9,8 @@ interface UserSlice {
   isLoadingProfile: boolean;
   saveTransactionSuccess: boolean;
   saveTransactionError: boolean;
+  saveCreditCardSuccess: boolean;
+  saveCreditCardError: boolean;
 }
 
 const initialState: UserSlice = {
@@ -16,7 +18,9 @@ const initialState: UserSlice = {
   isAuthenticated: false,
   isLoadingProfile: false,
   saveTransactionError: false,
-  saveTransactionSuccess: false
+  saveTransactionSuccess: false,
+  saveCreditCardSuccess: false,
+  saveCreditCardError: false
 };
 
 export const userSlice = createSlice({
@@ -32,6 +36,10 @@ export const userSlice = createSlice({
     resetTransactionSuccessError: state => {
       state.saveTransactionError = false;
       state.saveTransactionSuccess = false;
+    },
+    resetCreditCardSuccessError: state => {
+      state.saveCreditCardError = false;
+      state.saveCreditCardSuccess = false;
     }
   },
   extraReducers: builder => {
@@ -79,11 +87,34 @@ export const userSlice = createSlice({
       state.saveTransactionSuccess = false;
       state.saveTransactionError = true;
     });
+
+    builder.addCase(postCreditCardThunk.pending, state => {
+      state.isLoadingProfile = true;
+      state.saveCreditCardSuccess = false;
+      state.saveCreditCardError = false;
+    });
+
+    builder.addCase(postCreditCardThunk.fulfilled, (state, action: any) => {
+      state.isLoadingProfile = false;
+      state.saveCreditCardSuccess = true;
+      state.saveCreditCardError = false;
+    });
+
+    builder.addCase(postCreditCardThunk.rejected, state => {
+      state.isLoadingProfile = false;
+      state.saveCreditCardSuccess = false;
+      state.saveCreditCardError = true;
+    });
   }
 });
 
 export const userActions = userSlice.actions;
-export const userApiActions = { getUserProfileThunk, putUserProfileThunk, postTransactionThunk };
+export const userApiActions = {
+  getUserProfileThunk,
+  putUserProfileThunk,
+  postTransactionThunk,
+  postCreditCardThunk
+};
 export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;
