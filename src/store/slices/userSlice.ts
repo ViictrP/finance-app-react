@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProfile } from '../../entities';
 import { RootState } from '../store';
-import { getUserProfileThunk, postCreditCardThunk, postTransactionThunk, putUserProfileThunk } from '../thunks';
+import {
+  deleteDataThunk,
+  getUserProfileThunk,
+  postCreditCardThunk,
+  postTransactionThunk,
+  putUserProfileThunk,
+} from '../thunks';
 
 interface UserSlice {
   profile: UserProfile | null;
@@ -11,6 +17,8 @@ interface UserSlice {
   saveTransactionError: boolean;
   saveCreditCardSuccess: boolean;
   saveCreditCardError: boolean;
+  deleteError: boolean;
+  deleteSuccess: boolean;
 }
 
 const initialState: UserSlice = {
@@ -20,7 +28,9 @@ const initialState: UserSlice = {
   saveTransactionError: false,
   saveTransactionSuccess: false,
   saveCreditCardSuccess: false,
-  saveCreditCardError: false
+  saveCreditCardError: false,
+  deleteError: false,
+  deleteSuccess: false
 };
 
 export const userSlice = createSlice({
@@ -40,6 +50,10 @@ export const userSlice = createSlice({
     resetCreditCardSuccessError: state => {
       state.saveCreditCardError = false;
       state.saveCreditCardSuccess = false;
+    },
+    resetDeleteError: state => {
+      state.deleteError = false;
+      state.deleteSuccess = false;
     }
   },
   extraReducers: builder => {
@@ -105,6 +119,24 @@ export const userSlice = createSlice({
       state.saveCreditCardSuccess = false;
       state.saveCreditCardError = true;
     });
+
+    builder.addCase(deleteDataThunk.pending, state => {
+      state.isLoadingProfile = true;
+      state.deleteError = false;
+      state.deleteSuccess = false;
+    });
+
+    builder.addCase(deleteDataThunk.fulfilled, (state, action: any) => {
+      state.isLoadingProfile = false;
+      state.deleteError = false;
+      state.deleteSuccess = true;
+    });
+
+    builder.addCase(deleteDataThunk.rejected, state => {
+      state.isLoadingProfile = false;
+      state.deleteError = true;
+      state.deleteSuccess = false;
+    });
   }
 });
 
@@ -113,7 +145,8 @@ export const userApiActions = {
   getUserProfileThunk,
   putUserProfileThunk,
   postTransactionThunk,
-  postCreditCardThunk
+  postCreditCardThunk,
+  deleteDataThunk
 };
 export const selectUser = (state: RootState) => state.user;
 
