@@ -1,5 +1,4 @@
-import { BottomSheetButton, Header, Input } from '../components';
-import { Money } from 'phosphor-react';
+import { Header } from '../components';
 import SkeletonLoading from '../components/SkeletonLoading';
 
 const BalancePage = () => {
@@ -16,27 +15,6 @@ const BalancePage = () => {
           <small>o salário é utilizado como valor base para calcular seu saldo disponível de cada mês.</small>
         </div>
       </div>
-      <BottomSheetButton
-        title="alterar salário"
-        placeholder="salário"
-        buttonTitle="alterar salário"
-        idKey="salario">
-        <div className="w-full gap-5 mt-5 flex flex-col justify-between">
-          <Input
-            className="dark:bg-zinc-800"
-            placeholder="salário"
-            type="number"
-            icon={<Money size={24} weight="fill" />}
-            requiredErrorMessage="Este campo é obrigatório"
-          />
-          <button type="button"
-                  className="box-content bg-blue-500 p-2 rounded-md"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close">
-            salvar
-          </button>
-        </div>
-      </BottomSheetButton>
     </>
   );
 };
