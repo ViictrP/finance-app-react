@@ -33,7 +33,7 @@ const InvoicePage = () => {
         const __invoice = {
           creditCard: { id: creditCard.id },
           month: format(date, 'MMM', { locale: pt }).toUpperCase(),
-          year: format(date, 'yyyy', { locale: pt }),
+          year: format(date, 'yyyy', { locale: pt })
         } as any;
         dispatch(getInvoiceThunk(__invoice));
       }
@@ -58,12 +58,15 @@ const InvoicePage = () => {
 
   useEffect(() => {
     if (invoice && invoice.transactions) {
-      const __transactions = invoice.transactions.map((transaction: any) => ({
-        key: transaction.id,
-        header: transaction.category,
-        content: `${transaction.description} (${transaction.installmentNumber}/${transaction.installmentAmount})`,
-        footer: currencyFormatter(transaction.amount),
-      }));
+      const __transactions = invoice.transactions.map((transaction: any) => {
+        const installmentCount = transaction.isInstallment ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
+        return {
+          key: transaction.id,
+          header: transaction.category,
+          content: `${transaction.description} ${installmentCount}`,
+          footer: currencyFormatter(transaction.amount)
+        };
+      });
       setTransactions(__transactions);
       const sum = invoice.transactions.reduce((sum: number, current: any) => sum + Number(current.amount), 0);
       setTotalAmount(sum);
@@ -89,7 +92,7 @@ const InvoicePage = () => {
         <div className="h-full">
           <div className="flex flex-row items-center justify-between">
             <p className="text-md">Fatura de {format(selectedDate, 'MMMM/yyyy', { locale: pt })}</p>
-            { totalAmount > 0 && <p className="text-2xl font-bold">{currencyFormatter(totalAmount)}</p> }
+            {totalAmount > 0 && <p className="text-2xl font-bold">{currencyFormatter(totalAmount)}</p>}
           </div>
           {
             transactions.length > 0 &&
