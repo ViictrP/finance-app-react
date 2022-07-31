@@ -10,6 +10,9 @@ import { MONTHS } from '../utils/months.enum';
 import { CreditCard } from '../entities';
 import CreditCardSkeletonPage from './CreditCardSkeletonPage';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { CATEGORIES } from '../utils/categories.enum';
 
 const CreditCardPage = () => {
   const [creditCards, setCreditCards] = useState<CreditCard[]>();
@@ -30,7 +33,7 @@ const CreditCardPage = () => {
       const _filteredCards = creditCards?.filter((card) =>
         card.title
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
+          .includes(searchValue.toLowerCase())
       );
       setFilteredCards(mapCreditCardToCardCarouselItem(_filteredCards as any));
     } else {
@@ -43,7 +46,7 @@ const CreditCardPage = () => {
       const _filteredTransactions = transactions.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase()),
+          .includes(searchValue.toLowerCase())
       );
       setFilteredTransactions(_filteredTransactions);
     } else {
@@ -64,7 +67,7 @@ const CreditCardPage = () => {
       id: creditCard.id,
       title: creditCard.title,
       description: creditCard.number,
-      color: creditCard.backgroundColor,
+      color: creditCard.backgroundColor
     }));
   }, [creditCards]);
 
@@ -90,11 +93,12 @@ const CreditCardPage = () => {
       const invoice = creditCard.invoices.filter(invoice => invoice.month === month)[0];
       const _transactions = invoice.transactions.map(transaction => {
         const installmentCount = transaction.isInstallment ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
+        const formated = format(new Date(transaction.date), 'dd/MMM', { locale: pt });
         return {
           key: transaction.id,
-          header: transaction.category,
+          header: `${CATEGORIES[transaction.category]} ${formated}`,
           content: `${transaction.description} ${installmentCount}`,
-          footer: currencyFormatter(transaction.amount),
+          footer: currencyFormatter(transaction.amount)
         };
       });
       const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
