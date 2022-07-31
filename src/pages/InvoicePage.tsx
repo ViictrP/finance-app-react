@@ -61,7 +61,7 @@ const InvoicePage = () => {
       const __transactions = invoice.transactions.map((transaction: any) => ({
         key: transaction.id,
         header: transaction.category,
-        content: transaction.description,
+        content: `${transaction.description} (${transaction.installmentNumber}/${transaction.installmentAmount})`,
         footer: currencyFormatter(transaction.amount),
       }));
       setTransactions(__transactions);

@@ -91,7 +91,7 @@ const CreditCardPage = () => {
       const _transactions = invoice.transactions.map(transaction => ({
         key: transaction.id,
         header: transaction.category,
-        content: transaction.description,
+        content: `${transaction.description} (${transaction.installmentNumber}/${transaction.installmentAmount})`,
         footer: currencyFormatter(transaction.amount),
       }));
       const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
