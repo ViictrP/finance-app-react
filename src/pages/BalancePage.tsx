@@ -1,5 +1,5 @@
 import { Alert, BottomSheetButton, Header, Input } from '../components';
-import { CaretRight, Check, Money, Trash, Wallet, X } from 'phosphor-react';
+import { CaretRight, Check, Money, Trash, X } from 'phosphor-react';
 import { useSelector } from 'react-redux';
 import { selectUser, userActions, userApiActions } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';

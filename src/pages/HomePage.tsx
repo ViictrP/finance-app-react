@@ -8,6 +8,9 @@ import { currencyFormatter } from '../helpers/currencyFormatter';
 import { CardItem } from '../components/lib/CardList';
 import { MONTHS } from '../utils/months.enum';
 import HomeSkeletonPage from './HomeSkeletonPage';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { CATEGORIES } from '../utils/categories.enum';
 
 const HomePage = () => {
   const [cards, setCards] = useState<CardItem[]>([]);
@@ -37,12 +40,15 @@ const HomePage = () => {
 
   useEffect(() => {
     if (storedUser.profile && !storedUser.isLoadingProfile) {
-      const _transactions = storedUser.profile?.transactions.map(transaction => ({
-        key: transaction.id,
-        header: transaction.category,
-        content: transaction.description,
-        footer: currencyFormatter(transaction.amount)
-      }));
+      const _transactions = storedUser.profile?.transactions.map(transaction => {
+        const formated = format(new Date(transaction.date), 'dd/MMM', { locale: pt });
+        return {
+          key: transaction.id,
+          header: `${CATEGORIES[transaction.category]} ${formated}`,
+          content: transaction.description + ' test',
+          footer: currencyFormatter(transaction.amount)
+        };
+      });
       const debitAmount = storedUser.profile?.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
       const creditCardsAmount = storedUser.profile?.creditCards.reduce((sum, current) => {
         const invoice = current.invoices.filter(invoice => invoice.month === MONTHS[TODAY.getMonth()])[0];
