@@ -6,7 +6,7 @@ import axios from 'axios';
 const getInvoiceThunk = createAsyncThunk('get/invoice', async (invoice: Invoice, thunkApi) => {
   try {
     const id = invoice.creditCard.id;
-    const response = await api.get<UserProfile>(`/credit-cards/${id}/invoice?month=${invoice.month}&year=${invoice.year}`, {
+    const response = await api.get<UserProfile>(`/credit-cards/${id}/invoices?month=${invoice.month}&year=${invoice.year}`, {
       headers: axios.defaults.headers.common
     });
     return thunkApi.fulfillWithValue(response.data);
