@@ -128,6 +128,7 @@ const HomePage = () => {
             const percent = parseFloat(`${(amount / expensesAmount) * 100}`).toFixed(2);
             return (
               <Link
+                key={creditCard.id}
                 to={`/invoices/${creditCard.id}`}
                 className={`carousel-chip-item ${creditCard.backgroundColor}`}>
                 <p className="text-sm">{creditCard.title} <span className="font-bold text-md">{percent}</span>%</p>
