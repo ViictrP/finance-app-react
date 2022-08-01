@@ -59,7 +59,7 @@ const InvoicePage = () => {
   useEffect(() => {
     if (invoice && invoice.transactions) {
       const __transactions = invoice.transactions.map((transaction: any) => {
-        const installmentCount = transaction.isInstallment ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
+        const installmentCount = transaction.installmentAmount > 1 ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
         return {
           key: transaction.id,
           header: transaction.category,

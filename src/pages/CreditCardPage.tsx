@@ -92,7 +92,7 @@ const CreditCardPage = () => {
       const month = MONTHS[TODAY.getMonth()];
       const invoice = creditCard.invoices.filter(invoice => invoice.month === month)[0];
       const _transactions = invoice.transactions.map(transaction => {
-        const installmentCount = transaction.isInstallment ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
+        const installmentCount = transaction.installmentAmount > 1 ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
         const formated = format(new Date(transaction.date), 'dd/MMM', { locale: pt });
         return {
           key: transaction.id,
