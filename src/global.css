@@ -91,3 +91,23 @@ body {
 	margin: auto;
 	@apply dark:border-t-zinc-700 border-t-zinc-200
 }
+
+.carousel-chip {
+	scroll-snap-type: x;
+	scroll-snap-stop: normal;
+	scroll-behavior: smooth;
+	scroll-padding: 14px;
+	@apply scrollbar-none gap-4 flex overflow-auto;
+}
+
+.carousel-chip > .carousel-chip-item {
+	@apply px-4 py-1 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-800 shadow-md;
+}
+
+.carousel-chip > .carousel-chip-item:first-child {
+	@apply ml-4;
+}
+
+.carousel-chip > .carousel-chip-item:last-child {
+	@apply mr-4;
+}
