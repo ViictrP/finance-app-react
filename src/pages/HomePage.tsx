@@ -26,7 +26,7 @@ const HomePage = () => {
       const _filteredCards = cards.filter((card) =>
         card.content
           .toLowerCase()
-          .includes(searchValue.toLowerCase())
+          .includes(searchValue.toLowerCase()),
       );
       setFilteredCards(_filteredCards);
     } else {
@@ -45,8 +45,8 @@ const HomePage = () => {
         return {
           key: transaction.id,
           header: `${CATEGORIES[transaction.category]} ${formated}`,
-          content: transaction.description + ' test',
-          footer: currencyFormatter(transaction.amount)
+          content: transaction.description,
+          footer: currencyFormatter(transaction.amount),
         };
       });
       const debitAmount = storedUser.profile?.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
@@ -74,59 +74,86 @@ const HomePage = () => {
   }, [cards]);
 
   if (storedUser.isLoadingProfile) {
-    return <HomeSkeletonPage />
+    return <HomeSkeletonPage />;
   }
 
   return (
-    <div className="page-container">
-      <Header />
-      <div className="flex flex-row items-center gap-1">
-        <span className="font-light text-md">salário</span>
-        <span
-          className="p-[2px] text-md font-bold text-blue-400 rounded-md"> {currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
-      </div>
-      <div
-        id="content"
-        className="mt-4 w-full h-auto bg-white dark:bg-zinc-900 rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-700 drop-shadow">
-        <div id="balance-container" className="p-4 w-full">
-          <div className="w-full flex flex-row items-center justify-between">
-            <p className="text-lg">saldo disponível</p>
-            <Link to="/">
-              <button title="gear" type="button" className="pulse-single">
-                <ChartBar size={24} weight="fill" className="text-zinc-900 dark:text-white" />
-              </button>
-            </Link>
+    <>
+      <div className="page-container">
+        <Header />
+        <div className="flex flex-row items-center gap-1">
+          <span className="font-light text-md">salário</span>
+          <span
+            className="p-[2px] text-md font-bold text-blue-400 rounded-md"> {currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
+        </div>
+        <div
+          id="content"
+          className="mt-4 w-full h-auto bg-white dark:bg-zinc-900 rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-700 drop-shadow">
+          <div id="balance-container" className="p-4 w-full">
+            <div className="w-full flex flex-row items-center justify-between">
+              <p className="text-lg">saldo disponível</p>
+              <Link to="/">
+                <button title="gear" type="button" className="pulse-single">
+                  <ChartBar size={24} weight="fill" className="text-zinc-900 dark:text-white" />
+                </button>
+              </Link>
+            </div>
+            <h1 className="text-3xl text-emerald-500 font-bold">
+              {currencyFormatter(availableBalance)}
+            </h1>
           </div>
-          <h1 className="text-3xl text-emerald-500 font-bold">
-            {currencyFormatter(availableBalance)}
-          </h1>
-        </div>
-        <div id="charts">
-          <div className="w-full h-[160px]">
-            <LineCharts labels={['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul']}
-                        data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
+          <div id="charts">
+            <div className="w-full h-[160px]">
+              <LineCharts labels={['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul']}
+                          data={[3390.83, 5332.29, 850.23, 4110.22, 4422.11, 6500.98, 10890.10]} />
+            </div>
+          </div>
+          <div className="p-4 w-full text-right border-t-[0.5px] border-zinc-200 dark:border-zinc-800">
+            <p className="text-md">gasto total • jun</p>
+            <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
           </div>
         </div>
-        <div className="p-4 w-full text-right border-t-[0.5px] border-zinc-200 dark:border-zinc-800">
-          <p className="text-md">gasto total • jun</p>
-          <p className="text-xl text-orange-300 font-bold">{currencyFormatter(expensesAmount)}</p>
+      </div>
+
+      <div className="px-4 mt-[-2rem]">
+        <h1 className="text-2xl font-bold my-5">Impacto no orçamento</h1>
+      </div>
+      <div id="credit-card-impact" className="carousel-chip">
+        {
+          storedUser.profile?.creditCards.map(creditCard => {
+            const invoice = creditCard.invoices.filter(invoice => invoice.month === MONTHS[TODAY.getMonth()])[0];
+            const amount = invoice.transactions.reduce((sum, current) => {
+              return sum + Number(current.amount);
+            }, 0);
+            const percent = parseFloat(`${(amount / expensesAmount) * 100}`).toFixed(2);
+            return (
+              <Link
+                to={`/invoices/${creditCard.id}`}
+                className={`carousel-chip-item ${creditCard.backgroundColor}`}>
+                <p className="text-sm">{creditCard.title} <span className="font-bold text-md">{percent}</span>%</p>
+              </Link>
+            );
+          })
+        }
+      </div>
+
+      <div className="page-container" style={{paddingTop: '1rem'}}>
+        <div id="transitions" className="pb-4">
+          <h1 className="text-2xl font-bold my-5">Transações</h1>
+          <Input
+            customRef={searchInputRef}
+            placeholder="buscar transações..."
+            icon={<MagnifyingGlass size={24} className="text-zinc-900 dark:text-white" />}
+            onChange={filterTransactions}
+            onFocus={onSearchFocus}
+          />
+          <CardList
+            content={filteredCards}
+            icon={<ShoppingBag size="30" weight="fill" className="ml-1" />}
+          />
         </div>
       </div>
-      <div id="transitions" className="mt-10 pb-4">
-        <h1 className="text-2xl font-bold my-5">Transações</h1>
-        <Input
-          customRef={searchInputRef}
-          placeholder="buscar transações..."
-          icon={<MagnifyingGlass size={24} className="text-zinc-900 dark:text-white" />}
-          onChange={filterTransactions}
-          onFocus={onSearchFocus}
-        />
-        <CardList
-          content={filteredCards}
-          icon={<ShoppingBag size="30" weight="fill" className="ml-1"/>}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
