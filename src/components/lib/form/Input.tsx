@@ -1,5 +1,5 @@
 import './form.components.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface InputProps {
   customRef?: any;
@@ -8,7 +8,7 @@ interface InputProps {
   value?: string;
   placeholder?: string;
   icon?: any;
-  type?: 'text' | 'email' | 'tel' | 'number' | 'password';
+  type?: 'text' | 'email' | 'tel' | 'number' | 'password' | 'currency';
   required?: boolean;
   requiredErrorMessage?: string;
   onChange?: (value: string) => void;
@@ -30,31 +30,40 @@ const Input = ({
                  onChange,
                  onBlur,
                  onFocus,
-                 className
+                 className,
                }: InputProps) => {
-  const [, setInternalValue] = useState('');
   const [invalid, setInvalid] = useState(showErrors);
+  const ref = useRef<any>(null);
 
-  const onChangeHandler = useCallback((newValue: string) => {
+  const onChangeHandler = useCallback(() => {
+    const newValue = ref.current?.value;
+
     if (!newValue && required) {
       setInvalid(true);
     } else {
       setInvalid(false);
     }
-    setInternalValue(newValue);
+
+    if (type === 'currency') {
+      const val = newValue
+        .replace(/\D/g, '')
+        .replace(/(\d)(\d{2})$/, '$1,$2')
+        .replace(/(?=(\d{3})+(\D))\B/g, '.');
+
+      ref.current!.value = val;
+
+      return onChange && onChange(val.replace(/\./g, '').replace(/,/, '.'));
+    }
     onChange && onChange(newValue);
   }, [onChange]);
 
   const onBlurHandler = useCallback((newValue: string) => {
-    setInternalValue(newValue);
     onBlur && onBlur(newValue);
   }, [onBlur]);
 
   const onFocusHandler = useCallback(() => {
     onFocus && onFocus();
   }, [onFocus]);
-
-  useEffect(() => setInternalValue(value ?? ''), [value]);
 
   useEffect(() => setInvalid(showErrors), [showErrors]);
 
@@ -86,13 +95,13 @@ const Input = ({
       >
         <div>{icon ?? ''}</div>
         <input
-          ref={customRef}
+          ref={ref}
           id={id}
-          type={type ?? 'text'}
+          type={type === 'currency' ? 'text' : type ?? 'text'}
           value={value}
           required={required}
           placeholder={placeholder ?? 'placeholder'}
-          onChange={(event) => onChangeHandler(event.target.value)}
+          onChange={onChangeHandler}
           onBlur={(event) => onBlurHandler(event.target.value)}
           onFocus={onFocusHandler}
           className="w-full h-full text-lg bg-transparent border-none focus:ring-0"

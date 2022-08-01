@@ -68,7 +68,7 @@ const BalancePage = () => {
           <Input
             className="dark:bg-zinc-800"
             placeholder="salário"
-            type="number"
+            type="currency"
             icon={<Money size={24} weight="fill" />}
             onChange={value => setSalary(value)}
             requiredErrorMessage="Este campo é obrigatório"

@@ -116,7 +116,7 @@ const HomePage = () => {
       </div>
 
       <div className="px-4 mt-[-2rem]">
-        <h1 className="text-2xl font-bold my-5">Impacto no orçamento</h1>
+        <h1 className="text-2xl font-bold my-5">Impacto nos gastos</h1>
       </div>
       <div id="credit-card-impact" className="carousel-chip">
         {
