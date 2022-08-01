@@ -116,7 +116,7 @@ const HomePage = () => {
       </div>
 
       <div className="px-4 mt-[-2rem]">
-        <h1 className="text-2xl font-bold my-5">Impacto no orçamento</h1>
+        <h1 className="text-2xl font-bold my-5">Impacto nos gastos</h1>
       </div>
       <div id="credit-card-impact" className="carousel-chip">
         {
@@ -128,6 +128,7 @@ const HomePage = () => {
             const percent = parseFloat(`${(amount / expensesAmount) * 100}`).toFixed(2);
             return (
               <Link
+                key={creditCard.id}
                 to={`/invoices/${creditCard.id}`}
                 className={`carousel-chip-item ${creditCard.backgroundColor}`}>
                 <p className="text-sm">{creditCard.title} <span className="font-bold text-md">{percent}</span>%</p>

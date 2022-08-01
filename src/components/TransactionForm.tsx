@@ -88,7 +88,7 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
       <div className="mb-5">
         <Input
           placeholder="valor *"
-          type="number"
+          type="currency"
           icon={<CurrencyDollarSimple size={24} weight="fill" />}
           onChange={value => onBlur(value, 'amount')}
           required={true}
