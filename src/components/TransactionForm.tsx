@@ -8,7 +8,6 @@ interface TransactionFormProps {
 }
 
 interface FormValue {
-  title: string;
   amount: number;
   description: string;
   date: Date;
@@ -48,7 +47,6 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
     let invalid = true;
     if (formValue.hasOwnProperty('amount') && Number(formValue.amount) !== 0
       && formValue.hasOwnProperty('description') && formValue.description !== ''
-      && formValue.hasOwnProperty('title') && formValue.title !== ''
       && formValue.hasOwnProperty('category') && (formValue.category as any) !== '') {
       invalid = false;
     }
@@ -65,15 +63,6 @@ const TransactionForm = ({ onSubmit }: TransactionFormProps) => {
           title="categoria"
           options={dropdownOptions.current}
           onChange={onDropdownChangeHandler}
-        />
-      </div>
-      <div className="mb-5">
-        <Input
-          placeholder="título *"
-          icon={<Article size={24} />}
-          onChange={value => onBlur(value, 'title')}
-          required={true}
-          requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <div className="mb-5">
