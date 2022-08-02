@@ -67,6 +67,12 @@ const Input = ({
 
   useEffect(() => setInvalid(showErrors), [showErrors]);
 
+  useEffect(() => {
+    if (value) {
+      ref.current.value = value;
+    }
+  }, [value]);
+
   return (
     <>
       <div
@@ -98,7 +104,6 @@ const Input = ({
           ref={ref}
           id={id}
           type={type === 'currency' ? 'text' : type ?? 'text'}
-          value={value}
           required={required}
           placeholder={placeholder ?? 'placeholder'}
           onChange={onChangeHandler}

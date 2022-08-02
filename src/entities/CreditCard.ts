@@ -8,7 +8,7 @@ export default interface CreditCard {
   number: string;
   user: UserProfile;
   invoices: Invoice[];
-  invoiceClosingDay: number;
+  invoiceClosingDay: string;
   createAt: Date;
   backgroundColor: string;
 }

@@ -11,6 +11,7 @@ const CreditCardFormPage = () => {
   const storedUser = useSelector(selectUser);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [creditCard, setCreditCard] = useState<CreditCard>();
 
   const onSubmitHandler = (creditCard: CreditCard) => {
     dispatch(userApiActions.postCreditCardThunk(creditCard));
@@ -25,6 +26,18 @@ const CreditCardFormPage = () => {
     setSuccess(storedUser.saveCreditCardSuccess);
   }, [storedUser.saveCreditCardSuccess, storedUser.saveCreditCardError]);
 
+  useEffect(() => {
+    if (storedUser.profile && !storedUser.isLoadingProfile) {
+      const creditCardId = location.pathname.split('/')[2];
+      const creditCard = storedUser.profile.creditCards.filter(({ id }) => creditCardId === id)[0];
+      setCreditCard(creditCard);
+    }
+  }, [storedUser.profile, storedUser.isLoadingProfile]);
+
+  useEffect(() => {
+    console.log(creditCard);
+  }, [creditCard]);
+
   return (
     <>
       <div className="pb-12">
@@ -33,7 +46,7 @@ const CreditCardFormPage = () => {
           <div className="mb-4">
             <p className="text-2xl font-bold">Adicionar novo cartão</p>
           </div>
-          <CreditCardForm onSubmit={onSubmitHandler} />
+          <CreditCardForm onSubmit={onSubmitHandler} creditCard={creditCard} />
         </div>
       </div>
       <Alert show={success ? success : error ? error : false}>

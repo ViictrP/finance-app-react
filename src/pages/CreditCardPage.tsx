@@ -177,12 +177,13 @@ const CreditCardPage = () => {
           <Rows size={15} weight="bold" />
           <p className="text-md">ver faturas</p>
         </Link>
-        <div
+        <Link
+          to={`/credit-card-form/${selected?.id}`}
           onClick={() => setShowContextMenu(false)}
           className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Pencil size={15} weight="bold" />
           <p className="text-md">editar</p>
-        </div>
+        </Link>
         <div
           onClick={() => setShowContextMenu(false)}
           className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">

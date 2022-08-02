@@ -12,10 +12,11 @@ interface FormValue {
 }
 
 interface CreditCardFormProps {
+  creditCard?: CreditCard;
   onSubmit: (value: CreditCard) => void;
 }
 
-const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
+const CreditCardForm = ({ creditCard, onSubmit }: CreditCardFormProps) => {
   const [formValue, setFormValue] = useState<FormValue>({} as any);
   const [formInvalid, setFormInvalid] = useState(true);
   const dropdownOptions = useRef([
@@ -64,6 +65,7 @@ const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
         <Input
           placeholder="título *"
           icon={<Article size={24} />}
+          value={creditCard?.title}
           onChange={value => onBlur(value, 'title')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -73,6 +75,7 @@ const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
         <Input
           placeholder="descrição *"
           icon={<Article size={24} />}
+          value={creditCard?.description}
           onChange={value => onBlur(value, 'description')}
           required={true}
           requiredErrorMessage="Este campo é obrigatório"
@@ -82,6 +85,7 @@ const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
         <Input
           placeholder="número *"
           type="text"
+          value={creditCard?.number}
           icon={<NumberEight size={24} weight="fill" />}
           onChange={value => onBlur(value, 'number')}
           required={true}
@@ -90,6 +94,7 @@ const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
       </div>
       <div className="mb-5">
         <Input
+          value={creditCard?.invoiceClosingDay}
           placeholder="dia de fechamento *"
           type="text"
           icon={<CalendarCheck size={24} />}
@@ -107,7 +112,7 @@ const CreditCardForm = ({ onSubmit }: CreditCardFormProps) => {
       </div>
       <div className="flex flex-row items-center gap-4 mb-6">
         <p>Cor do cartão</p>
-        <div className={`w-10 h-4 ${formValue.backgroundColor} rounded-lg`} />
+        <div className={`w-10 h-4 ${creditCard?.backgroundColor ?? formValue.backgroundColor} rounded-lg`} />
       </div>
       <footer>
         <Button type="button" title="salvar" disabled={formInvalid} onClick={handleSubmit} />
