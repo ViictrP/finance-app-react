@@ -26,6 +26,7 @@ const CreditCardForm = ({ creditCard, onSubmit }: CreditCardFormProps) => {
     { title: 'Azul', value: 'bg-blue-500' },
     { title: 'Roxo', value: 'bg-purple-900' }
   ]);
+  const form = useRef<HTMLFormElement>(null);
 
   const onBlur = (value: string, input: string) => {
     const key = input as keyof typeof formValue;
@@ -42,11 +43,6 @@ const CreditCardForm = ({ creditCard, onSubmit }: CreditCardFormProps) => {
   };
 
   useEffect(() => {
-    const defaultColor = dropdownOptions.current[0].value;
-    setFormValue(prevState => ({ ...prevState, backgroundColor: defaultColor }));
-  }, [dropdownOptions]);
-
-  useEffect(() => {
     let invalid = true;
     if (formValue.hasOwnProperty('title') && Number(formValue.title) !== 0
       && formValue.hasOwnProperty('description') && formValue.description !== ''
@@ -59,8 +55,20 @@ const CreditCardForm = ({ creditCard, onSubmit }: CreditCardFormProps) => {
     setFormInvalid(invalid);
   }, [formValue]);
 
+  useEffect(() => {
+    if (creditCard) {
+      setFormValue({
+        title: creditCard.title,
+        description: creditCard.description,
+        number: creditCard.number,
+        invoiceClosingDay: creditCard.invoiceClosingDay,
+        backgroundColor: creditCard.backgroundColor,
+      });
+    }
+  }, [creditCard]);
+
   return (
-    <form className="flex flex-col">
+    <form ref={form} className="flex flex-col">
       <div className="mb-5">
         <Input
           placeholder="título *"
@@ -100,19 +108,21 @@ const CreditCardForm = ({ creditCard, onSubmit }: CreditCardFormProps) => {
           icon={<CalendarCheck size={24} />}
           onChange={value => onBlur(value, 'invoiceClosingDay')}
           required={true}
+          disabled={creditCard !== null && creditCard !== undefined}
           requiredErrorMessage="Este campo é obrigatório"
         />
       </div>
       <div className="mb-6">
         <Dropdown
           title="cor"
+          value={creditCard?.backgroundColor}
           options={dropdownOptions.current}
           onChange={onDropdownChangeHandler}
         />
       </div>
       <div className="flex flex-row items-center gap-4 mb-6">
         <p>Cor do cartão</p>
-        <div className={`w-10 h-4 ${creditCard?.backgroundColor ?? formValue.backgroundColor} rounded-lg`} />
+        <div className={`w-10 h-4 ${formValue.backgroundColor ?? creditCard?.backgroundColor} rounded-lg`} />
       </div>
       <footer>
         <Button type="button" title="salvar" disabled={formInvalid} onClick={handleSubmit} />

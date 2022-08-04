@@ -9,7 +9,7 @@ import { CardItem } from '../components/lib/CardList';
 import { MONTHS } from '../utils/months.enum';
 import { CreditCard } from '../entities';
 import CreditCardSkeletonPage from './CreditCardSkeletonPage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { CATEGORIES } from '../utils/categories.enum';
@@ -23,6 +23,7 @@ const CreditCardPage = () => {
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [invoiceAmount, setInvoiceAmount] = useState(0);
+  const navigate = useNavigate();
   const searchInputRef: any = useRef(null);
   const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
@@ -164,6 +165,7 @@ const CreditCardPage = () => {
             />
             <CardList
               content={filteredTransactions}
+              onItemClick={(key) => navigate('/transactions/' + key)}
               icon={<ShoppingBag size="30" className="ml-1" weight="fill" />}
             />
           </div>

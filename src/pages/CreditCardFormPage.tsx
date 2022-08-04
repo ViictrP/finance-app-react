@@ -13,8 +13,12 @@ const CreditCardFormPage = () => {
   const [error, setError] = useState(false);
   const [creditCard, setCreditCard] = useState<CreditCard>();
 
-  const onSubmitHandler = (creditCard: CreditCard) => {
-    dispatch(userApiActions.postCreditCardThunk(creditCard));
+  const onSubmitHandler = (newCard: CreditCard) => {
+    if (creditCard) {
+      newCard.id = creditCard.id;
+      return dispatch(userApiActions.putCreditCardThunk(newCard));
+    }
+    dispatch(userApiActions.postCreditCardThunk(newCard));
   };
 
   const onAlertDismiss = useCallback(() => {
@@ -27,16 +31,12 @@ const CreditCardFormPage = () => {
   }, [storedUser.saveCreditCardSuccess, storedUser.saveCreditCardError]);
 
   useEffect(() => {
-    if (storedUser.profile && !storedUser.isLoadingProfile) {
+    if (!storedUser.isLoadingProfile && storedUser.profile) {
       const creditCardId = location.pathname.split('/')[2];
       const creditCard = storedUser.profile.creditCards.filter(({ id }) => creditCardId === id)[0];
       setCreditCard(creditCard);
     }
   }, [storedUser.profile, storedUser.isLoadingProfile]);
-
-  useEffect(() => {
-    console.log(creditCard);
-  }, [creditCard]);
 
   return (
     <>

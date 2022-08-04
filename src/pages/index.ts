@@ -5,6 +5,7 @@ import RegistrationPage from './RegistrationPage';
 import CreditCardFormPage from './CreditCardFormPage';
 import TransactionFormPage from './TransactionFormPage';
 import BalancePage from './BalancePage';
+import TransactionPage from './TransactionPage';
 
 export {
   CreditCardPage,
@@ -13,5 +14,6 @@ export {
   RegistrationPage,
   CreditCardFormPage,
   TransactionFormPage,
-  BalancePage
+  BalancePage,
+  TransactionPage
 };

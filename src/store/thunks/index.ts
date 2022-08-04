@@ -4,6 +4,7 @@ import postTransactionThunk from './postTransactionThunk';
 import getInvoiceThunk from './getInvoiceThunk';
 import postCreditCardThunk from './postCreditCardThunk';
 import deleteDataThunk from './deleteDataThunk';
+import putCreditCardThunk from './putCreditCardThunk';
 
 export {
   getUserProfileThunk,
@@ -11,5 +12,6 @@ export {
   postTransactionThunk,
   getInvoiceThunk,
   postCreditCardThunk,
-  deleteDataThunk
+  deleteDataThunk,
+  putCreditCardThunk
 };

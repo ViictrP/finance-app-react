@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface InputProps {
   customRef?: any;
+  disabled?: boolean;
   showErrors?: boolean;
   id?: string;
   value?: string;
@@ -19,6 +20,7 @@ interface InputProps {
 
 const Input = ({
                  customRef,
+                 disabled,
                  showErrors,
                  id,
                  value,
@@ -89,20 +91,21 @@ const Input = ({
         py-1
         mb-2
         rounded-md
-        dark:text-zinc-100
+        ${!disabled ? 'dark:text-zinc-100' : 'dark:text-zinc-500'}
         border-[0.5px]
         dark:bg-zinc-900
         bg-zinc-100 
         focus:outline-none
         focus:outline-hidden
-        dark:hover:bg-zinc-800
-        hover:bg-zinc-200
+        ${!disabled ? 'dark:hover:bg-zinc-800' : ''}
+        ${!disabled ? 'hover:bg-zinc-200' : ''}
         `}
       >
         <div>{icon ?? ''}</div>
         <input
           ref={ref}
           id={id}
+          disabled={disabled}
           type={type === 'currency' ? 'text' : type ?? 'text'}
           required={required}
           placeholder={placeholder ?? 'placeholder'}

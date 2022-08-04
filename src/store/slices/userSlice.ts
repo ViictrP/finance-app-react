@@ -5,8 +5,8 @@ import {
   deleteDataThunk,
   getUserProfileThunk,
   postCreditCardThunk,
-  postTransactionThunk,
-  putUserProfileThunk,
+  postTransactionThunk, putCreditCardThunk,
+  putUserProfileThunk
 } from '../thunks';
 
 interface UserSlice {
@@ -120,6 +120,24 @@ export const userSlice = createSlice({
       state.saveCreditCardError = true;
     });
 
+    builder.addCase(putCreditCardThunk.pending, state => {
+      state.isLoadingProfile = true;
+      state.saveCreditCardSuccess = false;
+      state.saveCreditCardError = false;
+    });
+
+    builder.addCase(putCreditCardThunk.fulfilled, (state, action: any) => {
+      state.isLoadingProfile = false;
+      state.saveCreditCardSuccess = true;
+      state.saveCreditCardError = false;
+    });
+
+    builder.addCase(putCreditCardThunk.rejected, state => {
+      state.isLoadingProfile = false;
+      state.saveCreditCardSuccess = false;
+      state.saveCreditCardError = true;
+    });
+
     builder.addCase(deleteDataThunk.pending, state => {
       state.isLoadingProfile = true;
       state.deleteError = false;
@@ -146,6 +164,7 @@ export const userApiActions = {
   putUserProfileThunk,
   postTransactionThunk,
   postCreditCardThunk,
+  putCreditCardThunk,
   deleteDataThunk
 };
 export const selectUser = (state: RootState) => state.user;
