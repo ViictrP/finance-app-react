@@ -41,7 +41,7 @@ const CardCarousel = ({ items, onSelect }: CardCarouselProps) => {
           <div
             key={item.id}
             id={`${item.id}`}
-            className="card-carousel-item">{item.title}
+            className={`card-carousel-item ${item.color}`}>{item.title}
           </div>
         ))
       }

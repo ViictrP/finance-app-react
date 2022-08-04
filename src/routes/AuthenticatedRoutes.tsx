@@ -3,7 +3,14 @@ import React, { useCallback, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ContextMenu, NavigationBar, NavigationItem } from '../components';
 
-import { BalancePage, CreditCardFormPage, CreditCardPage, HomePage, TransactionFormPage } from '../pages';
+import {
+  BalancePage,
+  CreditCardFormPage,
+  CreditCardPage,
+  HomePage,
+  TransactionFormPage,
+  TransactionPage
+} from '../pages';
 import InvoicePage from '../pages/InvoicePage';
 
 const AuthenticatedRoutes: React.FC = () => {
@@ -62,7 +69,9 @@ const AuthenticatedRoutes: React.FC = () => {
         <Route path="/balance" element={<BalancePage />} />
         <Route path="/credit-cards" element={<CreditCardPage />} />
         <Route path="/credit-card-form" element={<CreditCardFormPage />} />
+        <Route path="/credit-card-form/:creditCardId" element={<CreditCardFormPage />} />
         <Route path="/transaction-form" element={<TransactionFormPage />} />
+        <Route path="/transactions/:id" element={<TransactionPage />} />
         <Route path="/invoices/:creditCardId" element={<InvoicePage />} />
       </Routes>
     </BrowserRouter>

@@ -8,6 +8,7 @@ export interface DropdownOption {
 
 interface DropdownProps {
   title: string;
+  value?: string;
   direction?: 'left' | 'top' | 'right' | 'bottom';
   options: DropdownOption[];
   onChange?: (option: string) => void;
@@ -20,7 +21,7 @@ const directionMap = {
   bottom: 'dropdown',
 };
 
-const Dropdown = ({ direction, title, options, onChange }: DropdownProps) => {
+const Dropdown = ({ direction, title, value, options, onChange }: DropdownProps) => {
   const [selected, setSelected] = useState<DropdownOption | null>();
 
   const onOptionClickHandler = useCallback((option: DropdownOption) => {
@@ -32,6 +33,13 @@ const Dropdown = ({ direction, title, options, onChange }: DropdownProps) => {
     setSelected(null);
     onChange && onChange('');
   }, [onChange]);
+
+  useEffect(() => {
+    if (value) {
+      const option = options.find(option => option.value === value);
+      setSelected(option);
+    }
+  }, [value]);
 
   return (
     <div className={`${directionMap[direction as keyof typeof directionMap]} relative w-full`}>
@@ -67,8 +75,7 @@ const Dropdown = ({ direction, title, options, onChange }: DropdownProps) => {
           options.map(option => (
             <li key={option.value} onClick={() => onOptionClickHandler(option)}>
               <a
-                className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
-                href="#">
+                className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-800">
                 {option.title}
               </a>
             </li>

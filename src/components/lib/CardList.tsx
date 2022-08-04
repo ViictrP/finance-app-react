@@ -1,34 +1,39 @@
-import Card from './Card'
-import { useEffect, useState } from 'react'
+import Card from './Card';
+import { useCallback, useEffect, useState } from 'react';
 
 export interface CardItem {
-  key: string
-  header: string
-  content: string
-  footer: string
+  key: string;
+  header: string;
+  content: string;
+  footer: string;
 }
 
 interface CardListGroupProps {
-  property: keyof CardItem
+  property: keyof CardItem;
 }
 
 interface CardListProps {
-  content: CardItem[]
-  icon: any
-  group?: boolean
-  groupProp?: CardListGroupProps
-  placeholderElement?: any
+  content: CardItem[];
+  icon: any;
+  group?: boolean;
+  groupProp?: CardListGroupProps;
+  placeholderElement?: any;
+  onItemClick?: (key: string) => void;
 }
 
-const CardList = ({ content, icon }: CardListProps) => {
-  const [_content, setContent] = useState<CardItem[]>(content)
+const CardList = ({ content, onItemClick, icon }: CardListProps) => {
+  const [_content, setContent] = useState<CardItem[]>(content);
 
-  useEffect(() => setContent(content), [content])
+  const onItemClickHandler = useCallback((key: string) => {
+    onItemClick && onItemClick(key);
+  }, [onItemClick]);
+
+  useEffect(() => setContent(content), [content]);
 
   return (
     <>
       {_content.map((item) => (
-        <Card key={item.key}>
+        <Card key={item.key} onClick={() => onItemClickHandler(item.key)}>
           {icon}
           <div className="w-full flex flex-col">
             <div className="w-full flex flex-row items-start justify-between">
@@ -40,7 +45,7 @@ const CardList = ({ content, icon }: CardListProps) => {
         </Card>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default CardList
+export default CardList;

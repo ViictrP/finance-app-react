@@ -1,7 +1,7 @@
 import { ChartBar, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CardList, Header, Input, LineCharts } from '../components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
@@ -18,6 +18,7 @@ const HomePage = () => {
   const [availableBalance, setAvailableBalance] = useState<number>(0);
   const [expensesAmount, setExpensesAmount] = useState(0);
   const storedUser = useSelector(selectUser);
+  const navigation = useNavigate();
   const searchInputRef: any = useRef(null);
   const TODAY = new Date();
 
@@ -150,6 +151,7 @@ const HomePage = () => {
           />
           <CardList
             content={filteredCards}
+            onItemClick={(key) => navigation('/transactions/' + key)}
             icon={<ShoppingBag size="30" weight="fill" className="ml-1" />}
           />
         </div>

@@ -9,7 +9,7 @@ import { CardItem } from '../components/lib/CardList';
 import { MONTHS } from '../utils/months.enum';
 import { CreditCard } from '../entities';
 import CreditCardSkeletonPage from './CreditCardSkeletonPage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { CATEGORIES } from '../utils/categories.enum';
@@ -23,6 +23,7 @@ const CreditCardPage = () => {
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [invoiceAmount, setInvoiceAmount] = useState(0);
+  const navigate = useNavigate();
   const searchInputRef: any = useRef(null);
   const searchTransactionInputRef: any = useRef(null);
   const storedUser = useSelector(selectUser);
@@ -164,6 +165,7 @@ const CreditCardPage = () => {
             />
             <CardList
               content={filteredTransactions}
+              onItemClick={(key) => navigate('/transactions/' + key)}
               icon={<ShoppingBag size="30" className="ml-1" weight="fill" />}
             />
           </div>
@@ -177,12 +179,13 @@ const CreditCardPage = () => {
           <Rows size={15} weight="bold" />
           <p className="text-md">ver faturas</p>
         </Link>
-        <div
+        <Link
+          to={`/credit-card-form/${selected?.id}`}
           onClick={() => setShowContextMenu(false)}
           className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
           <Pencil size={15} weight="bold" />
           <p className="text-md">editar</p>
-        </div>
+        </Link>
         <div
           onClick={() => setShowContextMenu(false)}
           className="w-full flex flex-row items-center gap-2 h-10 bg-zinc-900 rounded-bl-lg rounded-br-lg px-3 hover:bg-blue-800 focus:bg-blue-900 cursor-pointer">
