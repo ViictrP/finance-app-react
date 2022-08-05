@@ -93,7 +93,7 @@ const HomePage = () => {
           <div id="balance-container" className="p-4 w-full">
             <div className="w-full flex flex-row items-center justify-between">
               <p className="text-lg">saldo disponível</p>
-              <Link to="/">
+              <Link to="/statistics">
                 <button title="gear" type="button" className="pulse-single">
                   <ChartBar size={24} weight="fill" className="text-zinc-900 dark:text-white" />
                 </button>
