@@ -34,7 +34,7 @@ const TransactionPage = () => {
             <p>quantidade de parcelas: {transaction.installmentAmount}</p>
             <p>categoria: {transaction.category}</p>
             <p>valor: {transaction.amount}</p>
-            <p>valor total: {transaction.amount * transaction.installmentNumber}</p>
+            <p>valor total: {transaction.amount * transaction.installmentAmount}</p>
           </div>
         </Card>
       }
