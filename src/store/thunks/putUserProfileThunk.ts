@@ -11,7 +11,7 @@ const putUserProfileThunk = createAsyncThunk('put/userProfile', async (data: any
       email: data.email,
       salary: data.salary
     };
-    const response = await api.put<UserProfile>(`/users/${data.id}`, payload, {
+    const response = await api.put<UserProfile>(`/users`, payload, {
       headers: axios.defaults.headers.common,
     });
     return thunkApi.fulfillWithValue(response.data);

@@ -7,7 +7,7 @@ import {
   BalancePage,
   CreditCardFormPage,
   CreditCardPage,
-  HomePage,
+  HomePage, StatisticsPage,
   TransactionFormPage,
   TransactionPage
 } from '../pages';
@@ -73,6 +73,7 @@ const AuthenticatedRoutes: React.FC = () => {
         <Route path="/transaction-form" element={<TransactionFormPage />} />
         <Route path="/transactions/:id" element={<TransactionPage />} />
         <Route path="/invoices/:creditCardId" element={<InvoicePage />} />
+        <Route path="/statistics" element={<StatisticsPage />} />
       </Routes>
     </BrowserRouter>
   );
