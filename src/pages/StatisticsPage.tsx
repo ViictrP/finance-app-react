@@ -21,10 +21,27 @@ const StatisticsPage = () => {
 
   const calculateExpensesAndBalance = (date: Date) => {
     if (storedUser.profile) {
+      const profile = storedUser.profile!;
       calculateBalance(storedUser.profile, MONTHS[date.getMonth()], date.getFullYear())
         .then(balance => {
-          setExpensesAmount(balance.expensesTotalAmount);
-          setBalance(balance.availableAmount);
+          const { transactions, creditCards } = balance;
+
+          const debitAmount = transactions.reduce((sum, current) => sum + Number(current.amount), 0);
+          const creditCardsAmount = creditCards.reduce((sum, current) => {
+            const transactions = current.invoices
+              .map(invoice => invoice.transactions)
+              .reduce((sum, current) => sum.concat(current), []);
+            const amount = transactions.reduce((sum, current) => {
+              return sum + Number(current.amount);
+            }, 0);
+            return sum + Number(amount);
+          }, 0);
+
+          const expensesAmount = debitAmount + creditCardsAmount;
+          const balanceAmount = Number(profile.salary) - expensesAmount;
+
+          setExpensesAmount(expensesAmount);
+          setBalance(balanceAmount);
         });
     }
   };
@@ -58,7 +75,8 @@ const StatisticsPage = () => {
           <div className="flex flex-row items-center gap-2">
             <Wallet size={20} />
             <p className="text-lg">
-              salário <span className="text-blue-400 font-bold">{currencyFormatter(storedUser.profile?.salary ?? 0 )}</span>
+              salário <span
+              className="text-blue-400 font-bold">{currencyFormatter(storedUser.profile?.salary ?? 0)}</span>
             </p>
           </div>
           <div className="flex flex-row items-center gap-2">

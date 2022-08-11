@@ -1,10 +1,10 @@
-import { UserProfile } from '../entities';
+import { CreditCard, Transaction, UserProfile } from '../entities';
 import { api } from '../lib/api';
 import axios from 'axios';
 
 interface Balance {
-  expensesTotalAmount: number;
-  availableAmount: number;
+  creditCards: CreditCard[];
+  transactions: Transaction[];
 }
 
 const calculateBalance = async (user: UserProfile, month: string, year: number) => {
