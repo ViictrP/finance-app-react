@@ -97,8 +97,8 @@ const StatisticsPage = () => {
                 width: `${balancePercentage < 0 ? 0 : balancePercentage}%`,
                 borderTopLeftRadius: '20px',
                 borderBottomLeftRadius: '20px',
-                borderTopRightRadius: balancePercentage === 100 ? '20px' : 0,
-                borderBottomRightRadius: balancePercentage === 100 ? '20px' : 0
+                borderTopRightRadius: balancePercentage >= 100 ? '20px' : 0,
+                borderBottomRightRadius: balancePercentage >= 100 ? '20px' : 0
               }}
             />
             <div
@@ -107,8 +107,8 @@ const StatisticsPage = () => {
                 width: `${expensesPercentage}%`,
                 borderTopRightRadius: '20px',
                 borderBottomRightRadius: '20px',
-                borderTopLeftRadius: expensesPercentage > 100 ? '20px' : 0,
-                borderBottomLeftRadius: expensesPercentage > 100 ? '20px' : 0
+                borderTopLeftRadius: expensesPercentage >= 100 ? '20px' : 0,
+                borderBottomLeftRadius: expensesPercentage >= 100 ? '20px' : 0
               }}
             />
           </div>
