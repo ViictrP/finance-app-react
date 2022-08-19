@@ -11,6 +11,7 @@ import Dropdown from './Dropdown';
 import Datepicker from './Datepicker';
 import CardCarousel  from './card-carousel/CardCarousel';
 import Alert from './Alert';
+import ChipCreditCardPercentage from './ChipCreditCardPercentage';
 
 export {
   Button,
@@ -25,5 +26,6 @@ export {
   Dropdown,
   Datepicker,
   CardCarousel,
-  Alert
+  Alert,
+  ChipCreditCardPercentage
 };

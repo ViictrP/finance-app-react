@@ -49,8 +49,10 @@ const Input = ({
     if (type === 'currency') {
       const val = newValue
         .replace(/\D/g, '')
-        .replace(/(\d)(\d{2})$/, '$1,$2')
-        .replace(/(?=(\d{3})+(\D))\B/g, '.');
+        .padStart(4, '0')
+        .replace(/(\d)(\d{2})$/g, '$1,$2')
+        .replace(/(?=(\d{3})+(\D))\B/g, '.')
+        .replace(/^0/, '');
 
       ref.current!.value = val;
 

@@ -4,7 +4,7 @@ import RegisterForm from './RegisterForm';
 import NavigationBar, { NavigationItem } from './NavigationBar';
 import TransactionForm from './TransactionForm';
 import CreditCardForm from './CreditCardForm';
-import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton, Dropdown, Datepicker, CardCarousel, Alert } from './lib';
+import { Button, Card, CardList, Loading, Snackbar, Input, ContextMenu, LineCharts, BottomSheetButton, Dropdown, Datepicker, CardCarousel, Alert, ChipCreditCardPercentage } from './lib';
 
 export {
   Header,
@@ -26,5 +26,6 @@ export {
   Datepicker,
   CardCarousel,
   Alert,
-  CreditCardForm
+  CreditCardForm,
+  ChipCreditCardPercentage
 };

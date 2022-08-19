@@ -1,11 +1,17 @@
-import { Datepicker, Header } from '../components';
+import { CardList, ChipCreditCardPercentage, Datepicker, Header } from '../components';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
 import { currencyFormatter } from '../helpers/currencyFormatter';
-import { Money, Receipt, Wallet } from 'phosphor-react';
+import { Money, Receipt, ShoppingBag, Wallet } from 'phosphor-react';
 import { MONTHS } from '../utils/months.enum';
 import calculateBalance from '../features/CalculateBalance';
+import { Link, useNavigate } from 'react-router-dom';
+import { CATEGORIES } from '../utils/categories.enum';
+import { CardItem } from '../components/lib/CardList';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { CreditCard } from '../entities';
 
 const StatisticsPage = () => {
   const storedUser = useSelector(selectUser);
@@ -13,18 +19,23 @@ const StatisticsPage = () => {
   const [expensesAmount, setExpensesAmount] = useState(0);
   const [balancePercentage, setBalancePercentage] = useState(0);
   const [expensesPercentage, setExpensesPercentage] = useState(0);
-  const today = useRef(new Date());
+  const [debitTransactions, setDebitTransactions] = useState<CardItem[]>([]);
+  const [creditCards, setCreditCards] = useState<CreditCard[]>([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const navigation = useNavigate();
 
   const onDatepickerChangeHandler = (date: Date) => {
     calculateExpensesAndBalance(date);
   };
 
   const calculateExpensesAndBalance = (date: Date) => {
+    setSelectedDate(date);
     if (storedUser.profile) {
       const profile = storedUser.profile!;
       calculateBalance(storedUser.profile, MONTHS[date.getMonth()], date.getFullYear())
         .then(balance => {
           const { transactions, creditCards } = balance;
+          setCreditCards(creditCards);
 
           const debitAmount = transactions.reduce((sum, current) => sum + Number(current.amount), 0);
           const creditCardsAmount = creditCards.reduce((sum, current) => {
@@ -42,6 +53,15 @@ const StatisticsPage = () => {
 
           setExpensesAmount(expensesAmount);
           setBalance(balanceAmount);
+          setDebitTransactions(transactions.map(transaction => {
+            const formated = format(new Date(transaction.date), 'dd/MMM', { locale: pt });
+            return {
+              key: transaction.id,
+              header: `${CATEGORIES[transaction.category]} ${formated}`,
+              content: transaction.description,
+              footer: currencyFormatter(transaction.amount)
+            };
+          }));
         });
     }
   };
@@ -59,7 +79,7 @@ const StatisticsPage = () => {
 
   useEffect(() => {
     if (!storedUser.isLoadingProfile && storedUser.profile) {
-      calculateExpensesAndBalance(today.current);
+      calculateExpensesAndBalance(selectedDate);
     }
   }, [storedUser.profile, storedUser.isLoadingProfile]);
 
@@ -113,6 +133,29 @@ const StatisticsPage = () => {
             />
           </div>
         </div>
+      </div>
+
+      <div className="my-8">
+        <h1 className="text-2xl font-bold my-5">Impacto no gasto do mês</h1>
+        <ChipCreditCardPercentage
+          creditCards={creditCards}
+          date={selectedDate}
+          expensesAmount={expensesAmount}
+        />
+      </div>
+
+      <div className="mb-8">
+        {
+          debitTransactions.length > 0 &&
+          <div id="debit-transactions">
+            <h1 className="text-2xl font-bold my-5">Débitos do mês</h1>
+            <CardList
+              content={debitTransactions}
+              onItemClick={(key) => navigation('/transactions/' + key)}
+              icon={<ShoppingBag size="30" weight="fill" className="ml-1" />}
+            />
+          </div>
+        }
       </div>
     </div>
   );
