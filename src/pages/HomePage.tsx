@@ -1,6 +1,6 @@
 import { ChartBar, MagnifyingGlass, ShoppingBag } from 'phosphor-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { CardList, Header, Input, LineCharts } from '../components';
+import { CardList, ChipCreditCardPercentage, Header, Input, LineCharts } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../store/slices/userSlice';
@@ -119,25 +119,12 @@ const HomePage = () => {
       <div className="px-4 mt-[-2rem]">
         <h1 className="text-2xl font-bold my-5">Impacto nos gastos</h1>
       </div>
-      <div id="credit-card-impact" className="carousel-chip">
-        {
-          storedUser.profile?.creditCards.map(creditCard => {
-            const invoice = creditCard.invoices.filter(invoice => invoice.month === MONTHS[TODAY.getMonth()])[0];
-            const amount = invoice.transactions.reduce((sum, current) => {
-              return sum + Number(current.amount);
-            }, 0);
-            const percent = parseFloat(`${(amount / expensesAmount) * 100}`).toFixed(2);
-            return (
-              <Link
-                key={creditCard.id}
-                to={`/invoices/${creditCard.id}`}
-                className={`carousel-chip-item ${creditCard.backgroundColor}`}>
-                <p className="text-sm">{creditCard.title} <span className="font-bold text-md">{percent}</span>%</p>
-              </Link>
-            );
-          })
-        }
-      </div>
+
+      <ChipCreditCardPercentage
+        creditCards={storedUser.profile?.creditCards}
+        date={new Date()}
+        expensesAmount={expensesAmount}
+      />
 
       <div className="page-container" style={{paddingTop: '1rem'}}>
         <div id="transitions" className="pb-4">
