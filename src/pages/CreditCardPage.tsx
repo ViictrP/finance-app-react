@@ -92,7 +92,7 @@ const CreditCardPage = () => {
       const creditCard = creditCards.filter(creditCard => creditCard.id === selected.id)[0];
       const month = MONTHS[TODAY.getMonth()];
       const invoice = creditCard.invoices.filter(invoice => invoice.month === month)[0];
-      const _transactions = invoice.transactions.map(transaction => {
+      const _transactions = invoice?.transactions.map(transaction => {
         const installmentCount = transaction.installmentAmount > 1 ? `(${transaction.installmentNumber}/${transaction.installmentAmount})` : '';
         const formated = format(new Date(transaction.date), 'dd/MMM', { locale: pt });
         return {
@@ -101,8 +101,8 @@ const CreditCardPage = () => {
           content: `${transaction.description} ${installmentCount}`,
           footer: currencyFormatter(transaction.amount)
         };
-      });
-      const _invoiceAmount = invoice.transactions.reduce((sum, current) => sum + Number(current.amount), 0);
+      }) ?? [];
+      const _invoiceAmount = invoice?.transactions.reduce((sum, current) => sum + Number(current.amount), 0) ?? 0;
       setInvoiceAmount(_invoiceAmount);
       setTransactions(_transactions);
       setFilteredTransactions(_transactions);

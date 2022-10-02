@@ -24,7 +24,7 @@ const ChipCreditCardPercentage = ({ creditCards, date, expensesAmount }: ChipCre
           const amount = invoice.transactions.reduce((sum, current) => {
             return sum + Number(current.amount);
           }, 0);
-          const percent = parseFloat(`${(amount / expensesAmount) * 100}`).toFixed(2);
+          const percent = parseFloat(String((amount / expensesAmount) * 100)).toFixed(2);
           return (
             <Link
               key={creditCard.id}
